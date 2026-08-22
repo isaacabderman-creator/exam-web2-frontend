@@ -1,0 +1,58 @@
+myExamsCollection:
+  get:
+    summary: Get my exams
+    security:
+      - bearerAuth: []
+    responses:
+      "200":
+        description: "Exams currently open (RG-03)"
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../openapi.yaml#/components/schemas/Exam"
+      "401":
+        description: Missing or invalid token
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Error"
+myExamsItem:
+  parameters:
+    - in: path
+      required: true
+      name: id
+      description: Exam ID
+      schema:
+        type: integer
+        example: 5
+  get:
+    summary: Get an exam
+    security:
+      - bearerAuth: []
+    responses:
+      "200":
+        description: Exam found
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/ExamWithQuestions"
+      "401":
+        description: Missing or invalid token
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Error"
+      "404":
+        description: Exam not found
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Error"
+      "409":
+        description: "Outside exam window (RG-03)"
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Error"
