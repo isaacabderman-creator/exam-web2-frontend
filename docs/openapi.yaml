@@ -49,14 +49,47 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /api/students:
+    get:
+      description: Get students
+      responses:
+        "200":
+          description: List of students
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StudentSummary"
+    post:
+      description: Create users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/StudentDTO"
+      responses:
+        "201":
+          description: Students created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Student"
+        "422":
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
 components:
   schemas:
-    StudentSummary:
+    StudentDTO:
       type: object
       properties:
-        id:
-          type: integer
-          example: 67
         name:
           type: string
           example: Niu Lai
@@ -65,9 +98,25 @@ components:
           example: niulai@gmail.com
         role:
           type: string
-          enum: [admin, student]
+          enum: [ admin, student ]
           example: admin
+    StudentSummary:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/StudentDTO"
+      properties:
+        id:
+          type: integer
+          example: 67
       required: [id, name, email, role]
+    Student:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/StudentSummary"
+      properties:
+        password:
+          type: string
+          example: "password"
     Error:
       type: object
       properties:
