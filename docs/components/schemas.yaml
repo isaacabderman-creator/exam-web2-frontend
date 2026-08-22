@@ -20,8 +20,9 @@ StudentSummary:
     - $ref: "#/StudentDTO"
   properties:
     id:
-      type: integer
-      example: 67
+      type: string
+      format: uuid
+      example: 461ae67c-2027-479e-ad63-ebe40e5e6942
   required: [id, name, email, role]
 
 CourseDTO:
@@ -42,15 +43,17 @@ Course:
     - $ref: "#/CourseDTO"
   properties:
     id:
-      type: integer
-      example: 12
+      type: string
+      format: uuid
+      example: 206df8ac-d732-4f40-9286-2c1fb5fb43e7
   required: [id, code, name, description]
 ExamDTO:
   type: object
   properties:
     courseId:
-      type: integer
-      example: 12
+      type: string
+      format: uuid
+      example: 206df8ac-d732-4f40-9286-2c1fb5fb43e7
     title:
       type: string
       example: Midterm Exam
@@ -69,8 +72,9 @@ Exam:
     - $ref: "#/ExamDTO"
   properties:
     id:
-      type: integer
-      example: 5
+      type: string
+      format: uuid
+      example: c970740e-1386-4388-b5b5-15f2689df843
     locked:
       type: boolean
       description: "True once the exam has an attempt (RG-08)."
@@ -93,8 +97,9 @@ Choice:
     - $ref: "#/ChoiceDTO"
   properties:
     id:
-      type: integer
-      example: 3
+      type: string
+      format: uuid
+      example: c0be1de2-6663-427b-9c96-9bdd6a733bdb
   required: [id, text, isCorrect]
 QuestionDTO:
   type: object
@@ -114,11 +119,13 @@ Question:
   type: object
   properties:
     id:
-      type: integer
-      example: 8
+      type: string
+      format: uuid
+      example: fe66ad26-382f-4a64-aa01-e61e79de8b38
     examId:
-      type: integer
-      example: 5
+      type: string
+      format: uuid
+      example: c970740e-1386-4388-b5b5-15f2689df843
     text:
       type: string
       example: What is the capital of France?
@@ -133,8 +140,9 @@ PublicChoice:
   description: "No isCorrect field (RG-07)."
   properties:
     id:
-      type: integer
-      example: 3
+      type: string
+      format: uuid
+      example: c0be1de2-6663-427b-9c96-9bdd6a733bdb
     text:
       type: string
       example: Paris
@@ -144,8 +152,9 @@ QuestionPublic:
   description: "Question with no isCorrect field for students"
   properties:
     id:
-      type: integer
-      example: 8
+      type: string
+      format: uuid
+      example: fe66ad26-382f-4a64-aa01-e61e79de8b38
     text:
       type: string
       example: What is the capital of France?
@@ -174,25 +183,30 @@ SubmissionDTO:
         type: object
         properties:
           questionId:
-            type: integer
-            example: 8
+            type: string
+            format: uuid
+            example: fe66ad26-382f-4a64-aa01-e61e79de8b38
           choiceId:
-            type: integer
-            example: 3
+            type: string
+            format: uuid
+            example: c0be1de2-6663-427b-9c96-9bdd6a733bdb
         required: [questionId, choiceId]
   required: [answers]
 Result:
   type: object
   properties:
     id:
-      type: integer
-      example: 21
+      type: string
+      format: uuid
+      example: beea87b5-b87c-4b6b-8972-9ff70f3e7924
     examId:
-      type: integer
-      example: 5
+      type: string
+      format: uuid
+      example: c970740e-1386-4388-b5b5-15f2689df843
     studentId:
-      type: integer
-      example: 67
+      type: string
+      format: uuid
+      example: 461ae67c-2027-479e-ad63-ebe40e5e6942
     score:
       type: number
       example: 8.5

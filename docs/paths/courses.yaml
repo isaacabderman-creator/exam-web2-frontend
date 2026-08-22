@@ -54,8 +54,9 @@ coursesItem:
       name: id
       description: Course ID
       schema:
-        type: integer
-        example: 12
+        type: string
+        format: uuid
+        example: 206df8ac-d732-4f40-9286-2c1fb5fb43e7
   put:
     tags: [Courses]
     summary: Modify a course

@@ -5,8 +5,9 @@ questionsItem:
       name: id
       description: Question ID
       schema:
-        type: integer
-        example: 8
+        type: string
+        format: uuid
+        example: fe66ad26-382f-4a64-aa01-e61e79de8b38
   put:
     tags: [Questions]
     summary: Modify a question

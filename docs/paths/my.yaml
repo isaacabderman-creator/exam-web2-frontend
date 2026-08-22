@@ -26,8 +26,9 @@ myExamsItem:
       name: id
       description: Exam ID
       schema:
-        type: integer
-        example: 5
+        type: string
+        format: uuid
+        example: c970740e-1386-4388-b5b5-15f2689df843
   get:
     tags: [Student]
     summary: Get an exam
@@ -65,8 +66,9 @@ myExamSubmit:
       name: id
       description: Exam ID
       schema:
-        type: integer
-        example: 5
+        type: string
+        format: uuid
+        example: c970740e-1386-4388-b5b5-15f2689df843
   post:
     tags: [Student]
     summary: Submit an exam
