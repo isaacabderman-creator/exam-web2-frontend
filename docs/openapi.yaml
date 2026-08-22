@@ -58,7 +58,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/StudentSummary"
+                type: array
+                items:
+                  $ref: "#/components/schemas/StudentSummary"
     post:
       description: Create users
       requestBody:
