@@ -1,0 +1,69 @@
+openapi: 3.0.3
+info:
+  title: Student API
+  version: 1.0.0
+  description: Management of students and exams
+servers:
+  - url: "127.0.0.1:{port}/api"
+    description: Local dev
+    variables:
+      port:
+        default: "3000"
+security:
+  - bearerAuth: []
+paths:
+  /auth/login:
+    post:
+      description: "Login for users and admin"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  default: niulai@gmail.com
+                password:
+                  type: string
+                  default: Mamaaa
+
+      responses:
+        "200":
+          description: User or admin authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    format: jwt
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMiJ9.4Adcj3UFYqk
+                  user:
+                    $ref: "#/components/schemas/StudentSummary"
+components:
+  schemas:
+    StudentSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 67
+        name:
+          type: string
+          example: Niu Lai
+        email:
+          type: string
+          example: niulai@gmail.com
+        role:
+          type: string
+          enum: [admin, student]
+          example: admin
+      required: [id, name, email, role]
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
