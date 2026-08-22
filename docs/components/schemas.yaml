@@ -43,6 +43,13 @@ CourseDTO:
       example: Course about OOP
 Course:
   type: object
+  allOf:
+    - $ref: "#/CourseDTO"
+  properties:
+    id:
+      type: integer
+      example: 12
+  required: [id, code, name, description]
 Error:
   type: object
   properties:
