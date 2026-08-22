@@ -23,31 +23,31 @@ tags:
 paths:
   /auth/login:
     $ref: "./paths/auth/login.yaml#/login"
-  /api/students:
+  /students:
     $ref: "./paths/students.yaml#/studentsCollection"
-  /api/students/{id}:
+  /students/{id}:
     $ref: "./paths/students.yaml#/studentsItem"
-  /api/courses:
+  /courses:
     $ref: "./paths/courses.yaml#/coursesCollection"
-  /api/courses/{id}:
+  /courses/{id}:
     $ref: "./paths/courses.yaml#/coursesItem"
-  /api/exams:
+  /exams:
     $ref: "./paths/exams.yaml#/examsCollection"
-  /api/exams/{id}:
+  /exams/{id}:
     $ref: "./paths/exams.yaml#/examsItem"
-  /api/exams/{id}/questions:
+  /exams/{id}/questions:
     $ref: "./paths/exams.yaml#/examQuestionsCollection"
-  /api/questions/{id}:
+  /questions/{id}:
     $ref: "./paths/questions.yaml#/questionsItem"
-  /api/exams/{id}/results:
+  /exams/{id}/results:
     $ref: "./paths/exams.yaml#/examResultsCollection"
-  /api/my/exams:
+  /my/exams:
     $ref: "./paths/my.yaml#/myExamsCollection"
-  /api/my/exams/{id}:
+  /my/exams/{id}:
     $ref: "./paths/my.yaml#/myExamsItem"
-  /api/my/exams/{id}/submit:
+  /my/exams/{id}/submit:
     $ref: "./paths/my.yaml#/myExamSubmit"
-  /api/my/results:
+  /my/results:
     $ref: "./paths/my.yaml#/myResultsCollection"
 
 components:
@@ -87,4 +87,3 @@ components:
   securitySchemes:
     bearerAuth:
       $ref: "./components/securitySchemes.yaml#/bearerAuth"
-
