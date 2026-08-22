@@ -47,3 +47,42 @@ studentsCollection:
           application/json:
             schema:
               $ref: "../openapi.yaml#/components/schemas/Error"
+studentsItem:
+  parameters:
+    - in: path
+      required: true
+      name: id
+      schema:
+        type: integer
+        example: 42
+  put:
+    summary: Modify a student
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../openapi.yaml#/components/schemas/StudentDTO"
+    responses:
+      "200":
+        description: Student modified successfully
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Student"
+      "404":
+        description: Student not found
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Error"
+  delete:
+    summary: Deactivate a student
+    responses:
+      "204":
+        description: Student deactivated successfully
+      "404":
+        description: Student not found
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Error"

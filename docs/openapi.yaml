@@ -16,6 +16,8 @@ paths:
     $ref: "./paths/auth/login.yaml#/login"
   /api/students:
     $ref: "./paths/students.yaml#/studentsCollection"
+  /api/students/{id}:
+    $ref: "./paths/students.yaml#/studentsItem"
   /api/courses:
     $ref: "./paths/courses.yaml#/coursesCollection"
 

@@ -28,6 +28,7 @@ Student:
     password:
       type: string
       example: "password"
+
 CourseDTO:
   type: object
   properties:
@@ -42,7 +43,6 @@ CourseDTO:
       example: Course about OOP
 Course:
   type: object
-
 Error:
   type: object
   properties:
