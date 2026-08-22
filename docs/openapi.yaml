@@ -16,6 +16,7 @@ paths:
     post:
       description: "Login for users and admin"
       requestBody:
+        required: true
         content:
           application/json:
             schema:
