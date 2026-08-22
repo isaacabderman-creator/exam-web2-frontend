@@ -61,6 +61,10 @@ components:
       $ref: "./components/schemas.yaml#/QuestionPublic"
     ExamWithQuestions:
       $ref: "./components/schemas.yaml#/ExamWithQuestions"
+    SubmissionDTO:
+      $ref: "./components/schemas.yaml#/SubmissionDTO"
+    Result:
+      $ref: "./components/schemas.yaml#/Result"
     Error:
       $ref: "./components/schemas.yaml#/Error"
   securitySchemes:

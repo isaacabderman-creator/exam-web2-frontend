@@ -170,6 +170,43 @@ ExamWithQuestions:
         $ref: "#/QuestionPublic"
   required: [questions]
 
+SubmissionDTO:
+  type: object
+  properties:
+    answers:
+      type: array
+      items:
+        type: object
+        properties:
+          questionId:
+            type: integer
+            example: 8
+          choiceId:
+            type: integer
+            example: 3
+        required: [questionId, choiceId]
+  required: [answers]
+Result:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 21
+    examId:
+      type: integer
+      example: 5
+    studentId:
+      type: integer
+      example: 67
+    score:
+      type: number
+      example: 8.5
+    submittedAt:
+      type: string
+      format: date-time
+      example: "2026-09-01T10:15:00Z"
+  required: [id, examId, studentId, score, submittedAt]
+
 Error:
   type: object
   properties:
