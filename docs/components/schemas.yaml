@@ -7,6 +7,9 @@ StudentDTO:
     email:
       type: string
       example: niulai@gmail.com
+    is_active:
+      type: boolean
+      default: true
     role:
       type: string
       enum: [ admin, student ]
@@ -20,14 +23,6 @@ StudentSummary:
       type: integer
       example: 67
   required: [id, name, email, role]
-Student:
-  type: object
-  allOf:
-    - $ref: "#/StudentSummary"
-  properties:
-    password:
-      type: string
-      example: "password"
 
 CourseDTO:
   type: object
