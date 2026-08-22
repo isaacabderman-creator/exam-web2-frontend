@@ -56,3 +56,53 @@ myExamsItem:
           application/json:
             schema:
               $ref: "../openapi.yaml#/components/schemas/Error"
+myExamSubmit:
+  parameters:
+    - in: path
+      required: true
+      name: id
+      description: Exam ID
+      schema:
+        type: integer
+        example: 5
+  post:
+    summary: Submit an exam
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../openapi.yaml#/components/schemas/SubmissionDTO"
+    responses:
+      "201":
+        description: Attempt recorded
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Result"
+      "401":
+        description: Missing or invalid token
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Error"
+      "404":
+        description: Exam not found
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Error"
+      "409":
+        description: "Already attempted (RG-02) or outside exam window (RG-03)"
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Error"
+      "422":
+        description: Invalid Data
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Error"
