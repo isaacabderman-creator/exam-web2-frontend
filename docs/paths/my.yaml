@@ -1,5 +1,6 @@
 myExamsCollection:
   get:
+    tags: [Student]
     summary: Get my exams
     security:
       - bearerAuth: []
@@ -28,6 +29,7 @@ myExamsItem:
         type: integer
         example: 5
   get:
+    tags: [Student]
     summary: Get an exam
     security:
       - bearerAuth: []
@@ -66,6 +68,7 @@ myExamSubmit:
         type: integer
         example: 5
   post:
+    tags: [Student]
     summary: Submit an exam
     security:
       - bearerAuth: []
@@ -108,6 +111,7 @@ myExamSubmit:
               $ref: "../openapi.yaml#/components/schemas/Error"
 myResultsCollection:
   get:
+    tags: [Student]
     summary: Get my results
     security:
       - bearerAuth: []

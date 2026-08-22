@@ -1,5 +1,6 @@
 studentsCollection:
   get:
+    tags: [Students]
     summary: Get students
     responses:
       "200":
@@ -17,6 +18,7 @@ studentsCollection:
             schema:
               $ref: "../openapi.yaml#/components/schemas/Error"
   post:
+    tags: [Students]
     summary: Create users
     requestBody:
       required: true
@@ -56,6 +58,7 @@ studentsItem:
         type: integer
         example: 42
   put:
+    tags: [Students]
     summary: Modify a student
     requestBody:
       content:
@@ -76,6 +79,7 @@ studentsItem:
             schema:
               $ref: "../openapi.yaml#/components/schemas/Error"
   delete:
+    tags: [Students]
     summary: Deactivate a student
     responses:
       "204":

@@ -1,5 +1,6 @@
 coursesCollection:
   get:
+    tags: [Courses]
     summary: Get courses
     responses:
       "200":
@@ -17,6 +18,7 @@ coursesCollection:
             schema:
               $ref: "../openapi.yaml#/components/schemas/Error"
   post:
+    tags: [Courses]
     summary: Create courses
     requestBody:
       required: true
@@ -55,6 +57,7 @@ coursesItem:
         type: integer
         example: 12
   put:
+    tags: [Courses]
     summary: Modify a course
     security:
       - bearerAuth: []
@@ -90,6 +93,7 @@ coursesItem:
             schema:
               $ref: "../openapi.yaml#/components/schemas/Error"
   delete:
+    tags: [Courses]
     summary: Delete a course
     security:
       - bearerAuth: []

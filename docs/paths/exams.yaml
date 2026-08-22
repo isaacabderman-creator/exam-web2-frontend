@@ -1,5 +1,6 @@
 examsCollection:
   get:
+    tags: [Exams]
     summary: Get exams
     security:
       - bearerAuth: []
@@ -19,6 +20,7 @@ examsCollection:
             schema:
               $ref: "../openapi.yaml#/components/schemas/Error"
   post:
+    tags: [Exams]
     summary: Create an exam
     security:
       - bearerAuth: []
@@ -57,6 +59,7 @@ examsItem:
         type: integer
         example: 5
   get:
+    tags: [Exams]
     summary: Get an exam
     security:
       - bearerAuth: []
@@ -80,6 +83,7 @@ examsItem:
             schema:
               $ref: "../openapi.yaml#/components/schemas/Error"
   put:
+    tags: [Exams]
     summary: Modify an exam
     security:
       - bearerAuth: []
@@ -115,6 +119,7 @@ examsItem:
             schema:
               $ref: "../openapi.yaml#/components/schemas/Error"
   delete:
+    tags: [Exams]
     summary: Delete an exam
     security:
       - bearerAuth: []
@@ -149,6 +154,7 @@ examQuestionsCollection:
         type: integer
         example: 5
   get:
+    tags: [Questions]
     summary: Get exam questions
     security:
       - bearerAuth: []
@@ -174,6 +180,7 @@ examQuestionsCollection:
             schema:
               $ref: "../openapi.yaml#/components/schemas/Error"
   post:
+    tags: [Questions]
     summary: Create a question
     security:
       - bearerAuth: []
@@ -218,6 +225,7 @@ examResultsCollection:
         type: integer
         example: 5
   get:
+    tags: [Results]
     summary: Get exam results
     security:
       - bearerAuth: []

@@ -8,6 +8,7 @@ questionsItem:
         type: integer
         example: 8
   put:
+    tags: [Questions]
     summary: Modify a question
     security:
       - bearerAuth: []
@@ -49,6 +50,7 @@ questionsItem:
             schema:
               $ref: "../openapi.yaml#/components/schemas/Error"
   delete:
+    tags: [Questions]
     summary: Delete a question
     security:
       - bearerAuth: []

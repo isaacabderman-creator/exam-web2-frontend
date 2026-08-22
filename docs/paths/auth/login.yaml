@@ -1,5 +1,6 @@
 login:
   post:
+    tags: [Auth]
     summary: "Login for users and admin"
     requestBody:
       required: true

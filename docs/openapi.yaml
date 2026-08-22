@@ -11,6 +11,15 @@ servers:
         default: "3000"
 security:
   - bearerAuth: []
+tags:
+  - name: Auth
+    description: Login
+  - name: Students
+  - name: Courses
+  - name: Exams
+  - name: Questions
+  - name: Results
+  - name: Student
 paths:
   /auth/login:
     $ref: "./paths/auth/login.yaml#/login"
