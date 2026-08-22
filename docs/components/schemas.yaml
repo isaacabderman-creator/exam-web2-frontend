@@ -141,7 +141,7 @@ PublicChoice:
   required: [id, text]
 QuestionPublic:
   type: object
-  description: "Distinct from Question — no isCorrect (RG-07)."
+  description: "Question with no isCorrect field for students"
   properties:
     id:
       type: integer
