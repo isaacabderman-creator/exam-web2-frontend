@@ -30,7 +30,7 @@ paths:
 
       responses:
         "200":
-          description: User or admin authenticated
+          description: User authenticated
           content:
             application/json:
               schema:
@@ -42,6 +42,12 @@ paths:
                     example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMiJ9.4Adcj3UFYqk
                   user:
                     $ref: "#/components/schemas/StudentSummary"
+        "401":
+          description: Credentials invalid
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 components:
   schemas:
     StudentSummary:
@@ -61,6 +67,21 @@ components:
           enum: [admin, student]
           example: admin
       required: [id, name, email, role]
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Ressource not found
+        type:
+          type: string
+          example: "https://example.com/not-found"
+        detail:
+          type: string
+          example: The given path doesn't exist
+        status:
+          type: integer
+          example: 404
   securitySchemes:
     bearerAuth:
       type: http
