@@ -35,6 +35,10 @@ components:
       $ref: "./components/schemas.yaml#/CourseDTO"
     Course:
       $ref: "./components/schemas.yaml#/Course"
+    ExamDTO:
+      $ref: "./components/schemas.yaml#/ExamDTO"
+    Exam:
+      $ref: "./components/schemas.yaml#/Exam"
     Error:
       $ref: "./components/schemas.yaml#/Error"
   securitySchemes:

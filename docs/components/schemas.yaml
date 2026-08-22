@@ -50,6 +50,38 @@ Course:
       type: integer
       example: 12
   required: [id, code, name, description]
+ExamDTO:
+  type: object
+  properties:
+    courseId:
+      type: integer
+      example: 12
+    title:
+      type: string
+      example: Midterm Exam
+    startsAt:
+      type: string
+      format: date-time
+      example: "2026-09-01T09:00:00Z"
+    endsAt:
+      type: string
+      format: date-time
+      example: "2026-09-01T11:00:00Z"
+  required: [courseId, title, startsAt, endsAt]
+Exam:
+  type: object
+  allOf:
+    - $ref: "#/ExamDTO"
+  properties:
+    id:
+      type: integer
+      example: 5
+    locked:
+      type: boolean
+      description: "True once the exam has an attempt (RG-08)."
+      example: false
+  required: [id, locked, courseId, title, startsAt, endsAt]
+
 Error:
   type: object
   properties:
