@@ -20,6 +20,8 @@ paths:
     $ref: "./paths/students.yaml#/studentsItem"
   /api/courses:
     $ref: "./paths/courses.yaml#/coursesCollection"
+  /api/courses/{id}:
+    $ref: "./paths/courses.yaml#/coursesItem"
 
 components:
   schemas:
