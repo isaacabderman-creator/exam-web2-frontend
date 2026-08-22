@@ -14,7 +14,7 @@ security:
 paths:
   /auth/login:
     post:
-      description: "Login for users and admin"
+      summary: "Login for users and admin"
       requestBody:
         required: true
         content:
@@ -53,7 +53,7 @@ paths:
     $ref: "./paths/students.yaml#/studentsCollection"
   /api/courses:
     get:
-      description: Get courses
+      summary: Get courses
       responses:
         "200":
           description: List of courses
@@ -63,8 +63,14 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Course"
+        "401":
+          description: Missing or invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
     post:
-      description: Create courses
+      summary: Create courses
       requestBody:
         required: true
         content:

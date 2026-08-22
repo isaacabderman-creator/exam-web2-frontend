@@ -1,6 +1,6 @@
 studentsCollection:
   get:
-    description: Get students
+    summary: Get students
     responses:
       "200":
         description: List of students
@@ -10,8 +10,14 @@ studentsCollection:
               type: array
               items:
                 $ref: "../openapi.yaml#/components/schemas/StudentSummary"
+      "401":
+        description: Missing or invalid token
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Error"
   post:
-    description: Create users
+    summary: Create users
     requestBody:
       required: true
       content:
