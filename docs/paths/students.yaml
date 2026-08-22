@@ -1,0 +1,37 @@
+studentsCollection:
+  get:
+    description: Get students
+    responses:
+      "200":
+        description: List of students
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../openapi.yaml#/components/schemas/StudentSummary"
+  post:
+    description: Create users
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "../openapi.yaml#/components/schemas/StudentDTO"
+    responses:
+      "201":
+        description: Students created
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../openapi.yaml#/components/schemas/Student"
+      "422":
+        description: Invalid data
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Error"
