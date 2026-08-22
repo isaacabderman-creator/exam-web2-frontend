@@ -1,0 +1,47 @@
+coursesCollection:
+  get:
+    summary: Get courses
+    responses:
+      "200":
+        description: List of courses
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../openapi.yaml#/components/schemas/Course"
+      "401":
+        description: Missing or invalid token
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Error"
+  post:
+    summary: Create courses
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "../openapi.yaml#/components/schemas/CourseDTO"
+    responses:
+      "201":
+        description: Courses created
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Course"
+      "401":
+        description: Missing or invalid token
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Error"
+      "422":
+        description: Invalid Data
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Error"
