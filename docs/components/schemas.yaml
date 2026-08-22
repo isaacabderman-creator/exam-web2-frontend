@@ -133,6 +133,43 @@ Question:
         $ref: "#/Choice"
   required: [id, examId, text, choices]
 
+PublicChoice:
+  type: object
+  description: "No isCorrect field (RG-07)."
+  properties:
+    id:
+      type: integer
+      example: 3
+    text:
+      type: string
+      example: Paris
+  required: [id, text]
+QuestionPublic:
+  type: object
+  description: "Distinct from Question — no isCorrect (RG-07)."
+  properties:
+    id:
+      type: integer
+      example: 8
+    text:
+      type: string
+      example: What is the capital of France?
+    choices:
+      type: array
+      items:
+        $ref: "#/PublicChoice"
+  required: [id, text, choices]
+ExamWithQuestions:
+  type: object
+  allOf:
+    - $ref: "#/Exam"
+  properties:
+    questions:
+      type: array
+      items:
+        $ref: "#/QuestionPublic"
+  required: [questions]
+
 Error:
   type: object
   properties:
