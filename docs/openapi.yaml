@@ -86,6 +86,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Course"
+        "401":
+          description: Missing or invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
         "422":
           description: Invalid Data
           content:
