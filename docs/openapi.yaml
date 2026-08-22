@@ -43,6 +43,14 @@ components:
       $ref: "./components/schemas.yaml#/ExamDTO"
     Exam:
       $ref: "./components/schemas.yaml#/Exam"
+    ChoiceDTO:
+      $ref: "./components/schemas.yaml#/ChoiceDTO"
+    Choice:
+      $ref: "./components/schemas.yaml#/Choice"
+    QuestionDTO:
+      $ref: "./components/schemas.yaml#/QuestionDTO"
+    Question:
+      $ref: "./components/schemas.yaml#/Question"
     Error:
       $ref: "./components/schemas.yaml#/Error"
   securitySchemes:

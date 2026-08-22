@@ -82,6 +82,57 @@ Exam:
       example: false
   required: [id, locked, courseId, title, startsAt, endsAt]
 
+ChoiceDTO:
+  type: object
+  properties:
+    text:
+      type: string
+      example: Paris
+    isCorrect:
+      type: boolean
+      example: true
+  required: [text, isCorrect]
+Choice:
+  type: object
+  allOf:
+    - $ref: "#/ChoiceDTO"
+  properties:
+    id:
+      type: integer
+      example: 3
+  required: [id, text, isCorrect]
+QuestionDTO:
+  type: object
+  properties:
+    text:
+      type: string
+      example: What is the capital of France?
+    choices:
+      type: array
+      minItems: 2
+      maxItems: 6
+      description: "2-6 choices, exactly one correct (RG-04)."
+      items:
+        $ref: "#/ChoiceDTO"
+  required: [text, choices]
+Question:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 8
+    examId:
+      type: integer
+      example: 5
+    text:
+      type: string
+      example: What is the capital of France?
+    choices:
+      type: array
+      items:
+        $ref: "#/Choice"
+  required: [id, examId, text, choices]
+
 Error:
   type: object
   properties:
