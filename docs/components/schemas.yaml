@@ -80,7 +80,7 @@ Exam:
 ChoiceDTO:
   type: object
   properties:
-    text:
+    statement:
       type: string
       example: Paris
     isCorrect:
@@ -99,7 +99,7 @@ Choice:
 QuestionDTO:
   type: object
   properties:
-    text:
+    statement:
       type: string
       example: What is the capital of France?
     choices:
