@@ -56,8 +56,6 @@ components:
       $ref: "./components/schemas.yaml#/StudentDTO"
     StudentSummary:
       $ref: "./components/schemas.yaml#/StudentSummary"
-    Student:
-      $ref: "./components/schemas.yaml#/Student"
     CourseDTO:
       $ref: "./components/schemas.yaml#/CourseDTO"
     Course:

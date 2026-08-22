@@ -36,7 +36,7 @@ studentsCollection:
             schema:
               type: array
               items:
-                $ref: "../openapi.yaml#/components/schemas/Student"
+                $ref: "../openapi.yaml#/components/schemas/StudentSummary"
       "401":
         description: Missing or invalid token
         content:
@@ -71,7 +71,7 @@ studentsItem:
         content:
           application/json:
             schema:
-              $ref: "../openapi.yaml#/components/schemas/Student"
+              $ref: "../openapi.yaml#/components/schemas/StudentSummary"
       "404":
         description: Student not found
         content:
