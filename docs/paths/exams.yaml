@@ -139,3 +139,72 @@ examsItem:
           application/json:
             schema:
               $ref: "../openapi.yaml#/components/schemas/Error"
+examQuestionsCollection:
+  parameters:
+    - in: path
+      required: true
+      name: id
+      description: Exam ID
+      schema:
+        type: integer
+        example: 5
+  get:
+    summary: Get exam questions
+    security:
+      - bearerAuth: []
+    responses:
+      "200":
+        description: List of questions
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../openapi.yaml#/components/schemas/Question"
+      "401":
+        description: Missing or invalid token
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Error"
+      "404":
+        description: Exam not found
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Error"
+  post:
+    summary: Create a question
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../openapi.yaml#/components/schemas/QuestionDTO"
+    responses:
+      "201":
+        description: Question created
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Question"
+      "400":
+        description: "Invalid choices (RG-04)"
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Error"
+      "401":
+        description: Missing or invalid token
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Error"
+      "404":
+        description: Exam not found
+        content:
+          application/json:
+            schema:
+              $ref: "../openapi.yaml#/components/schemas/Error"

@@ -26,6 +26,10 @@ paths:
     $ref: "./paths/exams.yaml#/examsCollection"
   /api/exams/{id}:
     $ref: "./paths/exams.yaml#/examsItem"
+  /api/exams/{id}/questions:
+    $ref: "./paths/exams.yaml#/examQuestionsCollection"
+  /api/questions/{id}:
+    $ref: "./paths/questions.yaml#/questionsItem"
 
 components:
   schemas:
