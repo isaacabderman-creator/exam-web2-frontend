@@ -86,7 +86,41 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-
+  /api/courses:
+    get:
+      description: Get courses
+      responses:
+        "200":
+          description: List of courses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Course"
+    post:
+      description: Create courses
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/CourseDTO"
+      responses:
+        "201":
+          description: Courses created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Course"
+        "422":
+          description: Invalid Data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 components:
   schemas:
     StudentDTO:
@@ -119,6 +153,21 @@ components:
         password:
           type: string
           example: "password"
+    CourseDTO:
+      type: object
+      properties:
+        code:
+          type: string
+          example: PROG2
+        name:
+          type: string
+          example: Programmation Orientée Objet
+        description:
+          type: string
+          example: Course about OOP
+    Course:
+      type: object
+
     Error:
       type: object
       properties:
