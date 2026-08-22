@@ -124,68 +124,18 @@ paths:
 components:
   schemas:
     StudentDTO:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Niu Lai
-        email:
-          type: string
-          example: niulai@gmail.com
-        role:
-          type: string
-          enum: [ admin, student ]
-          example: admin
+      $ref: "./components/schemas.yaml#/StudentDTO"
     StudentSummary:
-      type: object
-      allOf:
-        - $ref: "#/components/schemas/StudentDTO"
-      properties:
-        id:
-          type: integer
-          example: 67
-      required: [id, name, email, role]
+      $ref: "./components/schemas.yaml#/StudentSummary"
     Student:
-      type: object
-      allOf:
-        - $ref: "#/components/schemas/StudentSummary"
-      properties:
-        password:
-          type: string
-          example: "password"
+      $ref: "./components/schemas.yaml#/Student"
     CourseDTO:
-      type: object
-      properties:
-        code:
-          type: string
-          example: PROG2
-        name:
-          type: string
-          example: Programmation Orientée Objet
-        description:
-          type: string
-          example: Course about OOP
+      $ref: "./components/schemas.yaml#/CourseDTO"
     Course:
-      type: object
-
+      $ref: "./components/schemas.yaml#/Course"
     Error:
-      type: object
-      properties:
-        title:
-          type: string
-          example: Ressource not found
-        type:
-          type: string
-          example: "https://example.com/not-found"
-        detail:
-          type: string
-          example: The given path doesn't exist
-        status:
-          type: integer
-          example: 404
+      $ref: "./components/schemas.yaml#/Error"
   securitySchemes:
     bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+      $ref: "./components/securitySchemes.yaml#/bearerAuth"
 
