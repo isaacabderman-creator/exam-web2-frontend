@@ -1,6 +1,6 @@
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar.jsx";
-import LoginForm from "./components/LoginForm/LoginForm.jsx";
+import Login from "./pages/Login/Login.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 
 function App() {
@@ -8,7 +8,9 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <Navbar />
-          <LoginForm/>
+        <Routes>
+            <Route path="/login" element={<Login />} />
+        </Routes>
       </AuthProvider>
     </BrowserRouter>
   );

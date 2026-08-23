@@ -16,6 +16,6 @@
 }
 @layer components {
   .btn {
-    @apply border bg-peach border-ink rounded-full outline-none px-10 py-2;
+    @apply border  bg-peach border-ink rounded-full outline-none px-10 py-2;
   }
 }
