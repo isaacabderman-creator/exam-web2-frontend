@@ -21,7 +21,7 @@ export function AuthProvider({ children }) {
     );
 
     let data = null;
-    try { data = await res.json(); } catch {}
+    try { data = await res.json(); } catch {/**/}
 
     if (!res.ok) {
       throw new Error(data?.message || `Erreur ${res.status}`);
@@ -46,6 +46,7 @@ export function AuthProvider({ children }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   return useContext(AuthContext);
 }
