@@ -19,32 +19,32 @@ export default function Navbar() {
   return (
     <div className="topbar-wrap">
       <div className="topbar">
-        <span className="brand">Exam Hub</span>
+        <span className="brand">examhub</span>
         <span className="badge admin">{user.role === "admin" ? "Admin" : "Student"}</span>
 
         <nav className="pill-nav">
           {user.role === "admin" ? (
             <>
               <Link to="/admin" className={isActive("/admin") ? "active" : ""}>
-                Tableau de bord
+                Dashboard
               </Link>
               <Link to="/admin/students" className={isActive("/admin/students") ? "active" : ""}>
-                Étudiants
+                Students
               </Link>
               <Link to="/admin/courses" className={isActive("/admin/courses") ? "active" : ""}>
-                Cours
+                Courses
               </Link>
               <Link to="/admin/exams" className={isActive("/admin/exams") ? "active" : ""}>
-                Examens
+                Exams
               </Link>
             </>
           ) : (
             <>
               <Link to="/student" className={isActive("/student") ? "active" : ""}>
-                Examens disponibles
+                  Available Exams
               </Link>
               <Link to="/student/results" className={isActive("/student/results") ? "active" : ""}>
-                Mes résultats
+                  My results
               </Link>
             </>
           )}
@@ -53,7 +53,7 @@ export default function Navbar() {
         <span className="spacer">
           <span className="user">{user.name}</span>
           <span className="avatar" />
-          <button onClick={handleLogout} className="btn quiet sm">Déconnexion</button>
+          <button onClick={handleLogout} className="btn quiet sm">Logout</button>
         </span>
       </div>
     </div>
