@@ -1,0 +1,56 @@
+.topbar-wrap { padding: 12px 20px; }
+
+.topbar {
+  height: 64px;
+  max-width: 1120px;
+  margin: 0 auto;
+  border: 1px solid #141B34;
+  border-radius: 24px;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  box-shadow: 0 8px 24px rgba(20, 27, 52, 0.06);
+}
+
+.topbar .brand { font-size: 15px; font-weight: 500; color: #141B34; }
+
+.badge.admin {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  background: #FCEBD6;
+  color: #141B34;
+}
+
+.pill-nav { display: flex; align-items: center; gap: 4px; margin-left: 16px; }
+
+.pill-nav a {
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6C6C6C;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s ease-in-out;
+}
+.pill-nav a:hover { color: #141B34; }
+.pill-nav a.active { background: #FCEBD6; color: #141B34; border: 1px solid #141B34; }
+
+.topbar .spacer { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.topbar .user { font-size: 13px; color: #141B34; }
+.topbar .avatar { width: 32px; height: 32px; border-radius: 9999px; background: #E5F0FF; border: 1px solid #141B34; }
+
+.btn.quiet {
+  background: transparent;
+  border: none;
+  color: #6C6C6C;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 16px;
+}
+.btn.quiet:hover { color: #141B34; }

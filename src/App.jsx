@@ -1,8 +1,14 @@
+import { BrowserRouter } from "react-router-dom";
+import Navbar from "./components/Navbar/Navbar.jsx";
+import { AuthProvider } from "./context/AuthContext.jsx";
+
 function App() {
   return (
-    <div className="App">
-      <h1>Hello, World!</h1>
-    </div>
+    <BrowserRouter>
+      <AuthProvider>
+        <Navbar />
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 
