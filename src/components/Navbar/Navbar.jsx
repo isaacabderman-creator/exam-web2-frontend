@@ -1,6 +1,6 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import "./Navbar.css";   // ← c'était l'import manquant, cause du bug visuel
+import "./Navbar.css"; 
 
 export default function Navbar() {
   const { user, logout } = useAuth();
