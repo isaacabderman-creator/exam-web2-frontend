@@ -21,7 +21,7 @@ export function AuthProvider({ children }) {
     );
 
     let data = null;
-    try { data = await res.json(); } catch { /* réponse vide */ }
+    try { data = await res.json(); } catch {}
 
     if (!res.ok) {
       throw new Error(data?.message || `Erreur ${res.status}`);

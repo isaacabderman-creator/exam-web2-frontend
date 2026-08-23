@@ -1,0 +1,12 @@
+@reference "../../index.css";
+.login-form {
+    @apply flex flex-col items-center justify-center
+    p-6 bg-white max-w-md rounded-3xl border border-ink;
+}
+.login-form input {
+    @apply border border-ink rounded-full outline-none px-4 py-2;
+}
+
+.input-group {
+    @apply flex flex-col gap-2 mb-6;
+}
