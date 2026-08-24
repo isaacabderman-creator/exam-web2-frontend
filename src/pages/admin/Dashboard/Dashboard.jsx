@@ -32,3 +32,26 @@ const quickLinks = [
     description: "Create exams, manage availability windows",
   },
 ];
+
+export default function Dashboard() {
+  const [counts, setCounts] = useState({
+    students: null,
+    courses: null,
+    exams: null,
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    loadCounts();
+  }, []);
+
+  async function loadCounts() {
+    setLoading(true);
+    setError("");
+    try {
+      const [studentsRes, coursesRes, examsRes] = await Promise.all([
+        authFetch("/students"),
+        authFetch("/courses"),
+        authFetch("/exams"),
+      ]);
