@@ -55,3 +55,28 @@ export default function Dashboard() {
         authFetch("/courses"),
         authFetch("/exams"),
       ]);
+      
+      const [studentsData, coursesData, examsData] = await Promise.all([
+        studentsRes.json(),
+        coursesRes.json(),
+        examsRes.json(),
+      ]);
+
+      if (!studentsRes.ok)
+        throw new Error(studentsData.message || "Failed to load students");
+      if (!coursesRes.ok)
+        throw new Error(coursesData.message || "Failed to load courses");
+      if (!examsRes.ok)
+        throw new Error(examsData.message || "Failed to load exams");
+
+      setCounts({
+        students: studentsData.filter((s) => s.actif).length,
+        courses: coursesData.length,
+        exams: examsData.length,
+      });
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
