@@ -133,3 +133,34 @@ export default function Students() {
       setCreating(false);
     }
   }
+  function openEditModal(student) {
+    setEditingStudent(student);
+    setEditForm({
+      name: student.name,
+      email: student.email,
+    });
+    setEditError("");
+  }
+  async function handleEdit(e) {
+    e.preventDefault();
+    setEditError("");
+    setSaving(true);
+    try {
+      await apiFetch(`${API_URL}/${editingStudent.id}`, {
+        method: "PUT",
+        body: JSON.stringify(editForm),
+      });
+      setEditingStudent(null);
+      setToast({
+        type: "ok",
+        text: "Étudiant modifié.",
+      });
+      await loadStudents();
+    } catch (err) {
+      if (!handleAuthError(err)) {
+        setEditError(err.message);
+      }
+    } finally {
+      setSaving(false);
+    }
+  }
