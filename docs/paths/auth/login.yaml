@@ -2,6 +2,7 @@ login:
   post:
     tags: [Auth]
     summary: "Login for users and admin"
+    security: []
     requestBody:
       required: true
       content:
