@@ -1,12 +1,15 @@
 @reference "../../index.css";
 .login-form {
-    @apply flex flex-col items-center justify-center
-    p-6 bg-white max-w-md rounded-3xl border border-ink;
+    @apply flex flex-col
+    px-6 py-8 bg-white  rounded-3xl border border-ink w-full;
 }
 .login-form input {
     @apply border border-ink rounded-full outline-none px-4 py-2;
 }
+.login-form .btn {
+    @apply px-16 py-2;
+}
 
 .input-group {
-    @apply flex flex-col gap-2 mb-6;
+    @apply flex flex-col gap-2 mb-6 px-8;
 }

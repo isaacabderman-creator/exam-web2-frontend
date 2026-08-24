@@ -1,8 +1,10 @@
 import "./LoginForm.css";
 import { useState } from "react";
+
 function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   return (
     <div className="flex justify-center items-center min-h-screen">
       <form className={"login-form"}>
@@ -28,7 +30,7 @@ function LoginForm() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit" className="btn">
+        <button type="submit" className="btn self-center">
           Login
         </button>
       </form>
