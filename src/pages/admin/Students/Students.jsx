@@ -88,7 +88,7 @@ export default function Students() {
       return true;
     }
     return false;
-  
+  }
 
   async function loadStudents() {
     setLoading(true);
