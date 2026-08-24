@@ -36,3 +36,43 @@ const btnGhost = "inline-flex items-center justify-center gap-2 rounded-full bor
 const btnAmber = "inline-flex items-center justify-center gap-2 rounded-full border border-[#141B34] bg-[#FDF8DB] px-[18px] py-[9px] text-[13px] font-medium text-[#995900] hover:brightness-95 transition-colors disabled:opacity-50";
 const badgeBase = "inline-flex items-center gap-1.5 rounded-full border border-[#141B34] px-3 py-[3px] text-[12px] font-medium transition-colors disabled:opacity-50";
 const inputBase = "w-full rounded-[24px] border border-[#141B34] bg-white px-[18px] py-[13px] text-[15px] text-[#141B34] placeholder:text-[#A7A4A4] outline-none transition-colors focus:border-2 focus:border-[#396EE9] focus:px-[17px] focus:py-[12px]";
+
+export default function Students() {
+  const navigate = useNavigate();
+  const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [globalError, setGlobalError] = useState("");
+  const [toast, setToast] = useState(null);
+  const [search, setSearch] = useState("");
+
+  const [showCreateModal, setShowCreateModal] = useState(false);
+
+  const [createForm, setCreateForm] = useState({ name: "", email: "", password: "",});
+
+  const [createError, setCreateError] = useState("");
+  const [creating, setCreating] = useState(false);
+
+  const [editingStudent, setEditingStudent] = useState(null);
+
+  const [editForm, setEditForm] = useState({name: "", email: "",});
+
+  const [editError, setEditError] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  const [resettingStudent, setResettingStudent] = useState(null);
+  const [tempPassword, setTempPassword] = useState("");
+  const [resetError, setResetError] = useState("");
+  const [resetting, setResetting] = useState(false);
+
+  const [confirmStudent, setConfirmStudent] = useState(null);
+  const [deactivatingId, setDeactivatingId] = useState(null);
+
+  useEffect(() => { loadStudents(); }, []);
+
+  useEffect(() => {
+    if (!toast) return;
+    const timer = setTimeout(() => {
+      setToast(null);
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, [toast]);
