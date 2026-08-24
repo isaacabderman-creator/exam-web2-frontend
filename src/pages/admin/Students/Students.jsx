@@ -104,3 +104,32 @@ export default function Students() {
       setLoading(false);
     }
   }
+  function openCreateModal() {
+    setCreateForm({ name: "", email: "", password: "",});
+    setCreateError("");
+    setShowCreateModal(true);
+  }
+
+  async function handleCreate(e) {
+    e.preventDefault();
+    setCreateError("");
+    setCreating(true);
+    try {
+      await apiFetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify(createForm),
+      });
+      setShowCreateModal(false);
+      setToast({
+        type: "ok",
+        text: "Étudiant créé.",
+      });
+      await loadStudents();
+    } catch (err) {
+      if (!handleAuthError(err)) {
+        setCreateError(err.message);
+      }
+    } finally {
+      setCreating(false);
+    }
+  }
