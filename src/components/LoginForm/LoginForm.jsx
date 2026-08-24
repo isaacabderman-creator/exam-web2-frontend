@@ -1,22 +1,24 @@
 import "./LoginForm.css";
 import { useState } from "react";
+import useLogin from "../../utils/useLogin.jsx";
 
 function LoginForm() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const handleLogin = useLogin();
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <form className={"login-form"}>
+      <form className={"login-form"} onSubmit={(e) => handleLogin(e, email, password)}>
         <div className="input-group">
-          <label htmlFor="username">Username</label>
+          <label htmlFor="email">Email</label>
           <input
-            type="text"
-            id="username"
-            name="username"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="input-group">
