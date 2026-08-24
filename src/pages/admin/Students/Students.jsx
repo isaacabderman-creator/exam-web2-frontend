@@ -500,3 +500,220 @@ async function handleDeactivateStudent() {
           </div>
         </div>
       )}
+      {editingStudent && (
+        <div
+          className="es-overlay"
+          onClick={() => setEditingStudent(null)}
+        >
+          <div
+            className="es-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="es-modal-header">
+              Modifier · {editingStudent.name}
+            </div>
+
+            <div className="p-[18px]">
+              {editError && (
+                <div className="mb-3 rounded-[24px] border border-[#141B34] bg-[#FBEDED] px-4 py-2 text-[13px] text-[#9B3B3B]">
+                  {editError}
+                </div>
+              )}
+
+              <form
+                onSubmit={handleEdit}
+                className="flex flex-col gap-3"
+              >
+                <input
+                  type="text"
+                  required
+                  value={editForm.name}
+                  onChange={(e) =>
+                    setEditForm({
+                      ...editForm,
+                      name: e.target.value,
+                    })
+                  }
+                  className={inputBase}
+                />
+
+                <input
+                  type="email"
+                  required
+                  value={editForm.email}
+                  onChange={(e) =>
+                    setEditForm({
+                      ...editForm,
+                      email: e.target.value,
+                    })
+                  }
+                  className={inputBase}
+                />
+
+                <div className="mt-2 flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setEditingStudent(null)}
+                    className={btnGhost}
+                  >
+                    Annuler
+                  </button>
+
+                  <button
+                    type="submit"
+                    disabled={saving}
+                    className={btnPrimary}
+                  >
+                    {saving
+                      ? "Enregistrement..."
+                      : "Enregistrer"}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {resettingStudent && (
+        <div
+          className="es-overlay"
+          onClick={() => setResettingStudent(null)}
+        >
+          <div
+            className="es-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="es-modal-header">
+              Réinitialiser · {resettingStudent.name}
+            </div>
+
+            <div className="p-[18px]">
+              {resetError && (
+                <div className="mb-3 rounded-[24px] border border-[#141B34] bg-[#FBEDED] px-4 py-2 text-[13px] text-[#9B3B3B]">
+                  {resetError}
+                </div>
+              )}
+
+              {tempPassword ? (
+                <div className="rounded-[24px] border border-[#141B34] bg-[#EDFBF2] px-4 py-3.5">
+                  <div className="text-[14px] font-medium">
+                    Mot de passe temporaire généré
+                  </div>
+
+                  <div className="mt-1.5 font-mono text-[16px]">
+                    {tempPassword}
+                  </div>
+
+                  <div className="mt-1.5 text-[12px] text-[#504949]">
+                    Affiché une seule fois — copiez-le avant de fermer.
+                  </div>
+                </div>
+              ) : (
+                <p className="text-[14px] text-[#504949]">
+                  Un nouveau mot de passe temporaire sera généré et
+                  affiché une seule fois.
+                </p>
+              )}
+
+              <div className="mt-4 flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setResettingStudent(null)}
+                  className={btnGhost}
+                >
+                  Fermer
+                </button>
+
+                {!tempPassword && (
+                  <button
+                    onClick={handleResetPassword}
+                    disabled={resetting}
+                    className={btnAmber}
+                  >
+                    {resetting ? "..." : "Générer"}
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {confirmStudent && (
+        <div
+          className="es-overlay"
+          onClick={() => setConfirmStudent(null)}
+        >
+          <div
+            className="es-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="es-modal-header">
+              Confirmer · désactivation
+            </div>
+
+            <div className="p-[18px]">
+              <div className="text-[16px] font-medium">
+                Désactiver {confirmStudent.name} ?
+              </div>
+              <p className="mt-2 text-[14px] text-[#504949]">
+                Il ne pourra plus se connecter. Ses résultats resteront
+                consultables par l'administrateur.
+              </p>
+              <div className="mt-4 flex gap-2">
+                <button
+                  onClick={() => setConfirmStudent(null)}
+                  className={btnGhost}
+                >
+                  Annuler
+                </button>
+                <button
+                  onClick={handleDeactivateStudent}
+                  disabled={
+                    deactivatingId === confirmStudent.id
+                  }
+                  className={btnAmber}
+                >
+                  {deactivatingId === confirmStudent.id
+                    ? "..."
+                    : "Désactiver"}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {toast && (
+        <div className="es-toast-wrap">
+          <div
+            className="es-toast"
+            style={{
+              background:
+                toast.type === "ok"
+                  ? "#EDFBF2"
+                  : "#FBEDED",
+            }}
+          >
+            <span
+              className="es-toast-icon"
+              style={{
+                background:
+                  toast.type === "ok"
+                    ? "#60B32D"
+                    : "#9B3B3B",
+              }}
+            >
+              {toast.type === "ok" ? "✓" : "!"}
+            </span>
+
+            <span className="text-[14px]">
+              {toast.text}
+            </span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
