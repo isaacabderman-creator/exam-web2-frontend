@@ -225,7 +225,7 @@ async function handleDeactivateStudent() {
     <div
       className="min-h-screen p-6"
       style={{
-        background: "#FEF8F1",
+        background: "var(--color-cream)",
         fontFamily: "'Google Sans Flex','Google Sans Text','Google Sans',system-ui,sans-serif",
         color: "#141B34",
       }}
