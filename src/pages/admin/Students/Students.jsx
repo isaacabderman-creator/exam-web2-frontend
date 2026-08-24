@@ -37,6 +37,10 @@ const btnAmber = "inline-flex items-center justify-center gap-2 rounded-full bor
 const badgeBase = "inline-flex items-center gap-1.5 rounded-full border border-[#141B34] px-3 py-[3px] text-[12px] font-medium transition-colors disabled:opacity-50";
 const inputBase = "w-full rounded-[24px] border border-[#141B34] bg-white px-[18px] py-[13px] text-[15px] text-[#141B34] placeholder:text-[#A7A4A4] outline-none transition-colors focus:border-2 focus:border-[#396EE9] focus:px-[17px] focus:py-[12px]";
 
+function fullName(student) {
+  return `${student.firstName} ${student.lastName}`;
+}
+
 export default function Students() {
   const navigate = useNavigate();
   const [students, setStudents] = useState([]);
@@ -47,14 +51,14 @@ export default function Students() {
 
   const [showCreateModal, setShowCreateModal] = useState(false);
 
-  const [createForm, setCreateForm] = useState({ name: "", email: "", password: "",});
+  const [createForm, setCreateForm] = useState({ firstName: "", lastName: "", email: "", password: "",});
 
   const [createError, setCreateError] = useState("");
   const [creating, setCreating] = useState(false);
 
   const [editingStudent, setEditingStudent] = useState(null);
 
-  const [editForm, setEditForm] = useState({name: "", email: "",});
+  const [editForm, setEditForm] = useState({firstName: "", lastName: "", email: "",});
 
   const [editError, setEditError] = useState("");
   const [saving, setSaving] = useState(false);
@@ -105,7 +109,7 @@ export default function Students() {
     }
   }
   function openCreateModal() {
-    setCreateForm({ name: "", email: "", password: "",});
+    setCreateForm({ firstName: "", lastName: "", email: "", password: "",});
     setCreateError("");
     setShowCreateModal(true);
   }
@@ -136,7 +140,8 @@ export default function Students() {
   function openEditModal(student) {
     setEditingStudent(student);
     setEditForm({
-      name: student.name,
+      firstName: student.firstName,
+      lastName: student.lastName,
       email: student.email,
     });
     setEditError("");
@@ -217,7 +222,7 @@ async function handleDeactivateStudent() {
   const filteredStudents = students.filter((student) => {
     const query = search.toLowerCase();
     return (
-      student.name.toLowerCase().includes(query) ||
+      fullName(student).toLowerCase().includes(query) ||
       student.email.toLowerCase().includes(query)
     );
   });
@@ -321,7 +326,7 @@ async function handleDeactivateStudent() {
                             : "#A7A4A4",
                         }}
                       >
-                        {student.name}
+                        {fullName(student)}
                       </td>
                       <td
                         className="px-[14px] py-[11px] font-mono text-[13px]"
@@ -443,12 +448,25 @@ async function handleDeactivateStudent() {
                 <input
                   type="text"
                   required
-                  placeholder="Nom complet"
-                  value={createForm.name}
+                  placeholder="Prénom"
+                  value={createForm.firstName}
                   onChange={(e) =>
                     setCreateForm({
                       ...createForm,
-                      name: e.target.value,
+                      firstName: e.target.value,
+                    })
+                  }
+                  className={inputBase}
+                />
+                <input
+                  type="text"
+                  required
+                  placeholder="Nom"
+                  value={createForm.lastName}
+                  onChange={(e) =>
+                    setCreateForm({
+                      ...createForm,
+                      lastName: e.target.value,
                     })
                   }
                   className={inputBase}
@@ -510,7 +528,7 @@ async function handleDeactivateStudent() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="es-modal-header">
-              Modifier · {editingStudent.name}
+              Modifier · {fullName(editingStudent)}
             </div>
 
             <div className="p-[18px]">
@@ -527,11 +545,24 @@ async function handleDeactivateStudent() {
                 <input
                   type="text"
                   required
-                  value={editForm.name}
+                  value={editForm.firstName}
                   onChange={(e) =>
                     setEditForm({
                       ...editForm,
-                      name: e.target.value,
+                      firstName: e.target.value,
+                    })
+                  }
+                  className={inputBase}
+                />
+
+                <input
+                  type="text"
+                  required
+                  value={editForm.lastName}
+                  onChange={(e) =>
+                    setEditForm({
+                      ...editForm,
+                      lastName: e.target.value,
                     })
                   }
                   className={inputBase}
@@ -585,7 +616,7 @@ async function handleDeactivateStudent() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="es-modal-header">
-              Réinitialiser · {resettingStudent.name}
+              Réinitialiser · {fullName(resettingStudent)}
             </div>
 
             <div className="p-[18px]">
@@ -655,7 +686,7 @@ async function handleDeactivateStudent() {
 
             <div className="p-[18px]">
               <div className="text-[16px] font-medium">
-                Désactiver {confirmStudent.name} ?
+                Désactiver {fullName(confirmStudent)} ?
               </div>
               <p className="mt-2 text-[14px] text-[#504949]">
                 Il ne pourra plus se connecter. Ses résultats resteront

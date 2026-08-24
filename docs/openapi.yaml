@@ -4,7 +4,7 @@ info:
   version: 1.0.0
   description: Management of students and exams
 servers:
-  - url: "127.0.0.1:{port}/api"
+  - url: "http://127.0.0.1:{port}/api"
     description: Local dev
     variables:
       port:
