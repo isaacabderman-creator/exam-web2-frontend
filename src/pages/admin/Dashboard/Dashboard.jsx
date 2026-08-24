@@ -101,3 +101,57 @@ export default function Dashboard() {
       accent: "bg-amber-50 text-amber-700",
     },
 ];
+
+return (
+    <div className="p-6">
+      <h1 className="text-2xl font-semibold text-slate-800 mb-1">
+        Dashboard
+      </h1>
+      <p className="text-slate-500 text-sm mb-6">
+        Overview of the Exam Hub appliation
+      </p>
+
+      {error && (
+        <div className="mb-6 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3">
+          {error}
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        {statCards.map((crad) => (
+          <Link
+            key={card.label}
+            to={card.to}
+            className="dashboard-stat-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition"
+          >
+            <div
+              className={`inline-flex items-center justify-center w-10 h-10 rounded-lg text-sm font-semibold mb-3 ${card.accent}`}
+            >
+              {loading ? "…" : card.value}
+            </div>
+            <p className="text-3xl font-bold text-slate-800">
+              {loading ? "—" : card.value}
+            </p>
+            <p className="text-sm text-slate-500 mt-1">{card.label}</p>
+          </Link>
+        ))}
+      </div>
+
+      <h2 className="text-lg font-semibold text-slate-800 mb-3">
+        Quick links
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {quickLinks.map((link) => (
+          <Link
+            key={link.to}
+            to={link.to}
+            className="dashboard-quick-link bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-indigo-300 hover:shadow-md transition"
+          >
+            <p className="font-medium text-slate-800">{link.label}</p>
+            <p className="text-sm text-slate-500 mt-1">{link.description}</p>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
