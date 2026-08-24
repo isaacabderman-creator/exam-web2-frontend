@@ -164,3 +164,27 @@ export default function Students() {
       setSaving(false);
     }
   }
+
+  function openResetModal(student) {
+  setResettingStudent(student);
+  setTempPassword("");
+  setResetError("");
+}
+
+async function handleResetPassword() {
+  setResetError("");
+  setResetting(true);
+  try {
+    const data = await apiFetch(`${API_URL}/${resettingStudent.id}`, {
+      method: "PUT",
+      body: JSON.stringify({ resetPassword: true }),
+    });
+    setTempPassword(data?.temporaryPassword || "");
+  } catch (err) {
+    if (!handleAuthError(err)) {
+      setResetError(err.message);
+    }
+  } finally {
+    setResetting(false);
+  }
+}
