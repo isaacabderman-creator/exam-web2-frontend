@@ -1,6 +1,6 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import "./Navbar.css";   // ← c'était l'import manquant, cause du bug visuel
+import "./Navbar.css"; 
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -26,25 +26,25 @@ export default function Navbar() {
           {user.role === "admin" ? (
             <>
               <Link to="/admin" className={isActive("/admin") ? "active" : ""}>
-                Tableau de bord
+                Dashboard
               </Link>
               <Link to="/admin/students" className={isActive("/admin/students") ? "active" : ""}>
-                Étudiants
+                Students
               </Link>
               <Link to="/admin/courses" className={isActive("/admin/courses") ? "active" : ""}>
-                Cours
+                Courses
               </Link>
               <Link to="/admin/exams" className={isActive("/admin/exams") ? "active" : ""}>
-                Examens
+                Exams
               </Link>
             </>
           ) : (
             <>
               <Link to="/student" className={isActive("/student") ? "active" : ""}>
-                Examens disponibles
+                  Available Exams
               </Link>
               <Link to="/student/results" className={isActive("/student/results") ? "active" : ""}>
-                Mes résultats
+                  My results
               </Link>
             </>
           )}
