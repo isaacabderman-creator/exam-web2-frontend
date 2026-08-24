@@ -188,3 +188,28 @@ async function handleResetPassword() {
     setResetting(false);
   }
 }
+async function handleDeactivateStudent() {
+    if (!confirmStudent) return;
+    setDeactivatingId(confirmStudent.id);
+    try {
+      await apiFetch(`${API_URL}/${confirmStudent.id}`, {
+        method: "DELETE",
+      });
+      setToast({
+        type: "ok",
+        text: "Étudiant désactivé.",
+      });
+      setConfirmStudent(null);
+      await loadStudents();
+    } catch (err) {
+      if (!handleAuthError(err)) {
+        setToast({
+          type: "error",
+          text: err.message,
+        });
+        setConfirmStudent(null);
+      }
+    } finally {
+      setDeactivatingId(null);
+    }
+  }
