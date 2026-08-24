@@ -213,3 +213,11 @@ async function handleDeactivateStudent() {
       setDeactivatingId(null);
     }
   }
+
+  const filteredStudents = students.filter((student) => {
+    const query = search.toLowerCase();
+    return (
+      student.name.toLowerCase().includes(query) ||
+      student.email.toLowerCase().includes(query)
+    );
+  });
