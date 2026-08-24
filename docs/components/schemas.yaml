@@ -1,9 +1,12 @@
 StudentDTO:
   type: object
   properties:
-    name:
+    firstName:
       type: string
-      example: Niu Lai
+      example: Niu
+    lastName:
+      type: string
+      example: Lai
     email:
       type: string
       example: niulai@gmail.com
@@ -23,7 +26,7 @@ StudentSummary:
       type: string
       format: uuid
       example: 461ae67c-2027-479e-ad63-ebe40e5e6942
-  required: [id, name, email, role]
+  required: [id, firstName, lastName, email, role]
 
 CourseDTO:
   type: object
