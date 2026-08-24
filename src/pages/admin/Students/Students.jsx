@@ -267,3 +267,236 @@ async function handleDeactivateStudent() {
             className={inputBase}
           />
         </div>
+        <div className="overflow-hidden rounded-[24px] border border-[#141B34] bg-white">
+          {loading ? (
+            <div className="space-y-3 p-6">
+              <div className="h-[14px] w-[60%] rounded-full border border-[#141B34] bg-[#FEF8F1]" />
+              <div className="h-[14px] w-[85%] rounded-full border border-[#141B34] bg-[#FEF8F1]" />
+              <div className="h-[14px] w-[40%] rounded-full border border-[#141B34] bg-[#FEF8F1]" />
+            </div>
+          ) : filteredStudents.length === 0 ? (
+            <div className="p-10 text-center">
+              <div className="mx-auto mb-3 h-[44px] w-[44px] rounded-[24px] border border-[#141B34] bg-[#FEF8F1]" />
+              <div className="text-[17px] font-medium">
+                Aucun étudiant trouvé
+              </div>
+              <div className="mt-1 text-[14px] text-[#6C6C6C]">
+                {students.length === 0
+                  ? "Les comptes créés par l'administrateur apparaîtront ici."
+                  : "Essayez une autre recherche."}
+              </div>
+            </div>
+          ) : (
+            <table className="w-full text-[13px]">
+              <thead>
+                <tr>
+                  {["Nom", "Email", "Statut", ""].map((header, index) => (
+                    <th
+                      key={header + index}
+                      className={`border-b border-[#141B34] bg-[#FEF8F1] px-[14px] py-[12px] text-[11px] font-bold uppercase tracking-[0.08em] text-[#A7A4A4] ${
+                        index === 3 ? "text-right" : "text-left"
+                      }`}
+                    >
+                      {header}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+
+              <tbody>
+                {filteredStudents.map((student, index) => {
+                  const isLast =
+                    index === filteredStudents.length - 1;
+                  const rowBorder = isLast
+                    ? "none"
+                    : "1px solid #E9E8E8";
+                  return (
+                    <tr key={student.id}>
+                      <td
+                        className="px-[14px] py-[11px] font-medium"
+                        style={{
+                          borderBottom: rowBorder,
+                          color: student.active
+                            ? "#141B34"
+                            : "#A7A4A4",
+                        }}
+                      >
+                        {student.name}
+                      </td>
+                      <td
+                        className="px-[14px] py-[11px] font-mono text-[13px]"
+                        style={{
+                          borderBottom: rowBorder,
+                          color: student.active
+                            ? "#141B34"
+                            : "#A7A4A4",
+                        }}
+                      >
+                        {student.email}
+                      </td>
+                      <td
+                        className="px-[14px] py-[11px]"
+                        style={{
+                          borderBottom: rowBorder,
+                        }}
+                      >
+                        <span
+                          className={badgeBase}
+                          style={
+                            student.active
+                              ? {
+                                  background: "#EDFBF2",
+                                  color: "#2C6B45",
+                                }
+                              : {
+                                  background: "#F2F2F2",
+                                  color: "#A7A4A4",
+                                }
+                          }
+                        >
+                          {student.active ? "Actif" : "Désactivé"}
+                        </span>
+                      </td>
+
+                      <td
+                        className="px-[14px] py-[11px] text-right"
+                        style={{
+                          borderBottom: rowBorder,
+                        }}
+                      >
+                        <div className="inline-flex items-center gap-2">
+                          <button
+                            onClick={() => openEditModal(student)}
+                            className={badgeBase}
+                            style={{
+                              background: "transparent",
+                            }}
+                          >
+                            Modifier
+                          </button>
+
+                          {student.active && (
+                            <>
+                              <button
+                                onClick={() => openResetModal(student)}
+                                className={badgeBase}
+                                style={{
+                                  background: "#FDF8DB",
+                                  color: "#995900",
+                                }}
+                              >
+                                Mot de passe
+                              </button>
+
+                              <button
+                                onClick={() =>
+                                  setConfirmStudent(student)
+                                }
+                                disabled={
+                                  deactivatingId === student.id
+                                }
+                                className={badgeBase}
+                                style={{
+                                  background: "#FDF8DB",
+                                  color: "#995900",
+                                }}
+                              >
+                                {deactivatingId === student.id
+                                  ? "..."
+                                  : "Désactiver"}
+                              </button>
+                            </>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
+        </div>
+      </div>
+
+      {showCreateModal && (
+        <div
+          className="es-overlay"
+          onClick={() => setShowCreateModal(false)}
+        >
+          <div
+            className="es-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="es-modal-header">
+              Nouveau · étudiant
+            </div>
+            <div className="p-[18px]">
+              {createError && (
+                <div className="mb-3 rounded-[24px] border border-[#141B34] bg-[#FBEDED] px-4 py-2 text-[13px] text-[#9B3B3B]">
+                  {createError}
+                </div>
+              )}
+              <form
+                onSubmit={handleCreate}
+                className="flex flex-col gap-3"
+              >
+                <input
+                  type="text"
+                  required
+                  placeholder="Nom complet"
+                  value={createForm.name}
+                  onChange={(e) =>
+                    setCreateForm({
+                      ...createForm,
+                      name: e.target.value,
+                    })
+                  }
+                  className={inputBase}
+                />
+                <input
+                  type="email"
+                  required
+                  placeholder="Adresse email"
+                  value={createForm.email}
+                  onChange={(e) =>
+                    setCreateForm({
+                      ...createForm,
+                      email: e.target.value,
+                    })
+                  }
+                  className={inputBase}
+                />
+                <input
+                  type="password"
+                  required
+                  placeholder="Mot de passe initial"
+                  value={createForm.password}
+                  onChange={(e) =>
+                    setCreateForm({
+                      ...createForm,
+                      password: e.target.value,
+                    })
+                  }
+                  className={inputBase}
+                />
+                <div className="mt-2 flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowCreateModal(false)}
+                    className={btnGhost}
+                  >
+                    Annuler
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={creating}
+                    className={btnPrimary}
+                  >
+                    {creating ? "Création..." : "Créer"}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
