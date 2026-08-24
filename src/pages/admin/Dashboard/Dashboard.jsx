@@ -108,7 +108,7 @@ return (
         Dashboard
       </h1>
       <p className="text-slate-500 text-sm mb-6">
-        Overview of the Exam Hub appliation
+        Overview of the <span className="font-semibold text-indigo-600">examhub</span> application
       </p>
 
       {error && (
@@ -124,16 +124,16 @@ return (
             to={card.to}
             className="dashboard-stat-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition"
           >
-            <div
-              className={`inline-flex items-center justify-center w-10 h-10 rounded-lg text-sm font-semibold mb-3 ${card.accent}`}
-            >
-              {loading ? "…" : card.value}
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-sm font-medium text-slate-500">{card.label}</p>
+              <span className={`text-xs font-semibold px-2 py-1 rounded-md ${card.accent}`}>
+                  {loading ? "…" : card.value}
+              </span>
             </div>
             <p className="text-3xl font-bold text-slate-800">
               {loading ? "—" : card.value}
             </p>
-            <p className="text-sm text-slate-500 mt-1">{card.label}</p>
-          </Link>
+          </Link> 
         ))}
       </div>
 
