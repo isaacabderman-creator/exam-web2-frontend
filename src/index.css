@@ -4,6 +4,7 @@
 @theme {
   --color-ink: #141b34;
   --color-peach: #fcebd6;
+  --color-cream: #fef8f1;
 }
 @layer base {
   * {
@@ -11,11 +12,11 @@
     @apply box-border m-0 p-0;
   }
   body {
-    background: #fdf3e8;
+    background: var(--color-cream);
   }
 }
 @layer components {
   .btn {
-    @apply border bg-peach border-ink rounded-full outline-none px-10 py-2;
+    @apply border  bg-peach border-ink rounded-full outline-none px-10 py-2;
   }
 }
