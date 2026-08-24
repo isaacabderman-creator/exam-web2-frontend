@@ -1,0 +1,13 @@
+.dashboard-stat-card {
+  display: block;
+  text-decoration: none;
+}
+
+.dashboard-quick-link {
+  display: block;
+  text-decoration: none;
+}
+
+.dashboard-quick-link:hover {
+  transform: translateY(-1px);
+}
