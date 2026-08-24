@@ -80,3 +80,24 @@ export default function Dashboard() {
       setLoading(false);
     }
   }
+
+  const statCards = [
+    {
+      label: "Active students",
+      value: counts.students,
+      to: "/admin/students",
+      accent: "bg-indigo-50 text-indigo-700",
+    },
+    {
+      label: "Courses",
+      value: counts.courses,
+      to: "/admin/courses",
+      accent: "bg-emerald-50 text-emerald-700",
+    },
+    {
+      label: "Exams",
+      value: counts.exams,
+      to: "/admin/exams",
+      accent: "bg-amber-50 text-amber-700",
+    },
+];
