@@ -76,3 +76,31 @@ export default function Students() {
     }, 4000);
     return () => clearTimeout(timer);
   }, [toast]);
+
+  function handleAuthError(err) {
+    if (err.status === 401) {
+      localStorage.removeItem("token");
+      navigate("/login");
+      return true;
+    }
+    if (err.status === 403) {
+      navigate("/student");
+      return true;
+    }
+    return false;
+  
+
+  async function loadStudents() {
+    setLoading(true);
+    setGlobalError("");
+    try {
+      const data = await apiFetch(API_URL);
+      setStudents(Array.isArray(data) ? data : data.students || []);
+    } catch (err) {
+      if (!handleAuthError(err)) {
+        setGlobalError(err.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  }
