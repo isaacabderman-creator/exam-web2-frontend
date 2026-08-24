@@ -221,3 +221,49 @@ async function handleDeactivateStudent() {
       student.email.toLowerCase().includes(query)
     );
   });
+  return (
+    <div
+      className="min-h-screen p-6"
+      style={{
+        background: "#FEF8F1",
+        fontFamily: "'Google Sans Flex','Google Sans Text','Google Sans',system-ui,sans-serif",
+        color: "#141B34",
+      }}
+    >
+      <div className="mx-auto max-w-[1120px]">
+        <div className="mb-6 flex items-center justify-between">
+          <div>
+            <h1 className="text-[32px] font-bold leading-[38px] tracking-[-0.02em]"> Étudiants </h1>
+            <p className="mt-1 text-[14px] text-[#6C6C6C]"> Gérer les comptes des étudiants. </p>
+          </div>
+          <button onClick={openCreateModal} className={btnPrimary}>
+            <svg
+              className="h-[16px] w-[16px]"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            >
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+
+            Nouvel étudiant
+          </button>
+        </div>
+
+        {globalError && (
+          <div className="mb-4 rounded-[24px] border border-[#141B34] bg-[#FBEDED] px-4 py-3 text-[14px]">
+            <b className="font-medium text-[#9B3B3B]">Erreur ·</b>{" "}
+            {globalError}
+          </div>
+        )}
+        <div className="mb-4 max-w-md">
+          <input
+            type="text"
+            placeholder="Rechercher un étudiant..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className={inputBase}
+          />
+        </div>
