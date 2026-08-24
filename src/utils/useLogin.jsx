@@ -1,17 +1,22 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 
 export default function useLogin() {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
-  return async function handleLogin(e, email, password) {
+  async function handleLogin(e, email, password) {
     e.preventDefault();
+    setError(null);
     try {
       const user = await login(email, password);
       navigate(user.role === "admin" ? "/admin" : "/student");
-    } catch (error) {
-      console.error("Login failed:", error);
+    } catch (err) {
+      setError(err.message || "Login failed");
     }
-  };
+  }
+
+  return { handleLogin, error };
 }

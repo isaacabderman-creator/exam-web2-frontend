@@ -5,11 +5,12 @@ import useLogin from "../../utils/useLogin.jsx";
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleLogin = useLogin();
+  const { handleLogin, error } = useLogin();
 
   return (
     <div className="flex justify-center items-center min-h-screen">
       <form className={"login-form"} onSubmit={(e) => handleLogin(e, email, password)}>
+        {error && <p className="text-red-600">{error}</p>}
         <div className="input-group">
           <label htmlFor="email">Email</label>
           <input
