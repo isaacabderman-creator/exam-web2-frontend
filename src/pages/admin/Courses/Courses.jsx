@@ -110,4 +110,27 @@ export default function Courses() {
             setError(err.message);
         }
     }
+
+     return (
+    <div className="p-6" style={{ backgroundColor: "#FBFBED" }}>
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-2xl font-bold" style={{ color: "#141B34" }}>
+            Courses
+          </h1>
+          <p className="text-sm mt-1" style={{ color: "#6C6C6C" }}>
+            Manage the courses offered on{" "}
+            <span className="font-semibold" style={{ color: "#E25A00" }}>
+              examhub
+            </span>
+          </p>
+        </div>
+        <button
+          onClick={openCreateModal}
+          className="text-white text-sm font-medium px-4 py-2 transition"
+          style={{ backgroundColor: "#396EE9", borderRadius: "24px" }}
+        >
+          + New course
+        </button>
+      </div>
 }
