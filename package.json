@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "mock": "npx --yes @stoplight/prism-cli mock docs/openapi.yaml -p 3000 --cors"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
