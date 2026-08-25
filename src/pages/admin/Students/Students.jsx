@@ -352,10 +352,12 @@ async function handleDeactivateStudent() {
                               ? {
                                   background: "#EDFBF2",
                                   color: "#2C6B45",
+                                  borderColor: "#2C6B45",
                                 }
                               : {
                                   background: "#F2F2F2",
                                   color: "#A7A4A4",
+                                  borderColor: "#A7A4A4",
                                 }
                           }
                         >
@@ -388,6 +390,7 @@ async function handleDeactivateStudent() {
                                 style={{
                                   background: "#FDF8DB",
                                   color: "#995900",
+                                  borderColor: "#995900",
                                 }}
                               >
                                 Mot de passe
@@ -404,6 +407,7 @@ async function handleDeactivateStudent() {
                                 style={{
                                   background: "#FDF8DB",
                                   color: "#995900",
+                                  borderColor: "#995900",
                                 }}
                               >
                                 {deactivatingId === student.id
