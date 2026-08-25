@@ -18,19 +18,19 @@ function authFetch(path, options = {}) {
 
 const quickLinks = [
   {
-    label: "Students",
+    label: "Étudiants",
     to: "/admin/students",
-    description: "Create, edit, deactivate accounts",
+    description: "Créer, modifier, désactiver des comptes",
   },
   {
-    label: "Courses",
+    label: "Cours",
     to: "/admin/courses",
-    description: "Manage courses (code, name, description)",
+    description: "Gérer les cours (code, nom, description)",
   },
   {
-    label: "Exams",
+    label: "Examens",
     to: "/admin/exams",
-    description: "Create exams, manage availability windows",
+    description: "Créer des examens, gérer les créneaux",
   },
 ];
 
@@ -71,11 +71,11 @@ export default function Dashboard() {
         ]);
 
         if (!studentsRes.ok)
-          throw new Error(studentsData?.message || "Failed to load students");
+          throw new Error(studentsData?.message || "Échec du chargement des étudiants");
         if (!coursesRes.ok)
-          throw new Error(coursesData?.message || "Failed to load courses");
+          throw new Error(coursesData?.message || "Échec du chargement des cours");
         if (!examsRes.ok)
-          throw new Error(examsData?.message || "Failed to load exams");
+          throw new Error(examsData?.message || "Échec du chargement des examens");
 
         setCounts({
           students: studentsData.filter((s) => s.active).length,
@@ -94,19 +94,19 @@ export default function Dashboard() {
 
   const statCards = [
     {
-      label: "Active students",
+      label: "Étudiants actifs",
       value: counts.students,
       to: "/admin/students",
       accent: "bg-peach text-ink",
     },
     {
-      label: "Courses",
+      label: "Cours",
       value: counts.courses,
       to: "/admin/courses",
       accent: "bg-mint text-green",
     },
     {
-      label: "Exams",
+      label: "Examens",
       value: counts.exams,
       to: "/admin/exams",
       accent: "bg-butter text-amber",
@@ -117,15 +117,15 @@ return (
     <div className="dashboard-page">
       <div className="dashboard-inner">
         <h1 className="dashboard-title">
-          Dashboard
+          Tableau de bord
         </h1>
         <p className="dashboard-subtitle">
-          Overview of the <span className="font-semibold">examhub</span> application
+          Vue d'ensemble d'<span className="font-semibold">examhub</span>
         </p>
 
         {error && (
           <div className="dashboard-error">
-            <b className="dashboard-error-label">Error ·</b> {error}
+            <b className="dashboard-error-label">Erreur ·</b> {error}
           </div>
         )}
 
@@ -150,7 +150,7 @@ return (
         </div>
 
         <h2 className="dashboard-section-title">
-          Quick links
+          Accès rapides
         </h2>
         <div className="dashboard-links-grid">
           {quickLinks.map((link) => (

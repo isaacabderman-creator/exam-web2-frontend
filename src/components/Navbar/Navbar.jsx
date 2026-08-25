@@ -21,32 +21,32 @@ export default function Navbar() {
       <div className="topbar">
         <span className="brand">examhub</span>
         <span className={`badge ${user.role === "admin" ? "admin" : "student"}`}>
-          {user.role === "admin" ? "Admin" : "Student"}
+          {user.role === "admin" ? "Admin" : "Étudiant"}
         </span>
 
         <nav className="pill-nav">
           {user.role === "admin" ? (
             <>
               <Link to="/admin" className={isActive("/admin") ? "active" : ""}>
-                Dashboard
+                Tableau de bord
               </Link>
               <Link to="/admin/students" className={isActive("/admin/students") ? "active" : ""}>
-                Students
+                Étudiants
               </Link>
               <Link to="/admin/courses" className={isActive("/admin/courses") ? "active" : ""}>
-                Courses
+                Cours
               </Link>
               <Link to="/admin/exams" className={isActive("/admin/exams") ? "active" : ""}>
-                Exams
+                Examens
               </Link>
             </>
           ) : (
             <>
               <Link to="/student" className={isActive("/student") ? "active" : ""}>
-                  Available Exams
+                  Examens disponibles
               </Link>
               <Link to="/student/results" className={isActive("/student/results") ? "active" : ""}>
-                  My results
+                  Mes résultats
               </Link>
             </>
           )}
