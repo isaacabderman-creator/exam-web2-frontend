@@ -214,6 +214,82 @@ export default function Courses() {
           </table>
         )}
       </div>
+
+       {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/40">
+          <div
+            className="w-full max-w-md p-6"
+            style={{
+              backgroundColor: "#FFFFFF",
+              borderRadius: "28px",
+              boxShadow: "0 8px 24px rgba(20,27,52,.06)",
+            }}
+          >
+            <h2
+              className="text-lg font-semibold mb-4"
+              style={{ color: "#141B34" }}
+            >
+              {editingId ? "Edit course" : "New course"}
+            </h2>
+
+            {formError && (
+              <div
+                className="mb-3 text-sm px-3 py-2"
+                style={{
+                  backgroundColor: "#FBEDED",
+                  color: "#995900",
+                  borderRadius: "24px",
+                }}
+              >
+                {formError}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label
+                  className="block text-sm font-medium mb-1"
+                  style={{ color: "#504949" }}
+                >
+                  Code
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. PROG2"
+                  value={form.code}
+                  onChange={(e) =>
+                    setForm({ ...form, code: e.target.value.toUpperCase() })
+                  }
+                  className="w-full px-3 py-2 text-sm outline-none"
+                  style={{
+                    border: "1px solid #E9E8E8",
+                    borderRadius: "24px",
+                    color: "#141B34",
+                  }}
+                />
+              </div>
+
+              <div>
+                <label
+                  className="block text-sm font-medium mb-1"
+                  style={{ color: "#504949" }}
+                >
+                  Name
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  className="w-full px-3 py-2 text-sm outline-none"
+                  style={{
+                    border: "1px solid #E9E8E8",
+                    borderRadius: "24px",
+                    color: "#141B34",
+                  }}
+                />
+              </div>
       </div>
    
 }
