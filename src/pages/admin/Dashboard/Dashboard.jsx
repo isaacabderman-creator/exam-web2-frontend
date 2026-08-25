@@ -113,7 +113,7 @@ export default function Dashboard() {
 ];
 
 return (
-    <div className="p-6">
+    <div className="p-6 mx-auto max-w-7xl">
       <h1 className="text-2xl font-semibold text-slate-800 mb-1">
         Dashboard
       </h1>
