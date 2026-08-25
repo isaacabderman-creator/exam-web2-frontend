@@ -70,7 +70,7 @@ export default function Dashboard() {
         throw new Error(examsData.message || "Failed to load exams");
 
       setCounts({
-        students: studentsData.filter((s) => s.actif).length,
+        students: studentsData.filter((s) => s.active).length,
         courses: coursesData.length,
         exams: examsData.length,
       });
@@ -118,7 +118,7 @@ return (
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-        {statCards.map((crad) => (
+        {statCards.map((card) => (
           <Link
             key={card.label}
             to={card.to}
