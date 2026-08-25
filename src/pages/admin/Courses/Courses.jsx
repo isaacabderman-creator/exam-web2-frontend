@@ -87,4 +87,27 @@ export default function Courses() {
             setSaving(false);
         }
     }
+
+    async function handleDelete(course) {
+        if (!window.confirm(`Delete course "${course.name}"?`)) return;
+
+        try {
+            const res = await authFetch(`/courses/${course.id}`, {
+                method: "DELETE",
+            });
+            if (!res.ok) {
+                const data = await res.json();
+                if (res.status === 409) {
+                    throw new Error(
+                        data.message ||
+                        "This course has exams and cannot be deleted."
+                    );
+                }
+                throw new Error(data.message || "Failed to delete course");
+            }
+            await loadCourses();
+        } catch (err) {
+            setError(err.message);
+        }
+    }
 }
