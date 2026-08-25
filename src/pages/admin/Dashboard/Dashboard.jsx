@@ -103,13 +103,13 @@ export default function Dashboard() {
       label: "Courses",
       value: counts.courses,
       to: "/admin/courses",
-      accent: "bg-[#EDFBF2] text-[#1F7A4C]",
+      accent: "bg-mint text-green",
     },
     {
       label: "Exams",
       value: counts.exams,
       to: "/admin/exams",
-      accent: "bg-[#FDF8DB] text-[#995900]",
+      accent: "bg-butter text-amber",
     },
 ];
 

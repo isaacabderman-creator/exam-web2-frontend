@@ -6,6 +6,10 @@
   --color-peach: #fcebd6;
   --color-cream: #fef8f1;
   --color-orange: #ff6600;
+  --color-butter: #fdf8db;
+  --color-mint: #edfbf2;
+  --color-green: #60b32d;
+  --color-amber: #995900;
 }
 @layer base {
   * {

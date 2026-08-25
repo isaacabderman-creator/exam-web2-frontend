@@ -33,7 +33,7 @@ async function apiFetch(url, options = {}) {
 
 const btnPrimary = "inline-flex items-center justify-center gap-2 rounded-full border border-[#141B34] bg-[#FCEBD6] px-[22px] py-[9px] text-[13px] font-medium text-[#141B34] hover:bg-[#FAECD1] disabled:cursor-not-allowed disabled:opacity-50 transition-colors";
 const btnGhost = "inline-flex items-center justify-center gap-2 rounded-full border border-[#141B34] bg-white px-[18px] py-[9px] text-[13px] font-medium text-[#141B34] hover:bg-[#FEF8F1] transition-colors";
-const btnAmber = "inline-flex items-center justify-center gap-2 rounded-full border border-[#141B34] bg-[#FDF8DB] px-[18px] py-[9px] text-[13px] font-medium text-[#995900] hover:brightness-95 transition-colors disabled:opacity-50";
+const btnAmber = "inline-flex items-center justify-center gap-2 rounded-full border border-amber bg-butter px-[18px] py-[9px] text-[13px] font-medium text-amber hover:brightness-95 transition-colors disabled:opacity-50";
 const badgeBase = "inline-flex items-center gap-1.5 rounded-full border border-[#141B34] px-3 py-[3px] text-[12px] font-medium transition-colors disabled:opacity-50";
 const inputBase = "w-full rounded-[24px] border border-[#141B34] bg-white px-[18px] py-[13px] text-[15px] text-[#141B34] placeholder:text-[#A7A4A4] outline-none transition-colors focus:border-2 focus:border-[#396EE9] focus:px-[17px] focus:py-[12px]";
 
@@ -258,7 +258,7 @@ async function handleDeactivateStudent() {
         </div>
 
         {globalError && (
-          <div className="mb-4 rounded-[24px] border border-[#141B34] bg-[#FBEDED] px-4 py-3 text-[14px]">
+          <div className="mb-4 rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-3 text-[14px]">
             <b className="font-medium text-[#9B3B3B]">Erreur ·</b>{" "}
             {globalError}
           </div>
@@ -437,7 +437,7 @@ async function handleDeactivateStudent() {
             </div>
             <div className="p-[18px]">
               {createError && (
-                <div className="mb-3 rounded-[24px] border border-[#141B34] bg-[#FBEDED] px-4 py-2 text-[13px] text-[#9B3B3B]">
+                <div className="mb-3 rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-2 text-[13px] text-[#9B3B3B]">
                   {createError}
                 </div>
               )}
@@ -533,7 +533,7 @@ async function handleDeactivateStudent() {
 
             <div className="p-[18px]">
               {editError && (
-                <div className="mb-3 rounded-[24px] border border-[#141B34] bg-[#FBEDED] px-4 py-2 text-[13px] text-[#9B3B3B]">
+                <div className="mb-3 rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-2 text-[13px] text-[#9B3B3B]">
                   {editError}
                 </div>
               )}
@@ -621,13 +621,13 @@ async function handleDeactivateStudent() {
 
             <div className="p-[18px]">
               {resetError && (
-                <div className="mb-3 rounded-[24px] border border-[#141B34] bg-[#FBEDED] px-4 py-2 text-[13px] text-[#9B3B3B]">
+                <div className="mb-3 rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-2 text-[13px] text-[#9B3B3B]">
                   {resetError}
                 </div>
               )}
 
               {tempPassword ? (
-                <div className="rounded-[24px] border border-[#141B34] bg-[#EDFBF2] px-4 py-3.5">
+                <div className="rounded-[24px] border border-green bg-mint px-4 py-3.5 text-green">
                   <div className="text-[14px] font-medium">
                     Mot de passe temporaire généré
                   </div>
