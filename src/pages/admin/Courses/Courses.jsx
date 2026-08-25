@@ -64,4 +64,27 @@ export default function Courses() {
         setShowModal("true")
     }
 
+    async function handleSubmit(e) {
+        e.preventDefault();
+        setSaving(true);
+        setFormError("");
+        try {
+            const isEdit = editingId !== null;
+            const res = await authFecth(
+                isEdit ? `/courses/${editingId}` : "/courses",
+                {
+                    method: isEdit ? "PUT" : "POST",
+                    body: JSON.stringify(form),
+                }
+            );
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message || "Failed to save course");
+            setShowModal(false);
+            await loadCourses();
+        } catch (err) {
+            setFormError(err.message);
+        } finally {
+            setSaving(false);
+        }
+    }
 }
