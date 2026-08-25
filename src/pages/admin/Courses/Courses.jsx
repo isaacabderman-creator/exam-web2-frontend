@@ -155,6 +155,65 @@ export default function Courses() {
           border: "1px solid #E9E8E8",
           boxShadow: "0 8px 24px rgba(20,27,52,.06)",
         }}
-      ></div>
+      >
+        {loading ? (
+          <p className="p-6 text-sm" style={{ color: "#A7A4A4" }}>
+            Loading...
+          </p>
+        ) : courses.length === 0 ? (
+          <p className="p-6 text-sm" style={{ color: "#A7A4A4" }}>
+            No courses yet.
+          </p>
+        ) : (
+          <table className="w-full text-sm text-left">
+            <thead
+              className="uppercase text-xs"
+              style={{ backgroundColor: "#FBFBED", color: "#A7A4A4" }}
+            >
+              <tr>
+                <th className="px-6 py-3">Code</th>
+                <th className="px-6 py-3">Name</th>
+                <th className="px-6 py-3">Description</th>
+                <th className="px-6 py-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {courses.map((course) => (
+                <tr
+                  key={course.id}
+                  style={{ borderTop: "1px solid #E9E8E8" }}
+                >
+                  <td className="px-6 py-3 font-semibold" style={{ color: "#396EE9" }}>
+                    {course.code}
+                  </td>
+                  <td className="px-6 py-3 font-medium" style={{ color: "#141B34" }}>
+                    {course.name}
+                  </td>
+                  <td className="px-6 py-3" style={{ color: "#6C6C6C" }}>
+                    {course.description || "—"}
+                  </td>
+                  <td className="px-6 py-3 text-right space-x-3">
+                    <button
+                      onClick={() => openEditModal(course)}
+                      className="text-sm font-medium hover:underline"
+                      style={{ color: "#396EE9" }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(course)}
+                      className="text-sm font-medium hover:underline"
+                      style={{ color: "#E25A00" }}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+      </div>
    
 }
