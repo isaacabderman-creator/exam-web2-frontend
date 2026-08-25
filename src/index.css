@@ -5,6 +5,7 @@
   --color-ink: #141b34;
   --color-peach: #fcebd6;
   --color-cream: #fef8f1;
+  --color-orange: #ff6600;
 }
 @layer base {
   * {

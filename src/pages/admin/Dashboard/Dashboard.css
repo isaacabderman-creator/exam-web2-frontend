@@ -1,11 +1,11 @@
 @reference "../../../index.css";
 
 .dashboard-page {
-  @apply min-h-screen p-6 bg-cream text-ink;
+  @apply min-h-screen px-6 pb-6 pt-12 bg-cream text-ink;
 }
 
 .dashboard-inner {
-  @apply mx-auto max-w-7xl;
+  @apply mx-auto max-w-6xl;
 }
 
 .dashboard-title {

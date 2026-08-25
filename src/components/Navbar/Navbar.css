@@ -5,7 +5,7 @@
 }
 
 .topbar {
-  @apply h-16 max-w-7xl mx-auto border border-ink rounded-3xl bg-white flex items-center gap-3 px-6 shadow-[0_8px_24px_rgba(20,27,52,0.06)];
+  @apply h-16 max-w-7xl mx-auto border border-ink rounded-full bg-white flex items-center gap-3 px-6 shadow-lg;
 }
 
 .topbar .brand {
@@ -13,7 +13,7 @@
 }
 
 .badge.admin {
-  @apply text-xs font-medium py-1 px-3 rounded-full bg-peach text-ink;
+  @apply text-xs font-medium py-1 px-3 rounded-full border border-orange text-orange;
 }
 
 .pill-nav {
