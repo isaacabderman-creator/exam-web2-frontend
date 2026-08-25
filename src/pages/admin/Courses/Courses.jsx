@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 
-function authFecth(path, options = {}) {
+function authFetch(path, options = {}) {
     const token = localStorage.getItem("token");
     return fetch(`${API_URL}${path}`, {
         ...options,
@@ -35,7 +35,7 @@ export default function Courses() {
         setLoading(true);
         setError("");
         try {
-            const res = await authFecth("/courses");
+            const res = await authFetch("/courses");
             const data = await res.json();
             if (!res.ok) throw new Error(data.message || "Failed to load Courses");
             setCourses(data);
@@ -70,7 +70,7 @@ export default function Courses() {
         setFormError("");
         try {
             const isEdit = editingId !== null;
-            const res = await authFecth(
+            const res = await authFetch(
                 isEdit ? `/courses/${editingId}` : "/courses",
                 {
                     method: isEdit ? "PUT" : "POST",
