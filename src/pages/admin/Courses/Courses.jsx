@@ -290,6 +290,28 @@ export default function Courses() {
                   }}
                 />
               </div>
+
+              <div>
+                <label
+                  className="block text-sm font-medium mb-1"
+                  style={{ color: "#504949" }}
+                >
+                  Description
+                </label>
+                <textarea
+                  rows={3}
+                  value={form.description}
+                  onChange={(e) =>
+                    setForm({ ...form, description: e.target.value })
+                  }
+                  className="w-full px-3 py-2 text-sm outline-none resize-none"
+                  style={{
+                    border: "1px solid #E9E8E8",
+                    borderRadius: "24px",
+                    color: "#141B34",
+                  }}
+                />
+              </div>
       </div>
    
 }
