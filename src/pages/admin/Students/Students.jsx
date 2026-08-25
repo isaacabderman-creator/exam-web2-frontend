@@ -235,7 +235,7 @@ async function handleDeactivateStudent() {
         color: "#141B34",
       }}
     >
-      <div className="mx-auto max-w-[1120px]">
+      <div className="mx-auto max-w-7xl">
         <div className="mb-6 flex items-center justify-between">
           <div>
             <h1 className="text-[32px] font-bold leading-[38px] tracking-[-0.02em]"> Étudiants </h1>
