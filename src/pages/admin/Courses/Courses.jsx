@@ -26,5 +26,24 @@ export default function Courses() {
     const [form, setForm] = useState(emptyForm);
     const [saving, setSaving] = useState(false);
     const [formError, setFormError] = useState("");
+
+    useEffect(() => {
+        loadCourses();
+    }, []);
     
+    async function loadCourses() {
+        setLoading(true);
+        setError("");
+        try {
+            const res = await authFecth("/courses");
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message || "Failed to load Courses");
+            setCourses(data);
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
 }
