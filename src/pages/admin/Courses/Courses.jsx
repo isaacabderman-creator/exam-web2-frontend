@@ -312,6 +312,28 @@ export default function Courses() {
                   }}
                 />
               </div>
-      </div>
-   
+              <div className="flex justify-end gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowModal(false)}
+                  className="text-sm font-medium px-4 py-2"
+                  style={{ color: "#6C6C6C" }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={saving}
+                  className="text-white text-sm font-medium px-4 py-2 transition disabled:opacity-50"
+                  style={{ backgroundColor: "#396EE9", borderRadius: "24px" }}
+                >
+                  {saving ? "Saving..." : "Save"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+    );
 }
