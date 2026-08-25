@@ -43,53 +43,53 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  async function loadCounts() {
-    setLoading(true);
-    setError("");
-    try {
-      const [studentsRes, coursesRes, examsRes] = await Promise.all([
-        authFetch("/students"),
-        authFetch("/courses"),
-        authFetch("/exams"),
-      ]);
-
-      const authFailure = [studentsRes, coursesRes, examsRes].find(
-        (res) => res.status === 401 || res.status === 403
-      );
-      if (authFailure) {
-        localStorage.removeItem("token");
-        navigate(authFailure.status === 401 ? "/login" : "/student");
-        return;
-      }
-
-      const [studentsData, coursesData, examsData] = await Promise.all([
-        studentsRes.json().catch(() => null),
-        coursesRes.json().catch(() => null),
-        examsRes.json().catch(() => null),
-      ]);
-
-      if (!studentsRes.ok)
-        throw new Error(studentsData?.message || "Failed to load students");
-      if (!coursesRes.ok)
-        throw new Error(coursesData?.message || "Failed to load courses");
-      if (!examsRes.ok)
-        throw new Error(examsData?.message || "Failed to load exams");
-
-      setCounts({
-        students: studentsData.filter((s) => s.active).length,
-        courses: coursesData.length,
-        exams: examsData.length,
-      });
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }
-
   useEffect(() => {
+    async function loadCounts() {
+      setLoading(true);
+      setError("");
+      try {
+        const [studentsRes, coursesRes, examsRes] = await Promise.all([
+          authFetch("/students"),
+          authFetch("/courses"),
+          authFetch("/exams"),
+        ]);
+
+        const authFailure = [studentsRes, coursesRes, examsRes].find(
+          (res) => res.status === 401 || res.status === 403
+        );
+        if (authFailure) {
+          localStorage.removeItem("token");
+          navigate(authFailure.status === 401 ? "/login" : "/student");
+          return;
+        }
+
+        const [studentsData, coursesData, examsData] = await Promise.all([
+          studentsRes.json().catch(() => null),
+          coursesRes.json().catch(() => null),
+          examsRes.json().catch(() => null),
+        ]);
+
+        if (!studentsRes.ok)
+          throw new Error(studentsData?.message || "Failed to load students");
+        if (!coursesRes.ok)
+          throw new Error(coursesData?.message || "Failed to load courses");
+        if (!examsRes.ok)
+          throw new Error(examsData?.message || "Failed to load exams");
+
+        setCounts({
+          students: studentsData.filter((s) => s.active).length,
+          courses: coursesData.length,
+          exams: examsData.length,
+        });
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
     loadCounts();
-  }, []);
+  }, [navigate]);
 
   const statCards = [
     {
