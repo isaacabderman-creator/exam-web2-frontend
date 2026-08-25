@@ -3,7 +3,7 @@ import { createContext, useContext, useState, useCallback } from "react";
 const AuthContext = createContext();
 
 function readStoredUser() {
-  const raw = localStorage.getItem("examhub_user");
+  const raw = localStorage.getItem("user");
   return raw ? JSON.parse(raw) : null;
 }
 
@@ -27,15 +27,15 @@ export function AuthProvider({ children }) {
       throw new Error(data?.message || `Erreur ${res.status}`);
     }
 
-    localStorage.setItem("examhub_token", data.token);
-    localStorage.setItem("examhub_user", JSON.stringify(data.user));
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
     setUser(data.user);
     return data.user;
   }, []);
 
   const logout = useCallback(() => {
-    localStorage.removeItem("examhub_token");
-    localStorage.removeItem("examhub_user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setUser(null);
   }, []);
 
