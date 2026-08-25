@@ -14,7 +14,7 @@
   box-shadow: 0 8px 24px rgba(20, 27, 52, 0.06);
 }
 
-.topbar .brand { font-size: 15px; font-weight: 500; color: var(--color-ink); }
+.topbar .brand { font-size: 15px; font-weight: 600; color: var(--color-ink); }
 
 .badge.admin {
   font-size: 12px;
