@@ -43,10 +43,6 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    loadCounts();
-  }, []);
-
   async function loadCounts() {
     setLoading(true);
     setError("");
@@ -90,6 +86,10 @@ export default function Dashboard() {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    loadCounts();
+  }, []);
 
   const statCards = [
     {
