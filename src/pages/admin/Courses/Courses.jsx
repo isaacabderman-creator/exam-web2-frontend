@@ -133,4 +133,28 @@ export default function Courses() {
           + New course
         </button>
       </div>
+
+      {error && (
+        <div
+          className="mb-4 text-sm px-4 py-3"
+          style={{
+            backgroundColor: "#FBEDED",
+            color: "#995900",
+            borderRadius: "24px",
+          }}
+        >
+          {error}
+        </div>
+      )}
+
+      <div
+        className="overflow-hidden"
+        style={{
+          backgroundColor: "#FFFFFF",
+          borderRadius: "28px",
+          border: "1px solid #E9E8E8",
+          boxShadow: "0 8px 24px rgba(20,27,52,.06)",
+        }}
+      ></div>
+   
 }
