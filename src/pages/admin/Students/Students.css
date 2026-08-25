@@ -11,7 +11,7 @@
 }
 
 .es-modal-header {
-  @apply bg-cream border-b border-ink py-3.5 px-[22px] text-[11px] font-bold tracking-[0.08em] uppercase text-[#A7A4A4];
+  @apply bg-cream border-b border-[#A7A4A4] py-3.5 px-[22px] text-[11px] font-bold tracking-[0.08em] uppercase text-[#A7A4A4];
 }
 
 @keyframes es-fade-in {

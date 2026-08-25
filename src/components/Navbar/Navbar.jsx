@@ -20,31 +20,33 @@ export default function Navbar() {
     <div className="topbar-wrap">
       <div className="topbar">
         <span className="brand">examhub</span>
-        <span className="badge admin">{user.role === "admin" ? "Admin" : "Student"}</span>
+        <span className={`badge ${user.role === "admin" ? "admin" : "student"}`}>
+          {user.role === "admin" ? "Admin" : "Étudiant"}
+        </span>
 
         <nav className="pill-nav">
           {user.role === "admin" ? (
             <>
               <Link to="/admin" className={isActive("/admin") ? "active" : ""}>
-                Dashboard
+                Tableau de bord
               </Link>
               <Link to="/admin/students" className={isActive("/admin/students") ? "active" : ""}>
-                Students
+                Étudiants
               </Link>
               <Link to="/admin/courses" className={isActive("/admin/courses") ? "active" : ""}>
-                Courses
+                Cours
               </Link>
               <Link to="/admin/exams" className={isActive("/admin/exams") ? "active" : ""}>
-                Exams
+                Examens
               </Link>
             </>
           ) : (
             <>
               <Link to="/student" className={isActive("/student") ? "active" : ""}>
-                  Available Exams
+                  Examens disponibles
               </Link>
               <Link to="/student/results" className={isActive("/student/results") ? "active" : ""}>
-                  My results
+                  Mes résultats
               </Link>
             </>
           )}
@@ -53,7 +55,14 @@ export default function Navbar() {
         <span className="spacer">
           <span className="user">{user.firstName} {user.lastName}</span>
           <span className="avatar" />
-          <button onClick={handleLogout} className="btn quiet sm">Déconnexion</button>
+          <button
+            onClick={handleLogout}
+            className="btn quiet sm"
+            aria-label="Déconnexion"
+            title="Déconnexion"
+          >
+            <span className="material-symbols-outlined">logout</span>
+          </button>
         </span>
       </div>
     </div>

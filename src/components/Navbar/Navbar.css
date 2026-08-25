@@ -5,7 +5,7 @@
 }
 
 .topbar {
-  @apply h-16 max-w-7xl mx-auto border border-ink rounded-3xl bg-white flex items-center gap-3 px-6 shadow-[0_8px_24px_rgba(20,27,52,0.06)];
+  @apply h-16 max-w-6xl mx-auto border border-ink rounded-full bg-white flex items-center gap-3 px-6;
 }
 
 .topbar .brand {
@@ -13,7 +13,11 @@
 }
 
 .badge.admin {
-  @apply text-xs font-medium py-1 px-3 rounded-full bg-peach text-ink;
+  @apply text-xs font-medium py-1 px-3 rounded-full border border-orange text-orange;
+}
+
+.badge.student {
+  @apply text-xs font-medium py-1 px-3 rounded-full border border-blue-600 text-blue-600;
 }
 
 .pill-nav {
@@ -41,7 +45,7 @@
 }
 
 .btn.quiet {
-  @apply bg-transparent border-none text-[#6C6C6C] text-sm font-medium cursor-pointer py-2 px-4;
+  @apply bg-transparent border-none text-[#6C6C6C] text-sm font-medium cursor-pointer inline-flex items-center justify-center size-9;
 }
 .btn.quiet:hover {
   @apply text-ink;

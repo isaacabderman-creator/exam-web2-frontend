@@ -23,18 +23,18 @@ function LoginForm() {
           />
         </div>
         <div className="input-group">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Mot de passe</label>
           <input
             type="password"
             id="password"
             name="password"
-            placeholder="Password"
+            placeholder="Mot de passe"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <button type="submit" className="btn self-center">
-          Login
+          Connexion
         </button>
       </form>
     </div>
