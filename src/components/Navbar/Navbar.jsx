@@ -55,7 +55,14 @@ export default function Navbar() {
         <span className="spacer">
           <span className="user">{user.firstName} {user.lastName}</span>
           <span className="avatar" />
-          <button onClick={handleLogout} className="btn quiet sm">Déconnexion</button>
+          <button
+            onClick={handleLogout}
+            className="btn quiet sm"
+            aria-label="Déconnexion"
+            title="Déconnexion"
+          >
+            <span className="material-symbols-outlined">logout</span>
+          </button>
         </span>
       </div>
     </div>
