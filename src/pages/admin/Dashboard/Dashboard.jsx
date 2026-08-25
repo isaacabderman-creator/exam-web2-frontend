@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 
@@ -34,6 +34,7 @@ const quickLinks = [
 ];
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   const [counts, setCounts] = useState({
     students: null,
     courses: null,
@@ -55,19 +56,28 @@ export default function Dashboard() {
         authFetch("/courses"),
         authFetch("/exams"),
       ]);
-      
+
+      const authFailure = [studentsRes, coursesRes, examsRes].find(
+        (res) => res.status === 401 || res.status === 403
+      );
+      if (authFailure) {
+        localStorage.removeItem("token");
+        navigate(authFailure.status === 401 ? "/login" : "/student");
+        return;
+      }
+
       const [studentsData, coursesData, examsData] = await Promise.all([
-        studentsRes.json(),
-        coursesRes.json(),
-        examsRes.json(),
+        studentsRes.json().catch(() => null),
+        coursesRes.json().catch(() => null),
+        examsRes.json().catch(() => null),
       ]);
 
       if (!studentsRes.ok)
-        throw new Error(studentsData.message || "Failed to load students");
+        throw new Error(studentsData?.message || "Failed to load students");
       if (!coursesRes.ok)
-        throw new Error(coursesData.message || "Failed to load courses");
+        throw new Error(coursesData?.message || "Failed to load courses");
       if (!examsRes.ok)
-        throw new Error(examsData.message || "Failed to load exams");
+        throw new Error(examsData?.message || "Failed to load exams");
 
       setCounts({
         students: studentsData.filter((s) => s.active).length,
