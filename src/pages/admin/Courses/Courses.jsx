@@ -30,7 +30,7 @@ export default function Courses() {
     useEffect(() => {
         loadCourses();
     }, []);
-    
+
     async function loadCourses() {
         setLoading(true);
         setError("");
@@ -44,6 +44,24 @@ export default function Courses() {
         } finally {
             setLoading(false);
         }
+    }
+
+    function openCreateModal() {
+        setEditingId(null);
+        setForm(emptyForm);
+        setFormError("");
+        setShowModal(true);
+    }
+
+    function openEditModal(course) {
+        setEditingId(course.id);
+        setForm({
+            code: course.code,
+            name: course.name,
+            description: course.description || "",
+        });
+        setFormError("");
+        setShowModal("true")
     }
 
 }
