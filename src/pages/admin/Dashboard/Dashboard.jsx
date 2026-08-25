@@ -97,19 +97,19 @@ export default function Dashboard() {
       label: "Étudiants actifs",
       value: counts.students,
       to: "/admin/students",
-      accent: "bg-peach text-ink",
+      accent: "bg-peach text-amber border border-amber",
     },
     {
       label: "Cours",
       value: counts.courses,
       to: "/admin/courses",
-      accent: "bg-mint text-green",
+      accent: "bg-mint text-green border border-green",
     },
     {
       label: "Examens",
       value: counts.exams,
       to: "/admin/exams",
-      accent: "bg-butter text-amber",
+      accent: "bg-butter text-amber border border-amber",
     },
 ];
 
