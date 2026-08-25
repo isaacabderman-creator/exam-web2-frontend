@@ -5,7 +5,7 @@
 }
 
 .dashboard-inner {
-  @apply mx-auto max-w-6xl;
+  @apply mx-auto max-w-5xl;
 }
 
 .dashboard-title {

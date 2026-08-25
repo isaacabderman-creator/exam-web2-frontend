@@ -20,7 +20,9 @@ export default function Navbar() {
     <div className="topbar-wrap">
       <div className="topbar">
         <span className="brand">examhub</span>
-        <span className="badge admin">{user.role === "admin" ? "Admin" : "Student"}</span>
+        <span className={`badge ${user.role === "admin" ? "admin" : "student"}`}>
+          {user.role === "admin" ? "Admin" : "Student"}
+        </span>
 
         <nav className="pill-nav">
           {user.role === "admin" ? (
