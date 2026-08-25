@@ -14,3 +14,17 @@ function authFecth(path, options = {}) {
     });
 }
 
+const emptyForm = { code: "", name: "", description: "" };
+
+export default function Courses() {
+    const [courses, setCourses] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
+    const [showModal, setShowModal] = useState(false);
+    const [editingId, setEditingId] = useState(null);
+    const [form, setForm] = useState(emptyForm);
+    const [saving, setSaving] = useState(false);
+    const [formError, setFormError] = useState("");
+    
+}
