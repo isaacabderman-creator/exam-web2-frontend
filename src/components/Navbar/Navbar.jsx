@@ -19,7 +19,7 @@ export default function Navbar() {
   return (
     <div className="topbar-wrap">
       <div className="topbar">
-        <span className="brand">Exam Hub</span>
+        <span className="brand">examhub</span>
         <span className="badge admin">{user.role === "admin" ? "Admin" : "Student"}</span>
 
         <nav className="pill-nav">

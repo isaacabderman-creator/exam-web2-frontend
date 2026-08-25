@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "./Dashboard.css";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:4000/api";
 
@@ -96,71 +97,73 @@ export default function Dashboard() {
       label: "Active students",
       value: counts.students,
       to: "/admin/students",
-      accent: "bg-indigo-50 text-indigo-700",
+      accent: "bg-peach text-ink",
     },
     {
       label: "Courses",
       value: counts.courses,
       to: "/admin/courses",
-      accent: "bg-emerald-50 text-emerald-700",
+      accent: "bg-[#EDFBF2] text-[#1F7A4C]",
     },
     {
       label: "Exams",
       value: counts.exams,
       to: "/admin/exams",
-      accent: "bg-amber-50 text-amber-700",
+      accent: "bg-[#FDF8DB] text-[#995900]",
     },
 ];
 
 return (
-    <div className="p-6 mx-auto max-w-7xl">
-      <h1 className="text-2xl font-semibold text-slate-800 mb-1">
-        Dashboard
-      </h1>
-      <p className="text-slate-500 text-sm mb-6">
-        Overview of the <span className="font-semibold text-indigo-600">examhub</span> application
-      </p>
+    <div className="dashboard-page">
+      <div className="dashboard-inner">
+        <h1 className="dashboard-title">
+          Dashboard
+        </h1>
+        <p className="dashboard-subtitle">
+          Overview of the <span className="font-semibold">examhub</span> application
+        </p>
 
-      {error && (
-        <div className="mb-6 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3">
-          {error}
+        {error && (
+          <div className="dashboard-error">
+            <b className="dashboard-error-label">Error ·</b> {error}
+          </div>
+        )}
+
+        <div className="dashboard-stats-grid">
+          {statCards.map((card) => (
+            <Link
+              key={card.label}
+              to={card.to}
+              className="dashboard-card dashboard-stat-card"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="dashboard-stat-label">{card.label}</p>
+                <span className={`dashboard-stat-badge ${card.accent}`}>
+                    {loading ? "…" : card.value}
+                </span>
+              </div>
+              <p className="dashboard-stat-value">
+                {loading ? "—" : card.value}
+              </p>
+            </Link>
+          ))}
         </div>
-      )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-        {statCards.map((card) => (
-          <Link
-            key={card.label}
-            to={card.to}
-            className="dashboard-stat-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition"
-          >
-            <div className="flex items-center justify-between mb-3">
-              <p className="text-sm font-medium text-slate-500">{card.label}</p>
-              <span className={`text-xs font-semibold px-2 py-1 rounded-md ${card.accent}`}>
-                  {loading ? "…" : card.value}
-              </span>
-            </div>
-            <p className="text-3xl font-bold text-slate-800">
-              {loading ? "—" : card.value}
-            </p>
-          </Link> 
-        ))}
-      </div>
-
-      <h2 className="text-lg font-semibold text-slate-800 mb-3">
-        Quick links
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {quickLinks.map((link) => (
-          <Link
-            key={link.to}
-            to={link.to}
-            className="dashboard-quick-link bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-indigo-300 hover:shadow-md transition"
-          >
-            <p className="font-medium text-slate-800">{link.label}</p>
-            <p className="text-sm text-slate-500 mt-1">{link.description}</p>
-          </Link>
-        ))}
+        <h2 className="dashboard-section-title">
+          Quick links
+        </h2>
+        <div className="dashboard-links-grid">
+          {quickLinks.map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              className="dashboard-card dashboard-quick-link"
+            >
+              <p className="dashboard-quick-link-title">{link.label}</p>
+              <p className="dashboard-quick-link-desc">{link.description}</p>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );

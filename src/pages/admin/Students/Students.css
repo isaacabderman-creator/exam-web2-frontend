@@ -1,35 +1,17 @@
+@reference "../../../index.css";
+
 .es-overlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(20, 27, 52, 0.45);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 50;
-  padding: 16px;
+  @apply fixed inset-0 bg-ink/45 flex items-center justify-center z-50 p-4;
   animation: es-fade-in 0.15s ease-out;
 }
 
 .es-modal {
-  background: #ffffff;
-  border: 1px solid #141b34;
-  border-radius: 40px;
-  width: 100%;
-  max-width: 26rem;
-  overflow: hidden;
-  box-shadow: 0 8px 24px rgba(20, 27, 52, 0.06); 
+  @apply bg-white border border-ink rounded-[40px] w-full max-w-[26rem] overflow-hidden shadow-[0_8px_24px_rgba(20,27,52,0.06)];
   animation: es-modal-pop 0.15s ease-out;
 }
 
 .es-modal-header {
-  background: #fef8f1;
-  border-bottom: 1px solid #141b34;
-  padding: 14px 22px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #a7a4a4;
+  @apply bg-cream border-b border-ink py-3.5 px-[22px] text-[11px] font-bold tracking-[0.08em] uppercase text-[#A7A4A4];
 }
 
 @keyframes es-fade-in {
@@ -49,34 +31,16 @@
 }
 
 .es-toast-wrap {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 60;
+  @apply fixed bottom-6 right-6 z-[60];
   animation: es-toast-in 0.2s ease-out;
 }
 
 .es-toast {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border: 1px solid #141b34;
-  border-radius: 24px;
-  padding: 12px 16px;
-  color: #141b34;
+  @apply flex items-center gap-2.5 border border-ink rounded-3xl py-3 px-4 text-ink;
 }
 
 .es-toast-icon {
-  width: 22px;
-  height: 22px;
-  border-radius: 9999px;
-  border: 1px solid #141b34;
-  color: #fff;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: none;
+  @apply size-[22px] rounded-full border border-ink text-white text-xs flex items-center justify-center flex-none;
 }
 
 @keyframes es-toast-in {

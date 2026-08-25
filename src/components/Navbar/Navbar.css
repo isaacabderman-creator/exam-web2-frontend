@@ -1,56 +1,48 @@
-.topbar-wrap { padding: 12px 20px; }
+@reference "../../index.css";
+
+.topbar-wrap {
+  @apply py-3;
+}
 
 .topbar {
-  height: 64px;
-  max-width: 1120px;
-  margin: 0 auto;
-  border: 1px solid #141B34;
-  border-radius: 24px;
-  background: #FFFFFF;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 0 16px;
-  box-shadow: 0 8px 24px rgba(20, 27, 52, 0.06);
+  @apply h-16 max-w-7xl mx-auto border border-ink rounded-3xl bg-white flex items-center gap-3 px-6 shadow-[0_8px_24px_rgba(20,27,52,0.06)];
 }
 
-.topbar .brand { font-size: 15px; font-weight: 500; color: #141B34; }
+.topbar .brand {
+  @apply text-[15px] font-semibold text-ink;
+}
 
 .badge.admin {
-  font-size: 12px;
-  font-weight: 500;
-  padding: 4px 12px;
-  border-radius: 9999px;
-  background: #FCEBD6;
-  color: #141B34;
+  @apply text-xs font-medium py-1 px-3 rounded-full bg-peach text-ink;
 }
 
-.pill-nav { display: flex; align-items: center; gap: 4px; margin-left: 16px; }
+.pill-nav {
+  @apply flex items-center gap-1 ml-4;
+}
 
 .pill-nav a {
-  padding: 8px 16px;
-  border-radius: 9999px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #6C6C6C;
-  text-decoration: none;
-  white-space: nowrap;
-  transition: background 0.15s ease-in-out;
+  @apply py-2 px-4 rounded-full text-sm font-medium text-[#6C6C6C] no-underline whitespace-nowrap transition-colors duration-150 ease-in-out;
 }
-.pill-nav a:hover { color: #141B34; }
-.pill-nav a.active { background: #FCEBD6; color: #141B34; border: 1px solid #141B34; }
+.pill-nav a:hover {
+  @apply text-ink;
+}
+.pill-nav a.active {
+  @apply bg-peach text-ink border border-ink;
+}
 
-.topbar .spacer { margin-left: auto; display: flex; align-items: center; gap: 10px; }
-.topbar .user { font-size: 13px; color: #141B34; }
-.topbar .avatar { width: 32px; height: 32px; border-radius: 9999px; background: #E5F0FF; border: 1px solid #141B34; }
+.topbar .spacer {
+  @apply ml-auto flex items-center gap-2.5;
+}
+.topbar .user {
+  @apply text-[13px] text-ink;
+}
+.topbar .avatar {
+  @apply size-8 rounded-full bg-[#E5F0FF] border border-ink;
+}
 
 .btn.quiet {
-  background: transparent;
-  border: none;
-  color: #6C6C6C;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  padding: 8px 16px;
+  @apply bg-transparent border-none text-[#6C6C6C] text-sm font-medium cursor-pointer py-2 px-4;
 }
-.btn.quiet:hover { color: #141B34; }
+.btn.quiet:hover {
+  @apply text-ink;
+}
