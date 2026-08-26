@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 
-const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:4000/api";
+const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/api";
 
 function authFetch(path, options = {}) {
   const token = localStorage.getItem("token");
@@ -78,7 +78,7 @@ export default function Dashboard() {
           throw new Error(examsData?.message || "Échec du chargement des examens");
 
         setCounts({
-          students: studentsData.filter((s) => s.active).length,
+          students: studentsData.filter((s) => s.is_active).length,
           courses: coursesData.length,
           exams: examsData.length,
         });
