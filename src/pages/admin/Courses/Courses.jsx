@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Courses.css";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/api";
+
+const btnPrimary = "inline-flex items-center justify-center gap-2 rounded-full border border-ink bg-peach px-[22px] py-[9px] text-[13px] font-medium text-ink hover:bg-[#FAECD1] disabled:cursor-not-allowed disabled:opacity-50 transition-colors";
+const btnGhost = "inline-flex items-center justify-center gap-2 rounded-full border border-ink bg-white px-[18px] py-[9px] text-[13px] font-medium text-ink hover:bg-cream transition-colors";
+const badgeBase = "inline-flex items-center gap-1.5 rounded-full border border-ink px-3 py-[3px] text-[12px] font-medium transition-colors disabled:opacity-50";
+const inputBase = "w-full rounded-[24px] border border-ink bg-white px-[18px] py-[13px] text-[15px] text-ink placeholder:text-[#A7A4A4] outline-none transition-colors focus:border-2 focus:border-[#396EE9] focus:px-[17px] focus:py-[12px]";
 
 function authFetch(path, options = {}) {
     const token = localStorage.getItem("token");
@@ -130,225 +136,171 @@ export default function Courses() {
     }
 
      return (
-    <div className="p-6" style={{ backgroundColor: "#FBFBED" }}>
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold" style={{ color: "#141B34" }}>
-            Courses
-          </h1>
-          <p className="text-sm mt-1" style={{ color: "#6C6C6C" }}>
-            Manage the courses offered on{" "}
-            <span className="font-semibold" style={{ color: "#E25A00" }}>
-              examhub
-            </span>
-          </p>
+    <div className="min-h-screen px-6 pb-6 pt-12 bg-cream text-ink">
+      <div className="mx-auto max-w-5xl">
+        <div className="mb-6 flex items-center justify-between">
+          <div>
+            <h1 className="text-[32px] font-bold leading-[38px] tracking-[-0.02em]">
+              Courses
+            </h1>
+            <p className="mt-1 text-[14px] text-[#6C6C6C]">
+              Manage the courses offered on{" "}
+              <span className="font-semibold">examhub</span>
+            </p>
+          </div>
+          <button onClick={openCreateModal} className={btnPrimary}>
+            + New course
+          </button>
         </div>
-        <button
-          onClick={openCreateModal}
-          className="text-white text-sm font-medium px-4 py-2 transition"
-          style={{ backgroundColor: "#396EE9", borderRadius: "24px" }}
-        >
-          + New course
-        </button>
-      </div>
 
-      {error && (
-        <div
-          className="mb-4 text-sm px-4 py-3"
-          style={{
-            backgroundColor: "#FBEDED",
-            color: "#995900",
-            borderRadius: "24px",
-          }}
-        >
-          {error}
-        </div>
-      )}
-
-      <div
-        className="overflow-hidden"
-        style={{
-          backgroundColor: "#FFFFFF",
-          borderRadius: "28px",
-          border: "1px solid #E9E8E8",
-          boxShadow: "0 8px 24px rgba(20,27,52,.06)",
-        }}
-      >
-        {loading ? (
-          <p className="p-6 text-sm" style={{ color: "#A7A4A4" }}>
-            Loading...
-          </p>
-        ) : courses.length === 0 ? (
-          <p className="p-6 text-sm" style={{ color: "#A7A4A4" }}>
-            No courses yet.
-          </p>
-        ) : (
-          <table className="w-full text-sm text-left">
-            <thead
-              className="uppercase text-xs"
-              style={{ backgroundColor: "#FBFBED", color: "#A7A4A4" }}
-            >
-              <tr>
-                <th className="px-6 py-3">Code</th>
-                <th className="px-6 py-3">Name</th>
-                <th className="px-6 py-3">Description</th>
-                <th className="px-6 py-3 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {courses.map((course) => (
-                <tr
-                  key={course.id}
-                  style={{ borderTop: "1px solid #E9E8E8" }}
-                >
-                  <td className="px-6 py-3 font-semibold" style={{ color: "#396EE9" }}>
-                    {course.code}
-                  </td>
-                  <td className="px-6 py-3 font-medium" style={{ color: "#141B34" }}>
-                    {course.name}
-                  </td>
-                  <td className="px-6 py-3" style={{ color: "#6C6C6C" }}>
-                    {course.description || "—"}
-                  </td>
-                  <td className="px-6 py-3 text-right space-x-3">
-                    <button
-                      onClick={() => openEditModal(course)}
-                      className="text-sm font-medium hover:underline"
-                      style={{ color: "#396EE9" }}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(course)}
-                      className="text-sm font-medium hover:underline"
-                      style={{ color: "#E25A00" }}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        {error && (
+          <div className="mb-4 rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-3 text-[14px]">
+            <b className="font-medium text-[#9B3B3B]">Error ·</b> {error}
+          </div>
         )}
+
+        <div className="overflow-hidden rounded-[24px] border border-ink bg-white">
+          {loading ? (
+            <p className="p-10 text-center text-[14px] text-[#6C6C6C]">
+              Loading...
+            </p>
+          ) : courses.length === 0 ? (
+            <p className="p-10 text-center text-[14px] text-[#6C6C6C]">
+              No courses yet.
+            </p>
+          ) : (
+            <table className="w-full text-[13px]">
+              <thead>
+                <tr>
+                  {["Code", "Name", "Description", ""].map((header, index) => (
+                    <th
+                      key={header + index}
+                      className={`border-b border-ink bg-[#FEF8F1] px-[14px] py-[12px] text-[11px] font-bold uppercase tracking-[0.08em] text-[#A7A4A4] ${
+                        index === 3 ? "text-right" : "text-left"
+                      }`}
+                    >
+                      {header}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {courses.map((course, index) => {
+                  const isLast = index === courses.length - 1;
+                  const rowBorder = isLast ? "none" : "1px solid #E9E8E8";
+                  return (
+                    <tr key={course.id}>
+                      <td
+                        className="px-[14px] py-[11px] font-semibold"
+                        style={{ borderBottom: rowBorder }}
+                      >
+                        {course.code}
+                      </td>
+                      <td
+                        className="px-[14px] py-[11px] font-medium"
+                        style={{ borderBottom: rowBorder }}
+                      >
+                        {course.name}
+                      </td>
+                      <td
+                        className="px-[14px] py-[11px] text-[#6C6C6C]"
+                        style={{ borderBottom: rowBorder }}
+                      >
+                        {course.description || "—"}
+                      </td>
+                      <td
+                        className="px-[14px] py-[11px] text-right"
+                        style={{ borderBottom: rowBorder }}
+                      >
+                        <div className="inline-flex items-center gap-2">
+                          <button
+                            onClick={() => openEditModal(course)}
+                            className={badgeBase}
+                            style={{ background: "transparent" }}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDelete(course)}
+                            className={badgeBase}
+                            style={{
+                              background: "#FDF8DB",
+                              color: "#995900",
+                              borderColor: "#995900",
+                            }}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
+        </div>
       </div>
 
-       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/40">
-          <div
-            className="w-full max-w-md p-6"
-            style={{
-              backgroundColor: "#FFFFFF",
-              borderRadius: "28px",
-              boxShadow: "0 8px 24px rgba(20,27,52,.06)",
-            }}
-          >
-            <h2
-              className="text-lg font-semibold mb-4"
-              style={{ color: "#141B34" }}
-            >
-              {editingId ? "Edit course" : "New course"}
-            </h2>
+      {showModal && (
+        <div className="co-overlay" onClick={() => setShowModal(false)}>
+          <div className="co-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="co-modal-header">
+              {editingId ? "Edit · course" : "New · course"}
+            </div>
+            <div className="p-[18px]">
+              {formError && (
+                <div className="mb-3 rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-2 text-[13px] text-[#9B3B3B]">
+                  {formError}
+                </div>
+              )}
 
-            {formError && (
-              <div
-                className="mb-3 text-sm px-3 py-2"
-                style={{
-                  backgroundColor: "#FBEDED",
-                  color: "#995900",
-                  borderRadius: "24px",
-                }}
-              >
-                {formError}
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label
-                  className="block text-sm font-medium mb-1"
-                  style={{ color: "#504949" }}
-                >
-                  Code
-                </label>
+              <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                 <input
                   type="text"
                   required
-                  placeholder="e.g. PROG2"
+                  placeholder="Code (e.g. PROG2)"
                   value={form.code}
                   onChange={(e) =>
                     setForm({ ...form, code: e.target.value.toUpperCase() })
                   }
-                  className="w-full px-3 py-2 text-sm outline-none"
-                  style={{
-                    border: "1px solid #E9E8E8",
-                    borderRadius: "24px",
-                    color: "#141B34",
-                  }}
+                  className={inputBase}
                 />
-              </div>
-
-              <div>
-                <label
-                  className="block text-sm font-medium mb-1"
-                  style={{ color: "#504949" }}
-                >
-                  Name
-                </label>
                 <input
                   type="text"
                   required
+                  placeholder="Name"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full px-3 py-2 text-sm outline-none"
-                  style={{
-                    border: "1px solid #E9E8E8",
-                    borderRadius: "24px",
-                    color: "#141B34",
-                  }}
+                  className={inputBase}
                 />
-              </div>
-
-              <div>
-                <label
-                  className="block text-sm font-medium mb-1"
-                  style={{ color: "#504949" }}
-                >
-                  Description
-                </label>
                 <textarea
                   rows={3}
+                  placeholder="Description"
                   value={form.description}
                   onChange={(e) =>
                     setForm({ ...form, description: e.target.value })
                   }
-                  className="w-full px-3 py-2 text-sm outline-none resize-none"
-                  style={{
-                    border: "1px solid #E9E8E8",
-                    borderRadius: "24px",
-                    color: "#141B34",
-                  }}
+                  className={`${inputBase} resize-none`}
                 />
-              </div>
-              <div className="flex justify-end gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={() => setShowModal(false)}
-                  className="text-sm font-medium px-4 py-2"
-                  style={{ color: "#6C6C6C" }}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={saving}
-                  className="text-white text-sm font-medium px-4 py-2 transition disabled:opacity-50"
-                  style={{ backgroundColor: "#396EE9", borderRadius: "24px" }}
-                >
-                  {saving ? "Saving..." : "Save"}
-                </button>
-              </div>
-            </form>
+                <div className="mt-2 flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                    className={btnGhost}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={saving}
+                    className={btnPrimary}
+                  >
+                    {saving ? "Saving..." : "Save"}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       )}
