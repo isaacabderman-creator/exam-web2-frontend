@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/api";
 
@@ -17,6 +18,7 @@ function authFetch(path, options = {}) {
 const emptyForm = { code: "", name: "", description: "" };
 
 export default function Courses() {
+    const navigate = useNavigate();
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -31,11 +33,25 @@ export default function Courses() {
         loadCourses();
     }, []);
 
+    function handleAuthError(status) {
+        if (status === 401) {
+            localStorage.removeItem("token");
+            navigate("/login");
+            return true;
+        }
+        if (status === 403) {
+            navigate("/student");
+            return true;
+        }
+        return false;
+    }
+
     async function loadCourses() {
         setLoading(true);
         setError("");
         try {
             const res = await authFetch("/courses");
+            if (handleAuthError(res.status)) return;
             const data = await res.json();
             if (!res.ok) throw new Error(data.message || "Failed to load Courses");
             setCourses(data);
@@ -77,6 +93,7 @@ export default function Courses() {
                     body: JSON.stringify(form),
                 }
             );
+            if (handleAuthError(res.status)) return;
             const data = await res.json();
             if (!res.ok) throw new Error(data.message || "Failed to save course");
             setShowModal(false);
@@ -95,6 +112,7 @@ export default function Courses() {
             const res = await authFetch(`/courses/${course.id}`, {
                 method: "DELETE",
             });
+            if (handleAuthError(res.status)) return;
             if (!res.ok) {
                 const data = await res.json();
                 if (res.status === 409) {
