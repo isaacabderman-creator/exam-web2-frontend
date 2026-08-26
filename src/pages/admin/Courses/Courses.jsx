@@ -52,8 +52,8 @@ export default function Courses() {
         try {
             const res = await authFetch("/courses");
             if (handleAuthError(res.status)) return;
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.message || "Failed to load Courses");
+            const data = await res.json().catch(() => null);
+            if (!res.ok) throw new Error(data?.message || "Failed to load Courses");
             setCourses(data);
         } catch (error) {
             setError(error.message);
@@ -94,8 +94,8 @@ export default function Courses() {
                 }
             );
             if (handleAuthError(res.status)) return;
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.message || "Failed to save course");
+            const data = await res.json().catch(() => null);
+            if (!res.ok) throw new Error(data?.message || "Failed to save course");
             setShowModal(false);
             await loadCourses();
         } catch (err) {
@@ -114,14 +114,14 @@ export default function Courses() {
             });
             if (handleAuthError(res.status)) return;
             if (!res.ok) {
-                const data = await res.json();
+                const data = await res.json().catch(() => null);
                 if (res.status === 409) {
                     throw new Error(
-                        data.message ||
+                        data?.message ||
                         "This course has exams and cannot be deleted."
                     );
                 }
-                throw new Error(data.message || "Failed to delete course");
+                throw new Error(data?.message || "Failed to delete course");
             }
             await loadCourses();
         } catch (err) {
