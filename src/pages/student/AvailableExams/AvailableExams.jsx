@@ -50,4 +50,23 @@ export default function AvailableExams() {
             setLoading(false);
         }
     }
+
+    return (
+        <div className="exams-page">
+            <div className="exams-inner">
+                <h1 className="exams-title">Available exams</h1>
+                <p className="exams-subtitle">
+                    View and take your exams on{" "}
+                    <span className="exams-brand">examhub</span>
+                </p>
+
+                {error && (
+                    <div className="exams-error">
+                        <span className="exams-error-label">Error.</span> {error}
+                    </div>
+                )}
+                
+            </div>
+        </div>
+    )
 }
