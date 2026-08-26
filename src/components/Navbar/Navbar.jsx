@@ -53,7 +53,7 @@ export default function Navbar() {
         </nav>
 
         <span className="spacer">
-          <span className="user">{user.firstName} {user.lastName}</span>
+          <span className="user">{user.name}</span>
           <span className="avatar" />
           <button
             onClick={handleLogout}

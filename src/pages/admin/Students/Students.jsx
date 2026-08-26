@@ -37,8 +37,8 @@ const btnAmber = "inline-flex items-center justify-center gap-2 rounded-full bor
 const badgeBase = "inline-flex items-center gap-1.5 rounded-full border border-[#141B34] px-3 py-[3px] text-[12px] font-medium transition-colors disabled:opacity-50";
 const inputBase = "w-full rounded-[24px] border border-[#141B34] bg-white px-[18px] py-[13px] text-[15px] text-[#141B34] placeholder:text-[#A7A4A4] outline-none transition-colors focus:border-2 focus:border-[#396EE9] focus:px-[17px] focus:py-[12px]";
 
-function fullName(student) {
-  return `${student.firstName} ${student.lastName}`;
+function generateTempPassword() {
+  return Math.random().toString(36).slice(-10);
 }
 
 export default function Students() {
@@ -51,14 +51,14 @@ export default function Students() {
 
   const [showCreateModal, setShowCreateModal] = useState(false);
 
-  const [createForm, setCreateForm] = useState({ firstName: "", lastName: "", email: "", password: "",});
+  const [createForm, setCreateForm] = useState({ name: "", email: "", password: "",});
 
   const [createError, setCreateError] = useState("");
   const [creating, setCreating] = useState(false);
 
   const [editingStudent, setEditingStudent] = useState(null);
 
-  const [editForm, setEditForm] = useState({firstName: "", lastName: "", email: "",});
+  const [editForm, setEditForm] = useState({name: "", email: "",});
 
   const [editError, setEditError] = useState("");
   const [saving, setSaving] = useState(false);
@@ -109,7 +109,7 @@ export default function Students() {
     }
   }
   function openCreateModal() {
-    setCreateForm({ firstName: "", lastName: "", email: "", password: "",});
+    setCreateForm({ name: "", email: "", password: "",});
     setCreateError("");
     setShowCreateModal(true);
   }
@@ -140,8 +140,7 @@ export default function Students() {
   function openEditModal(student) {
     setEditingStudent(student);
     setEditForm({
-      firstName: student.firstName,
-      lastName: student.lastName,
+      name: student.name,
       email: student.email,
     });
     setEditError("");
@@ -180,11 +179,16 @@ async function handleResetPassword() {
   setResetError("");
   setResetting(true);
   try {
-    const data = await apiFetch(`${API_URL}/${resettingStudent.id}`, {
+    const newPassword = generateTempPassword();
+    await apiFetch(`${API_URL}/${resettingStudent.id}`, {
       method: "PUT",
-      body: JSON.stringify({ resetPassword: true }),
+      body: JSON.stringify({
+        name: resettingStudent.name,
+        email: resettingStudent.email,
+        password: newPassword,
+      }),
     });
-    setTempPassword(data?.temporaryPassword || "");
+    setTempPassword(newPassword);
   } catch (err) {
     if (!handleAuthError(err)) {
       setResetError(err.message);
@@ -222,7 +226,7 @@ async function handleDeactivateStudent() {
   const filteredStudents = students.filter((student) => {
     const query = search.toLowerCase();
     return (
-      fullName(student).toLowerCase().includes(query) ||
+      student.name.toLowerCase().includes(query) ||
       student.email.toLowerCase().includes(query)
     );
   });
@@ -321,18 +325,18 @@ async function handleDeactivateStudent() {
                         className="px-[14px] py-[11px] font-medium"
                         style={{
                           borderBottom: rowBorder,
-                          color: student.active
+                          color: student.is_active
                             ? "#141B34"
                             : "#A7A4A4",
                         }}
                       >
-                        {fullName(student)}
+                        {student.name}
                       </td>
                       <td
                         className="px-[14px] py-[11px] font-mono text-[13px]"
                         style={{
                           borderBottom: rowBorder,
-                          color: student.active
+                          color: student.is_active
                             ? "#141B34"
                             : "#A7A4A4",
                         }}
@@ -348,7 +352,7 @@ async function handleDeactivateStudent() {
                         <span
                           className={badgeBase}
                           style={
-                            student.active
+                            student.is_active
                               ? {
                                   background: "#EDFBF2",
                                   color: "#2C6B45",
@@ -361,7 +365,7 @@ async function handleDeactivateStudent() {
                                 }
                           }
                         >
-                          {student.active ? "Actif" : "Désactivé"}
+                          {student.is_active ? "Actif" : "Désactivé"}
                         </span>
                       </td>
 
@@ -382,7 +386,7 @@ async function handleDeactivateStudent() {
                             Modifier
                           </button>
 
-                          {student.active && (
+                          {student.is_active && (
                             <>
                               <button
                                 onClick={() => openResetModal(student)}
@@ -452,25 +456,12 @@ async function handleDeactivateStudent() {
                 <input
                   type="text"
                   required
-                  placeholder="Prénom"
-                  value={createForm.firstName}
+                  placeholder="Nom complet"
+                  value={createForm.name}
                   onChange={(e) =>
                     setCreateForm({
                       ...createForm,
-                      firstName: e.target.value,
-                    })
-                  }
-                  className={inputBase}
-                />
-                <input
-                  type="text"
-                  required
-                  placeholder="Nom"
-                  value={createForm.lastName}
-                  onChange={(e) =>
-                    setCreateForm({
-                      ...createForm,
-                      lastName: e.target.value,
+                      name: e.target.value,
                     })
                   }
                   className={inputBase}
@@ -532,7 +523,7 @@ async function handleDeactivateStudent() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="es-modal-header">
-              Modifier · {fullName(editingStudent)}
+              Modifier · {editingStudent.name}
             </div>
 
             <div className="p-[18px]">
@@ -549,24 +540,11 @@ async function handleDeactivateStudent() {
                 <input
                   type="text"
                   required
-                  value={editForm.firstName}
+                  value={editForm.name}
                   onChange={(e) =>
                     setEditForm({
                       ...editForm,
-                      firstName: e.target.value,
-                    })
-                  }
-                  className={inputBase}
-                />
-
-                <input
-                  type="text"
-                  required
-                  value={editForm.lastName}
-                  onChange={(e) =>
-                    setEditForm({
-                      ...editForm,
-                      lastName: e.target.value,
+                      name: e.target.value,
                     })
                   }
                   className={inputBase}
@@ -620,7 +598,7 @@ async function handleDeactivateStudent() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="es-modal-header">
-              Réinitialiser · {fullName(resettingStudent)}
+              Réinitialiser · {resettingStudent.name}
             </div>
 
             <div className="p-[18px]">
@@ -690,7 +668,7 @@ async function handleDeactivateStudent() {
 
             <div className="p-[18px]">
               <div className="text-[16px] font-medium">
-                Désactiver {fullName(confirmStudent)} ?
+                Désactiver {confirmStudent.name} ?
               </div>
               <p className="mt-2 text-[14px] text-[#504949]">
                 Il ne pourra plus se connecter. Ses résultats resteront

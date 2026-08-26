@@ -78,7 +78,7 @@ export default function Dashboard() {
           throw new Error(examsData?.message || "Échec du chargement des examens");
 
         setCounts({
-          students: studentsData.filter((s) => s.active).length,
+          students: studentsData.filter((s) => s.is_active).length,
           courses: coursesData.length,
           exams: examsData.length,
         });
