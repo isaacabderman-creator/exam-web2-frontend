@@ -72,8 +72,30 @@ export default function AvailableExams() {
                         <p className="exams-empty">No exams available right now.</p>
                     </div>
                 ) : (
-
+                    <div className="exams-grid">
+                        {exams.map((exam) => (
+                            <div key={exam.id} className="exam-card">
+                                <div className="exam-card-top">
+                                    <span className="exam-badge-course">
+                                        {exam.courseCode || exam.course?.code}
+                                    </span>
+                                <span className="exam-badge-open">Open</span>
+                            </div>
+                            <h2 className="exam-card-title">{exam.title}</h2>
+                            {exam.description && (
+                                <p className="exam-card-desc">{exam.description}</p>
+                            )}
+                            <p className="exam-card-deadline">
+                                Available until {formatDate(exam.endsAt || exam.dateFin)}
+                            </p>
+                            <Link to={`/student/exams/${exam.id}`} className="exam-card-btn">
+                                Take exam
+                            </Link>
+                    </div>
+                 ))}
             </div>
+        )}
+      </div>
         </div>
-    )
+    );
 }
