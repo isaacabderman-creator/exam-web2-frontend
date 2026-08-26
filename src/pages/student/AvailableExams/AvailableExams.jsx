@@ -16,7 +16,7 @@ function authFetch(path, options = {}) {
     });
 }
 
-function formatDatta(dateString) {
+function formatDate(dateString) {
     return new Date(dateString).toLocaleString("fr-FR", {
         day: "2-digit",
         month: "2-digit",
@@ -91,11 +91,11 @@ export default function AvailableExams() {
                             <Link to={`/student/exams/${exam.id}`} className="exam-card-btn">
                                 Take exam
                             </Link>
-                    </div>
-                 ))}
-            </div>
-        )}
-      </div>
+                        </div>
+                    ))}
+                </div>
+            )}
+        </div>
         </div>
     );
 }
