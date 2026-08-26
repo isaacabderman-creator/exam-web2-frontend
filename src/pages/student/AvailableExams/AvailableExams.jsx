@@ -65,7 +65,14 @@ export default function AvailableExams() {
                         <span className="exams-error-label">Error.</span> {error}
                     </div>
                 )}
-                
+                {loading ? (
+                    <p className="exams-empty">Loading...</p>
+                ) : exams.length === 0 ? (
+                    <div className="exams-empty-card">
+                        <p className="exams-empty">No exams available right now.</p>
+                    </div>
+                ) : (
+
             </div>
         </div>
     )
