@@ -59,7 +59,7 @@ export default function Courses() {
             const res = await authFetch("/courses");
             if (handleAuthError(res.status)) return;
             const data = await res.json().catch(() => null);
-            if (!res.ok) throw new Error(data?.message || "Failed to load Courses");
+            if (!res.ok) throw new Error(data?.message || "Échec du chargement des cours");
             setCourses(data);
         } catch (error) {
             setError(error.message);
@@ -101,7 +101,7 @@ export default function Courses() {
             );
             if (handleAuthError(res.status)) return;
             const data = await res.json().catch(() => null);
-            if (!res.ok) throw new Error(data?.message || "Failed to save course");
+            if (!res.ok) throw new Error(data?.message || "Échec de l'enregistrement du cours");
             setShowModal(false);
             await loadCourses();
         } catch (err) {
@@ -112,7 +112,7 @@ export default function Courses() {
     }
 
     async function handleDelete(course) {
-        if (!window.confirm(`Delete course "${course.name}"?`)) return;
+        if (!window.confirm(`Supprimer le cours "${course.name}" ?`)) return;
 
         try {
             const res = await authFetch(`/courses/${course.id}`, {
@@ -124,10 +124,10 @@ export default function Courses() {
                 if (res.status === 409) {
                     throw new Error(
                         data?.message ||
-                        "This course has exams and cannot be deleted."
+                        "Ce cours a des examens et ne peut pas être supprimé."
                     );
                 }
-                throw new Error(data?.message || "Failed to delete course");
+                throw new Error(data?.message || "Échec de la suppression du cours");
             }
             await loadCourses();
         } catch (err) {
@@ -141,38 +141,38 @@ export default function Courses() {
         <div className="mb-6 flex items-center justify-between">
           <div>
             <h1 className="text-[32px] font-bold leading-[38px] tracking-[-0.02em]">
-              Courses
+              Cours
             </h1>
             <p className="mt-1 text-[14px] text-[#6C6C6C]">
-              Manage the courses offered on{" "}
+              Gérer les cours proposés sur{" "}
               <span className="font-semibold">examhub</span>
             </p>
           </div>
           <button onClick={openCreateModal} className={btnPrimary}>
-            + New course
+            + Nouveau cours
           </button>
         </div>
 
         {error && (
           <div className="mb-4 rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-3 text-[14px]">
-            <b className="font-medium text-[#9B3B3B]">Error ·</b> {error}
+            <b className="font-medium text-[#9B3B3B]">Erreur ·</b> {error}
           </div>
         )}
 
         <div className="overflow-hidden rounded-[24px] border border-ink bg-white">
           {loading ? (
             <p className="p-10 text-center text-[14px] text-[#6C6C6C]">
-              Loading...
+              Chargement...
             </p>
           ) : courses.length === 0 ? (
             <p className="p-10 text-center text-[14px] text-[#6C6C6C]">
-              No courses yet.
+              Aucun cours pour l'instant.
             </p>
           ) : (
             <table className="w-full text-[13px]">
               <thead>
                 <tr>
-                  {["Code", "Name", "Description", ""].map((header, index) => (
+                  {["Code", "Nom", "Description", ""].map((header, index) => (
                     <th
                       key={header + index}
                       className={`border-b border-ink bg-[#FEF8F1] px-[14px] py-[12px] text-[11px] font-bold uppercase tracking-[0.08em] text-[#A7A4A4] ${
@@ -218,7 +218,7 @@ export default function Courses() {
                             className={badgeBase}
                             style={{ background: "transparent" }}
                           >
-                            Edit
+                            Modifier
                           </button>
                           <button
                             onClick={() => handleDelete(course)}
@@ -229,7 +229,7 @@ export default function Courses() {
                               borderColor: "#995900",
                             }}
                           >
-                            Delete
+                            Supprimer
                           </button>
                         </div>
                       </td>
@@ -246,7 +246,7 @@ export default function Courses() {
         <div className="co-overlay" onClick={() => setShowModal(false)}>
           <div className="co-modal" onClick={(e) => e.stopPropagation()}>
             <div className="co-modal-header">
-              {editingId ? "Edit · course" : "New · course"}
+              {editingId ? "Modifier · cours" : "Nouveau · cours"}
             </div>
             <div className="p-[18px]">
               {formError && (
@@ -259,7 +259,7 @@ export default function Courses() {
                 <input
                   type="text"
                   required
-                  placeholder="Code (e.g. PROG2)"
+                  placeholder="Code (ex. PROG2)"
                   value={form.code}
                   onChange={(e) =>
                     setForm({ ...form, code: e.target.value.toUpperCase() })
@@ -269,7 +269,7 @@ export default function Courses() {
                 <input
                   type="text"
                   required
-                  placeholder="Name"
+                  placeholder="Nom"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   className={inputBase}
@@ -289,14 +289,14 @@ export default function Courses() {
                     onClick={() => setShowModal(false)}
                     className={btnGhost}
                   >
-                    Cancel
+                    Annuler
                   </button>
                   <button
                     type="submit"
                     disabled={saving}
                     className={btnPrimary}
                   >
-                    {saving ? "Saving..." : "Save"}
+                    {saving ? "Enregistrement..." : "Enregistrer"}
                   </button>
                 </div>
               </form>
