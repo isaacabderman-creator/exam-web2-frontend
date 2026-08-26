@@ -61,7 +61,7 @@ export default function Courses() {
             description: course.description || "",
         });
         setFormError("");
-        setShowModal("true")
+        setShowModal(true);
     }
 
     async function handleSubmit(e) {
