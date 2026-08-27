@@ -1,0 +1,33 @@
+@layer components {
+  .results-list {
+    @apply flex flex-col gap-3;
+  }
+
+  .result-row {
+    @apply flex items-center justify-between bg-white rounded-[24px] border border-ink px-5 py-4;
+  }
+
+  .result-row-info {
+    @apply flex items-center gap-4;
+  }
+
+  .result-exam-title {
+    @apply font-medium text-[15px];
+  }
+
+  .result-exam-date {
+    @apply text-xs text-[#A7A4A4] mt-0.5;
+  }
+
+  .result-row-score {
+    @apply text-right;
+  }
+
+  .result-score-value {
+    @apply text-lg font-bold;
+  }
+
+  .result-score-percent {
+    @apply text-xs text-[#6C6C6C];
+  }
+}

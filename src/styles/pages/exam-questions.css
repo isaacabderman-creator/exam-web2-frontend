@@ -1,0 +1,13 @@
+@layer components {
+  .exam-choice {
+    @apply text-[13px] text-[#6C6C6C];
+  }
+
+  .exam-choice-correct {
+    @apply text-green font-medium;
+  }
+
+  .exam-choice-remove {
+    @apply text-[#9B3B3B] text-sm px-2;
+  }
+}

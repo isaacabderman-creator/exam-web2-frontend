@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCourses, createCourse, updateCourse, deleteCourse } from "../../../api/courses.js";
+import { getCourses, createCourse, updateCourse, deleteCourse } from "../../api/courses.js";
+import TableSkeleton from "../../components/TableSkeleton.jsx";
 
 const emptyForm = { code: "", name: "", description: "" };
 
@@ -127,13 +128,11 @@ export default function Courses() {
           </div>
         )}
 
-        <div className="overflow-hidden rounded-[24px] border border-ink bg-white">
+        <div className="table-wrap">
           {loading ? (
-            <p className="p-10 text-center text-[14px] text-[#6C6C6C]">
-              Chargement...
-            </p>
+            <TableSkeleton />
           ) : courses.length === 0 ? (
-            <p className="p-10 text-center text-[14px] text-[#6C6C6C]">
+            <p className="table-state">
               Aucun cours pour l'instant.
             </p>
           ) : (
@@ -143,9 +142,7 @@ export default function Courses() {
                   {["Code", "Nom", "Description", ""].map((header, index) => (
                     <th
                       key={header + index}
-                      className={`border-b border-ink bg-[#FEF8F1] px-[14px] py-[12px] text-[11px] font-bold uppercase tracking-[0.08em] text-[#A7A4A4] ${
-                        index === 3 ? "text-right" : "text-left"
-                      }`}
+                      className={`table-head-cell ${index === 3 ? "table-head-cell-end" : ""}`}
                     >
                       {header}
                     </th>
@@ -159,25 +156,25 @@ export default function Courses() {
                   return (
                     <tr key={course.id}>
                       <td
-                        className="px-[14px] py-[11px] font-semibold"
+                        className="table-cell font-semibold"
                         style={{ borderBottom: rowBorder }}
                       >
                         {course.code}
                       </td>
                       <td
-                        className="px-[14px] py-[11px] font-medium"
+                        className="table-cell font-medium"
                         style={{ borderBottom: rowBorder }}
                       >
                         {course.name}
                       </td>
                       <td
-                        className="px-[14px] py-[11px] text-[#6C6C6C]"
+                        className="table-cell text-[#6C6C6C]"
                         style={{ borderBottom: rowBorder }}
                       >
                         {course.description || "—"}
                       </td>
                       <td
-                        className="px-[14px] py-[11px] text-right"
+                        className="table-cell text-right"
                         style={{ borderBottom: rowBorder }}
                       >
                         <div className="inline-flex items-center gap-2">
