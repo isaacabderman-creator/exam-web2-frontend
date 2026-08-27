@@ -55,6 +55,14 @@ export default function MyResults() {
                     History of exams you have taken on{" "}
                     <span className="results-brand">examhub</span>
                 </p>
+
+                {error && (
+                    <div className="results-error">
+                        <span className="results-error-label">Error.</span>
+                    </div>
+                )}
+
+                
             </div>
         </div>
     )
