@@ -32,26 +32,22 @@ export default function AvailableExams() {
     const [error, setError] = useState("");
 
     useEffect(() => {
-        loadExams();
-    }, []);
-
-    async function loadExams() {
-        setLoading(true);
-        setError("");
-        try {
-            const res = await authFetch("/my/exams");
-            const data = await res.json();
-            if (!res.ok)
-                throw new Error(data.message || "Failed to load exams");
-            setExams(data);
-        } catch (err) {
-            setError(err.message);
-        } finally {
-            setLoading(false);
+        async function loadExams() {
+            setLoading(true);
+            setError("");
+            try {
+                const res = await authFetch("/my/exams");
+                const data = await res.json();
+                if (!res.ok)
+                    throw new Error(data.message || "Failed to load exams");
+                setExams(data);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
         }
-    }
 
-    useEffect(() => {
         loadExams();
     }, []);
 
