@@ -42,7 +42,7 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <Link to="/student" className={isActive("/student") ? "active" : ""}>
+              <Link to="/student/exams" className={isActive("/student/exams") ? "active" : ""}>
                   Examens disponibles
               </Link>
               <Link to="/student/results" className={isActive("/student/results") ? "active" : ""}>
