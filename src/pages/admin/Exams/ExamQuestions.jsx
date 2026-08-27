@@ -1,20 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./ExamQuestions.css";
-
-const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/api";
-
-function authFetch(path, options = {}) {
-    const token = localStorage.getItem("token");
-    return fetch(`${API_URL}${path}`, {
-        ...options,
-        headers: {
-            "Content-Type": "application/json",
-            ...(token ? { Authorization: `Bearer ${token}` } : {}),
-            ...(options.headers || {}),
-        },
-    });
-}
+import {
+    getExam,
+    getExamQuestions,
+    createQuestion,
+    updateQuestion,
+    deleteQuestion,
+} from "../../../api/exams.js";
 
 function emptyQuestionForm() {
     return {
@@ -45,13 +38,12 @@ export default function ExamQuestions() {
     const [deletingId, setDeletingId] = useState(null);
     const [refreshKey, setRefreshKey] = useState(0);
 
-    function handleAuthError(status) {
-        if (status === 401) {
-            localStorage.removeItem("token");
+    function handleAuthError(err) {
+        if (err.status === 401) {
             navigate("/login");
             return true;
         }
-        if (status === 403) {
+        if (err.status === 403) {
             navigate("/student/exams");
             return true;
         }
@@ -63,19 +55,16 @@ export default function ExamQuestions() {
             setLoading(true);
             setError("");
             try {
-                const [examRes, questionsRes] = await Promise.all([
-                    authFetch(`/exams/${id}`),
-                    authFetch(`/exams/${id}/questions`),
+                const [examData, questionsData] = await Promise.all([
+                    getExam(id),
+                    getExamQuestions(id),
                 ]);
-                if (handleAuthError(examRes.status) || handleAuthError(questionsRes.status)) return;
-                const examData = await examRes.json().catch(() => null);
-                const questionsData = await questionsRes.json().catch(() => null);
-                if (!examRes.ok) throw new Error(examData?.message || "Échec du chargement de l'examen");
-                if (!questionsRes.ok) throw new Error(questionsData?.message || "Échec du chargement des questions");
                 setExam(examData);
                 setQuestions(questionsData);
             } catch (err) {
-                setError(err.message);
+                if (!handleAuthError(err)) {
+                    setError(err.message);
+                }
             } finally {
                 setLoading(false);
             }
@@ -146,20 +135,17 @@ export default function ExamQuestions() {
                 position: Number(form.position),
                 choices: form.choices,
             };
-            const res = await authFetch(
-                editingId ? `/questions/${editingId}` : `/exams/${id}/questions`,
-                {
-                    method: editingId ? "PUT" : "POST",
-                    body: JSON.stringify(body),
-                }
-            );
-            if (handleAuthError(res.status)) return;
-            const data = await res.json().catch(() => null);
-            if (!res.ok) throw new Error(data?.message || "Échec de l'enregistrement de la question");
+            if (editingId) {
+                await updateQuestion(editingId, body);
+            } else {
+                await createQuestion(id, body);
+            }
             setShowForm(false);
             refresh();
         } catch (err) {
-            setFormError(err.message);
+            if (!handleAuthError(err)) {
+                setFormError(err.message);
+            }
         } finally {
             setSaving(false);
         }
@@ -169,15 +155,12 @@ export default function ExamQuestions() {
         if (!window.confirm("Supprimer cette question ?")) return;
         setDeletingId(question.id);
         try {
-            const res = await authFetch(`/questions/${question.id}`, { method: "DELETE" });
-            if (handleAuthError(res.status)) return;
-            if (!res.ok) {
-                const data = await res.json().catch(() => null);
-                throw new Error(data?.message || "Échec de la suppression de la question");
-            }
+            await deleteQuestion(question.id);
             refresh();
         } catch (err) {
-            setError(err.message);
+            if (!handleAuthError(err)) {
+                setError(err.message);
+            }
         } finally {
             setDeletingId(null);
         }

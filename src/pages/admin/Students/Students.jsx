@@ -1,38 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-const API_URL = `${import.meta.env.VITE_API_BASE_URL || "/api"}/students`;
-function getToken() {
-  return localStorage.getItem("token");
-}
-
-async function apiFetch(url, options = {}) {
-  const res = await fetch(url, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${getToken()}`,
-      ...(options.headers || {}),
-    },
-  });
-  let body = null;
-  try {
-    body = await res.json();
-  } catch {
-    body = null;
-  }
-  if (!res.ok) {
-    const message = body?.message || "Une erreur est survenue.";
-    const error = new Error(message);
-    error.status = res.status;
-    throw error;
-  }
-  return body;
-}
-
-function generateTempPassword() {
-  return Math.random().toString(36).slice(-10);
-}
+import { getStudents, createStudent, updateStudent, deactivateStudent } from "../../../api/students.js";
+import { generateTempPassword } from "../../../utils/generateTempPassword.js";
 
 export default function Students() {
   const navigate = useNavigate();
@@ -76,7 +45,6 @@ export default function Students() {
 
   function handleAuthError(err) {
     if (err.status === 401) {
-      localStorage.removeItem("token");
       navigate("/login");
       return true;
     }
@@ -91,7 +59,7 @@ export default function Students() {
     setLoading(true);
     setGlobalError("");
     try {
-      const data = await apiFetch(API_URL);
+      const data = await getStudents();
       setStudents(Array.isArray(data) ? data : data.students || []);
     } catch (err) {
       if (!handleAuthError(err)) {
@@ -112,10 +80,7 @@ export default function Students() {
     setCreateError("");
     setCreating(true);
     try {
-      await apiFetch(API_URL, {
-        method: "POST",
-        body: JSON.stringify(createForm),
-      });
+      await createStudent(createForm);
       setShowCreateModal(false);
       setToast({
         type: "ok",
@@ -143,10 +108,7 @@ export default function Students() {
     setEditError("");
     setSaving(true);
     try {
-      await apiFetch(`${API_URL}/${editingStudent.id}`, {
-        method: "PUT",
-        body: JSON.stringify(editForm),
-      });
+      await updateStudent(editingStudent.id, editForm);
       setEditingStudent(null);
       setToast({
         type: "ok",
@@ -173,13 +135,10 @@ async function handleResetPassword() {
   setResetting(true);
   try {
     const newPassword = generateTempPassword();
-    await apiFetch(`${API_URL}/${resettingStudent.id}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        name: resettingStudent.name,
-        email: resettingStudent.email,
-        password: newPassword,
-      }),
+    await updateStudent(resettingStudent.id, {
+      name: resettingStudent.name,
+      email: resettingStudent.email,
+      password: newPassword,
     });
     setTempPassword(newPassword);
   } catch (err) {
@@ -194,9 +153,7 @@ async function handleDeactivateStudent() {
     if (!confirmStudent) return;
     setDeactivatingId(confirmStudent.id);
     try {
-      await apiFetch(`${API_URL}/${confirmStudent.id}`, {
-        method: "DELETE",
-      });
+      await deactivateStudent(confirmStudent.id);
       setToast({
         type: "ok",
         text: "Étudiant désactivé.",

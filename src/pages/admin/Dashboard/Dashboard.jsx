@@ -1,20 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Dashboard.css";
-
-const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:4000/api";
-
-function authFetch(path, options = {}) {
-  const token = localStorage.getItem("token");
-  return fetch(`${API_URL}${path}`, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...(options.headers || {}),
-    },
-  });
-}
+import { getStudents } from "../../../api/students.js";
+import { getCourses } from "../../../api/courses.js";
+import { getExams } from "../../../api/exams.js";
 
 const quickLinks = [
   {
@@ -49,40 +38,25 @@ export default function Dashboard() {
       setLoading(true);
       setError("");
       try {
-        const [studentsRes, coursesRes, examsRes] = await Promise.all([
-          authFetch("/students"),
-          authFetch("/courses"),
-          authFetch("/exams"),
+        const [students, courses, exams] = await Promise.all([
+          getStudents(),
+          getCourses(),
+          getExams(),
         ]);
-
-        const authFailure = [studentsRes, coursesRes, examsRes].find(
-          (res) => res.status === 401 || res.status === 403
-        );
-        if (authFailure) {
-          localStorage.removeItem("token");
-          navigate(authFailure.status === 401 ? "/login" : "/student/exams");
-          return;
-        }
-
-        const [studentsData, coursesData, examsData] = await Promise.all([
-          studentsRes.json().catch(() => null),
-          coursesRes.json().catch(() => null),
-          examsRes.json().catch(() => null),
-        ]);
-
-        if (!studentsRes.ok)
-          throw new Error(studentsData?.message || "Échec du chargement des étudiants");
-        if (!coursesRes.ok)
-          throw new Error(coursesData?.message || "Échec du chargement des cours");
-        if (!examsRes.ok)
-          throw new Error(examsData?.message || "Échec du chargement des examens");
-
         setCounts({
-          students: studentsData.filter((s) => s.is_active).length,
-          courses: coursesData.length,
-          exams: examsData.length,
+          students: students.filter((s) => s.is_active).length,
+          courses: courses.length,
+          exams: exams.length,
         });
       } catch (err) {
+        if (err.status === 401) {
+          navigate("/login");
+          return;
+        }
+        if (err.status === 403) {
+          navigate("/student/exams");
+          return;
+        }
         setError(err.message);
       } finally {
         setLoading(false);
