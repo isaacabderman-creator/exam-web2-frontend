@@ -88,7 +88,7 @@ export default function Students() {
       return true;
     }
     if (err.status === 403) {
-      navigate("/student");
+      navigate("/student/exams");
       return true;
     }
     return false;
