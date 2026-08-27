@@ -46,7 +46,7 @@ export default function Courses() {
             return true;
         }
         if (status === 403) {
-            navigate("/student");
+            navigate("/student/exams");
             return true;
         }
         return false;
