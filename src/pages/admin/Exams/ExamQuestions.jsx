@@ -7,6 +7,7 @@ import {
     updateQuestion,
     deleteQuestion,
 } from "../../../api/exams.js";
+import TableSkeleton from "../../../components/TableSkeleton.jsx";
 
 function emptyQuestionForm() {
     return {
@@ -203,7 +204,9 @@ export default function ExamQuestions() {
                 )}
 
                 {loading ? (
-                    <p className="table-state">Chargement...</p>
+                    <div className="card">
+                        <TableSkeleton />
+                    </div>
                 ) : questions.length === 0 ? (
                     <div className="card empty-card text-[14px] text-[#6C6C6C]">
                         Aucune question pour l'instant.
