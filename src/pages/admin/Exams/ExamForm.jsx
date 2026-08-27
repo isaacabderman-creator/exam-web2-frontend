@@ -4,10 +4,6 @@ import "./ExamForm.css";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/api";
 
-const btnPrimary = "inline-flex items-center justify-center gap-2 rounded-full border border-ink bg-peach px-[22px] py-[9px] text-[13px] font-medium text-ink hover:bg-[#FAECD1] disabled:cursor-not-allowed disabled:opacity-50 transition-colors";
-const btnGhost = "inline-flex items-center justify-center gap-2 rounded-full border border-ink bg-white px-[18px] py-[9px] text-[13px] font-medium text-ink hover:bg-cream transition-colors";
-const inputBase = "w-full rounded-[24px] border border-ink bg-white px-[18px] py-[13px] text-[15px] text-ink placeholder:text-[#A7A4A4] outline-none transition-colors focus:border-2 focus:border-[#396EE9] focus:px-[17px] focus:py-[12px]";
-
 function authFetch(path, options = {}) {
     const token = localStorage.getItem("token");
     return fetch(`${API_URL}${path}`, {
@@ -129,9 +125,9 @@ export default function ExamForm() {
     }
 
     return (
-        <div className="min-h-screen px-6 pb-6 pt-12 bg-cream text-ink">
-            <div className="mx-auto max-w-5xl">
-                <nav className="exam-breadcrumb">
+        <div className="page">
+            <div className="page-inner">
+                <nav className="breadcrumb">
                     <Link to="/admin/exams">Examens</Link>
                     <span> › </span>
                     <span>
@@ -141,13 +137,13 @@ export default function ExamForm() {
                     </span>
                 </nav>
 
-                <h1 className="mt-3 text-[32px] font-bold leading-[38px] tracking-[-0.02em]">
+                <h1 className="mt-3 page-title">
                     {isEdit ? "Modifier l'examen" : "Nouvel examen"}
                 </h1>
 
                 {error && (
-                    <div className="mt-4 rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-3 text-[14px]">
-                        <b className="font-medium text-[#9B3B3B]">Erreur ·</b> {error}
+                    <div className="error-banner mt-4">
+                        <b className="error-banner-label">Erreur ·</b> {error}
                     </div>
                 )}
 
@@ -168,7 +164,7 @@ export default function ExamForm() {
                                     disabled={locked}
                                     value={form.course_id}
                                     onChange={(e) => setForm({ ...form, course_id: e.target.value })}
-                                    className={`${inputBase} exam-select`}
+                                    className="input exam-select"
                                 >
                                     <option value="" disabled>
                                         Sélectionner un cours
@@ -190,7 +186,7 @@ export default function ExamForm() {
                                 placeholder="Titre"
                                 value={form.title}
                                 onChange={(e) => setForm({ ...form, title: e.target.value })}
-                                className={inputBase}
+                                className="input"
                             />
                             <textarea
                                 rows={3}
@@ -198,9 +194,9 @@ export default function ExamForm() {
                                 placeholder="Description"
                                 value={form.description}
                                 onChange={(e) => setForm({ ...form, description: e.target.value })}
-                                className={`${inputBase} resize-none`}
+                                className="input resize-none"
                             />
-                            <label className="exam-field-label">
+                            <label className="field-label">
                                 Début
                                 <input
                                     type="datetime-local"
@@ -208,10 +204,10 @@ export default function ExamForm() {
                                     disabled={locked}
                                     value={form.starts_at}
                                     onChange={(e) => setForm({ ...form, starts_at: e.target.value })}
-                                    className={inputBase}
+                                    className="input"
                                 />
                             </label>
-                            <label className="exam-field-label">
+                            <label className="field-label">
                                 Fin
                                 <input
                                     type="datetime-local"
@@ -219,7 +215,7 @@ export default function ExamForm() {
                                     disabled={locked}
                                     value={form.ends_at}
                                     onChange={(e) => setForm({ ...form, ends_at: e.target.value })}
-                                    className={inputBase}
+                                    className="input"
                                 />
                             </label>
 
@@ -227,12 +223,12 @@ export default function ExamForm() {
                                 <button
                                     type="button"
                                     onClick={() => navigate("/admin/exams")}
-                                    className={btnGhost}
+                                    className="btn-ghost"
                                 >
                                     Annuler
                                 </button>
                                 {!locked && (
-                                    <button type="submit" disabled={saving} className={btnPrimary}>
+                                    <button type="submit" disabled={saving} className="btn-primary">
                                         {saving ? "Enregistrement..." : "Enregistrer"}
                                     </button>
                                 )}

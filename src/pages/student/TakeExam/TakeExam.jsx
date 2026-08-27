@@ -93,22 +93,22 @@ export default function TakeExam() {
     }
 
     return (
-        <div className="take-exam-page">
-            <div className="take-exam-inner">
-                <nav className="take-exam-breadcrumb">
+        <div className="page">
+            <div className="page-inner-narrow">
+                <nav className="breadcrumb">
                     <Link to="/student/exams">Available exams</Link>
                     <span> › </span>
                     <span>{loading ? "..." : exam?.title || "Exam"}</span>
                 </nav>
 
                 {error && (
-                    <div className="take-exam-error">
-                        <span className="take-exam-error-label">Error.</span> {error}
+                    <div className="error-banner mb-4">
+                        <span className="error-banner-label">Error.</span> {error}
                     </div>
                 )}
 
                 {loading ? (
-                    <p className="take-exam-loading">Loading...</p>
+                    <p className="empty-text">Loading...</p>
                 ) : error ? null : result ? (
                     <div className="take-exam-result">
                         <h1 className="take-exam-title">{exam.title}</h1>
@@ -127,8 +127,8 @@ export default function TakeExam() {
                                         key={line.question_id}
                                         className={
                                             line.is_correct
-                                                ? "take-exam-correction-card take-exam-correction-correct"
-                                                : "take-exam-correction-card take-exam-correction-wrong"
+                                                ? "card take-exam-correction-correct"
+                                                : "card take-exam-correction-wrong"
                                         }
                                     >
                                         <p className="take-exam-question-statement">{line.statement}</p>
@@ -161,14 +161,14 @@ export default function TakeExam() {
                         {exam.description && <p className="take-exam-description">{exam.description}</p>}
 
                         {submitError && (
-                            <div className="take-exam-error">
-                                <span className="take-exam-error-label">Error.</span> {submitError}
+                            <div className="error-banner mb-4">
+                                <span className="error-banner-label">Error.</span> {submitError}
                             </div>
                         )}
 
                         <form onSubmit={handleSubmit} className="take-exam-form">
                             {exam.questions.map((question, index) => (
-                                <div key={question.id} className="take-exam-question-card">
+                                <div key={question.id} className="card">
                                     <p className="take-exam-question-statement">
                                         {index + 1}. {question.statement}
                                         <span className="take-exam-question-points">

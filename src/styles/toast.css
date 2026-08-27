@@ -1,0 +1,25 @@
+@layer components {
+  .toast-wrap {
+    @apply fixed bottom-6 right-6 z-[60];
+    animation: toast-in 0.2s ease-out;
+  }
+
+  .toast {
+    @apply flex items-center gap-2.5 border border-ink rounded-3xl py-3 px-4 text-ink;
+  }
+
+  .toast-icon {
+    @apply size-[22px] rounded-full border border-ink text-white text-xs flex items-center justify-center flex-none;
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

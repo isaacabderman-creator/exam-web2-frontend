@@ -4,11 +4,6 @@ import "./ExamQuestions.css";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/api";
 
-const btnPrimary = "inline-flex items-center justify-center gap-2 rounded-full border border-ink bg-peach px-[22px] py-[9px] text-[13px] font-medium text-ink hover:bg-[#FAECD1] disabled:cursor-not-allowed disabled:opacity-50 transition-colors";
-const btnGhost = "inline-flex items-center justify-center gap-2 rounded-full border border-ink bg-white px-[18px] py-[9px] text-[13px] font-medium text-ink hover:bg-cream transition-colors";
-const badgeBase = "inline-flex items-center gap-1.5 rounded-full border border-ink px-3 py-[3px] text-[12px] font-medium transition-colors disabled:opacity-50";
-const inputBase = "w-full rounded-[24px] border border-ink bg-white px-[18px] py-[13px] text-[15px] text-ink placeholder:text-[#A7A4A4] outline-none transition-colors focus:border-2 focus:border-[#396EE9] focus:px-[17px] focus:py-[12px]";
-
 function authFetch(path, options = {}) {
     const token = localStorage.getItem("token");
     return fetch(`${API_URL}${path}`, {
@@ -189,9 +184,9 @@ export default function ExamQuestions() {
     }
 
     return (
-        <div className="min-h-screen px-6 pb-6 pt-12 bg-cream text-ink">
-            <div className="mx-auto max-w-5xl">
-                <nav className="exam-breadcrumb">
+        <div className="page">
+            <div className="page-inner">
+                <nav className="breadcrumb">
                     <Link to="/admin/exams">Examens</Link>
                     <span> › </span>
                     <span>{loading ? "..." : exam?.title || "Examen"} › Questions</span>
@@ -199,23 +194,23 @@ export default function ExamQuestions() {
 
                 <div className="mt-3 mb-6 flex items-center justify-between">
                     <div>
-                        <h1 className="text-[32px] font-bold leading-[38px] tracking-[-0.02em]">
+                        <h1 className="page-title">
                             Questions
                         </h1>
-                        <p className="mt-1 text-[14px] text-[#6C6C6C]">
+                        <p className="page-subtitle">
                             {questions.length} question{questions.length > 1 ? "s" : ""} · {totalPoints} point{totalPoints > 1 ? "s" : ""} au total
                         </p>
                     </div>
                     {!locked && (
-                        <button onClick={openCreateForm} className={btnPrimary}>
+                        <button onClick={openCreateForm} className="btn-primary">
                             + Nouvelle question
                         </button>
                     )}
                 </div>
 
                 {error && (
-                    <div className="mb-4 rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-3 text-[14px]">
-                        <b className="font-medium text-[#9B3B3B]">Erreur ·</b> {error}
+                    <div className="error-banner mb-4">
+                        <b className="error-banner-label">Erreur ·</b> {error}
                     </div>
                 )}
 
@@ -226,15 +221,15 @@ export default function ExamQuestions() {
                 )}
 
                 {loading ? (
-                    <p className="p-10 text-center text-[14px] text-[#6C6C6C]">Chargement...</p>
+                    <p className="table-state">Chargement...</p>
                 ) : questions.length === 0 ? (
-                    <div className="rounded-[24px] border border-ink bg-white p-10 text-center text-[14px] text-[#6C6C6C]">
+                    <div className="card empty-card text-[14px] text-[#6C6C6C]">
                         Aucune question pour l'instant.
                     </div>
                 ) : (
                     <div className="flex flex-col gap-3">
                         {questions.map((question) => (
-                            <div key={question.id} className="exam-question-card">
+                            <div key={question.id} className="card">
                                 <div className="flex items-start justify-between gap-3">
                                     <div>
                                         <p className="font-medium">{question.statement}</p>
@@ -244,13 +239,13 @@ export default function ExamQuestions() {
                                     </div>
                                     {!locked && (
                                         <div className="flex shrink-0 gap-2">
-                                            <button onClick={() => openEditForm(question)} className={badgeBase}>
+                                            <button onClick={() => openEditForm(question)} className="badge badge-outline">
                                                 Modifier
                                             </button>
                                             <button
                                                 onClick={() => handleDelete(question)}
                                                 disabled={deletingId === question.id}
-                                                className={`${badgeBase} border-amber bg-butter text-amber`}
+                                                className="badge badge-amber"
                                             >
                                                 {deletingId === question.id ? "..." : "Supprimer"}
                                             </button>
@@ -274,14 +269,14 @@ export default function ExamQuestions() {
             </div>
 
             {showForm && (
-                <div className="exam-overlay" onClick={() => setShowForm(false)}>
-                    <div className="exam-modal" onClick={(e) => e.stopPropagation()}>
-                        <div className="exam-modal-header">
+                <div className="modal-overlay" onClick={() => setShowForm(false)}>
+                    <div className="modal modal-xl" onClick={(e) => e.stopPropagation()}>
+                        <div className="modal-header">
                             {editingId ? "Modifier · question" : "Nouvelle · question"}
                         </div>
-                        <div className="p-[18px]">
+                        <div className="modal-body">
                             {formError && (
-                                <div className="mb-3 rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-2 text-[13px] text-[#9B3B3B]">
+                                <div className="error-banner-compact mb-3">
                                     {formError}
                                 </div>
                             )}
@@ -292,7 +287,7 @@ export default function ExamQuestions() {
                                     placeholder="Énoncé"
                                     value={form.statement}
                                     onChange={(e) => setForm({ ...form, statement: e.target.value })}
-                                    className={`${inputBase} resize-none`}
+                                    className="input resize-none"
                                 />
                                 <div className="flex gap-3">
                                     <input
@@ -302,7 +297,7 @@ export default function ExamQuestions() {
                                         placeholder="Points"
                                         value={form.points}
                                         onChange={(e) => setForm({ ...form, points: e.target.value })}
-                                        className={inputBase}
+                                        className="input"
                                     />
                                     <input
                                         type="number"
@@ -311,11 +306,11 @@ export default function ExamQuestions() {
                                         placeholder="Position"
                                         value={form.position}
                                         onChange={(e) => setForm({ ...form, position: e.target.value })}
-                                        className={inputBase}
+                                        className="input"
                                     />
                                 </div>
 
-                                <p className="exam-field-label">Choix (2 à 6, un seul correct)</p>
+                                <p className="field-label">Choix (2 à 6, un seul correct)</p>
                                 {form.choices.map((choice, index) => (
                                     <div key={index} className="flex items-center gap-2">
                                         <input
@@ -330,7 +325,7 @@ export default function ExamQuestions() {
                                             placeholder={`Choix ${index + 1}`}
                                             value={choice.text}
                                             onChange={(e) => updateChoiceText(index, e.target.value)}
-                                            className={inputBase}
+                                            className="input"
                                         />
                                         {form.choices.length > 2 && (
                                             <button
@@ -344,16 +339,16 @@ export default function ExamQuestions() {
                                     </div>
                                 ))}
                                 {form.choices.length < 6 && (
-                                    <button type="button" onClick={addChoice} className={btnGhost}>
+                                    <button type="button" onClick={addChoice} className="btn-ghost">
                                         + Ajouter un choix
                                     </button>
                                 )}
 
                                 <div className="mt-2 flex gap-2">
-                                    <button type="button" onClick={() => setShowForm(false)} className={btnGhost}>
+                                    <button type="button" onClick={() => setShowForm(false)} className="btn-ghost">
                                         Annuler
                                     </button>
-                                    <button type="submit" disabled={saving} className={btnPrimary}>
+                                    <button type="submit" disabled={saving} className="btn-primary">
                                         {saving ? "Enregistrement..." : "Enregistrer"}
                                     </button>
                                 </div>

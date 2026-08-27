@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Students.css";
 
 const API_URL = `${import.meta.env.VITE_API_BASE_URL || "/api"}/students`;
 function getToken() {
@@ -30,12 +29,6 @@ async function apiFetch(url, options = {}) {
   }
   return body;
 }
-
-const btnPrimary = "inline-flex items-center justify-center gap-2 rounded-full border border-[#141B34] bg-[#FCEBD6] px-[22px] py-[9px] text-[13px] font-medium text-[#141B34] hover:bg-[#FAECD1] disabled:cursor-not-allowed disabled:opacity-50 transition-colors";
-const btnGhost = "inline-flex items-center justify-center gap-2 rounded-full border border-[#141B34] bg-white px-[18px] py-[9px] text-[13px] font-medium text-[#141B34] hover:bg-[#FEF8F1] transition-colors";
-const btnAmber = "inline-flex items-center justify-center gap-2 rounded-full border border-amber bg-butter px-[18px] py-[9px] text-[13px] font-medium text-amber hover:brightness-95 transition-colors disabled:opacity-50";
-const badgeBase = "inline-flex items-center gap-1.5 rounded-full border border-[#141B34] px-3 py-[3px] text-[12px] font-medium transition-colors disabled:opacity-50";
-const inputBase = "w-full rounded-[24px] border border-[#141B34] bg-white px-[18px] py-[13px] text-[15px] text-[#141B34] placeholder:text-[#A7A4A4] outline-none transition-colors focus:border-2 focus:border-[#396EE9] focus:px-[17px] focus:py-[12px]";
 
 function generateTempPassword() {
   return Math.random().toString(36).slice(-10);
@@ -231,21 +224,14 @@ async function handleDeactivateStudent() {
     );
   });
   return (
-    <div
-      className="min-h-screen px-6 pb-6 pt-12"
-      style={{
-        background: "var(--color-cream)",
-        fontFamily: "'Google Sans Flex','Google Sans Text','Google Sans',system-ui,sans-serif",
-        color: "#141B34",
-      }}
-    >
-      <div className="mx-auto max-w-5xl">
+    <div className="page">
+      <div className="page-inner">
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <h1 className="text-[32px] font-bold leading-[38px] tracking-[-0.02em]"> Étudiants </h1>
-            <p className="mt-1 text-[14px] text-[#6C6C6C]"> Gérer les comptes des étudiants. </p>
+            <h1 className="page-title"> Étudiants </h1>
+            <p className="page-subtitle"> Gérer les comptes des étudiants. </p>
           </div>
-          <button onClick={openCreateModal} className={btnPrimary}>
+          <button onClick={openCreateModal} className="btn-primary">
             <svg
               className="h-[16px] w-[16px]"
               viewBox="0 0 24 24"
@@ -262,8 +248,8 @@ async function handleDeactivateStudent() {
         </div>
 
         {globalError && (
-          <div className="mb-4 rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-3 text-[14px]">
-            <b className="font-medium text-[#9B3B3B]">Erreur ·</b>{" "}
+          <div className="error-banner mb-4">
+            <b className="error-banner-label">Erreur ·</b>{" "}
             {globalError}
           </div>
         )}
@@ -273,19 +259,19 @@ async function handleDeactivateStudent() {
             placeholder="Rechercher un étudiant..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className={inputBase}
+            className="input"
           />
         </div>
-        <div className="overflow-hidden rounded-[24px] border border-[#141B34] bg-white">
+        <div className="table-wrap">
           {loading ? (
             <div className="space-y-3 p-6">
-              <div className="h-[14px] w-[60%] rounded-full border border-[#141B34] bg-[#FEF8F1]" />
-              <div className="h-[14px] w-[85%] rounded-full border border-[#141B34] bg-[#FEF8F1]" />
-              <div className="h-[14px] w-[40%] rounded-full border border-[#141B34] bg-[#FEF8F1]" />
+              <div className="h-[14px] w-[60%] rounded-full border border-ink bg-cream" />
+              <div className="h-[14px] w-[85%] rounded-full border border-ink bg-cream" />
+              <div className="h-[14px] w-[40%] rounded-full border border-ink bg-cream" />
             </div>
           ) : filteredStudents.length === 0 ? (
             <div className="p-10 text-center">
-              <div className="mx-auto mb-3 h-[44px] w-[44px] rounded-[24px] border border-[#141B34] bg-[#FEF8F1]" />
+              <div className="mx-auto mb-3 h-[44px] w-[44px] rounded-[24px] border border-ink bg-cream" />
               <div className="text-[17px] font-medium">
                 Aucun étudiant trouvé
               </div>
@@ -302,9 +288,7 @@ async function handleDeactivateStudent() {
                   {["Nom", "Email", "Statut", ""].map((header, index) => (
                     <th
                       key={header + index}
-                      className={`border-b border-[#141B34] bg-[#FEF8F1] px-[14px] py-[12px] text-[11px] font-bold uppercase tracking-[0.08em] text-[#A7A4A4] ${
-                        index === 3 ? "text-right" : "text-left"
-                      }`}
+                      className={`table-head-cell ${index === 3 ? "table-head-cell-end" : ""}`}
                     >
                       {header}
                     </th>
@@ -322,7 +306,7 @@ async function handleDeactivateStudent() {
                   return (
                     <tr key={student.id}>
                       <td
-                        className="px-[14px] py-[11px] font-medium"
+                        className="table-cell font-medium"
                         style={{
                           borderBottom: rowBorder,
                           color: student.is_active
@@ -333,7 +317,7 @@ async function handleDeactivateStudent() {
                         {student.name}
                       </td>
                       <td
-                        className="px-[14px] py-[11px] font-mono text-[13px]"
+                        className="table-cell font-mono text-[13px]"
                         style={{
                           borderBottom: rowBorder,
                           color: student.is_active
@@ -344,33 +328,22 @@ async function handleDeactivateStudent() {
                         {student.email}
                       </td>
                       <td
-                        className="px-[14px] py-[11px]"
+                        className="table-cell"
                         style={{
                           borderBottom: rowBorder,
                         }}
                       >
                         <span
-                          className={badgeBase}
-                          style={
-                            student.is_active
-                              ? {
-                                  background: "#EDFBF2",
-                                  color: "#2C6B45",
-                                  borderColor: "#2C6B45",
-                                }
-                              : {
-                                  background: "#F2F2F2",
-                                  color: "#A7A4A4",
-                                  borderColor: "#A7A4A4",
-                                }
-                          }
+                          className={`badge ${
+                            student.is_active ? "badge-success-soft" : "badge-neutral"
+                          }`}
                         >
                           {student.is_active ? "Actif" : "Désactivé"}
                         </span>
                       </td>
 
                       <td
-                        className="px-[14px] py-[11px] text-right"
+                        className="table-cell text-right"
                         style={{
                           borderBottom: rowBorder,
                         }}
@@ -378,10 +351,7 @@ async function handleDeactivateStudent() {
                         <div className="inline-flex items-center gap-2">
                           <button
                             onClick={() => openEditModal(student)}
-                            className={badgeBase}
-                            style={{
-                              background: "transparent",
-                            }}
+                            className="badge badge-outline"
                           >
                             Modifier
                           </button>
@@ -390,12 +360,7 @@ async function handleDeactivateStudent() {
                             <>
                               <button
                                 onClick={() => openResetModal(student)}
-                                className={badgeBase}
-                                style={{
-                                  background: "#FDF8DB",
-                                  color: "#995900",
-                                  borderColor: "#995900",
-                                }}
+                                className="badge badge-amber"
                               >
                                 Mot de passe
                               </button>
@@ -407,12 +372,7 @@ async function handleDeactivateStudent() {
                                 disabled={
                                   deactivatingId === student.id
                                 }
-                                className={badgeBase}
-                                style={{
-                                  background: "#FDF8DB",
-                                  color: "#995900",
-                                  borderColor: "#995900",
-                                }}
+                                className="badge badge-amber"
                               >
                                 {deactivatingId === student.id
                                   ? "..."
@@ -433,19 +393,19 @@ async function handleDeactivateStudent() {
 
       {showCreateModal && (
         <div
-          className="es-overlay"
+          className="modal-overlay"
           onClick={() => setShowCreateModal(false)}
         >
           <div
-            className="es-modal"
+            className="modal"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="es-modal-header">
+            <div className="modal-header">
               Nouveau · étudiant
             </div>
-            <div className="p-[18px]">
+            <div className="modal-body">
               {createError && (
-                <div className="mb-3 rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-2 text-[13px] text-[#9B3B3B]">
+                <div className="error-banner-compact mb-3">
                   {createError}
                 </div>
               )}
@@ -464,7 +424,7 @@ async function handleDeactivateStudent() {
                       name: e.target.value,
                     })
                   }
-                  className={inputBase}
+                  className="input"
                 />
                 <input
                   type="email"
@@ -477,7 +437,7 @@ async function handleDeactivateStudent() {
                       email: e.target.value,
                     })
                   }
-                  className={inputBase}
+                  className="input"
                 />
                 <input
                   type="password"
@@ -490,20 +450,20 @@ async function handleDeactivateStudent() {
                       password: e.target.value,
                     })
                   }
-                  className={inputBase}
+                  className="input"
                 />
                 <div className="mt-2 flex gap-2">
                   <button
                     type="button"
                     onClick={() => setShowCreateModal(false)}
-                    className={btnGhost}
+                    className="btn-ghost"
                   >
                     Annuler
                   </button>
                   <button
                     type="submit"
                     disabled={creating}
-                    className={btnPrimary}
+                    className="btn-primary"
                   >
                     {creating ? "Création..." : "Créer"}
                   </button>
@@ -515,20 +475,20 @@ async function handleDeactivateStudent() {
       )}
       {editingStudent && (
         <div
-          className="es-overlay"
+          className="modal-overlay"
           onClick={() => setEditingStudent(null)}
         >
           <div
-            className="es-modal"
+            className="modal"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="es-modal-header">
+            <div className="modal-header">
               Modifier · {editingStudent.name}
             </div>
 
-            <div className="p-[18px]">
+            <div className="modal-body">
               {editError && (
-                <div className="mb-3 rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-2 text-[13px] text-[#9B3B3B]">
+                <div className="error-banner-compact mb-3">
                   {editError}
                 </div>
               )}
@@ -547,7 +507,7 @@ async function handleDeactivateStudent() {
                       name: e.target.value,
                     })
                   }
-                  className={inputBase}
+                  className="input"
                 />
 
                 <input
@@ -560,14 +520,14 @@ async function handleDeactivateStudent() {
                       email: e.target.value,
                     })
                   }
-                  className={inputBase}
+                  className="input"
                 />
 
                 <div className="mt-2 flex gap-2">
                   <button
                     type="button"
                     onClick={() => setEditingStudent(null)}
-                    className={btnGhost}
+                    className="btn-ghost"
                   >
                     Annuler
                   </button>
@@ -575,7 +535,7 @@ async function handleDeactivateStudent() {
                   <button
                     type="submit"
                     disabled={saving}
-                    className={btnPrimary}
+                    className="btn-primary"
                   >
                     {saving
                       ? "Enregistrement..."
@@ -590,20 +550,20 @@ async function handleDeactivateStudent() {
 
       {resettingStudent && (
         <div
-          className="es-overlay"
+          className="modal-overlay"
           onClick={() => setResettingStudent(null)}
         >
           <div
-            className="es-modal"
+            className="modal"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="es-modal-header">
+            <div className="modal-header">
               Réinitialiser · {resettingStudent.name}
             </div>
 
-            <div className="p-[18px]">
+            <div className="modal-body">
               {resetError && (
-                <div className="mb-3 rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-2 text-[13px] text-[#9B3B3B]">
+                <div className="error-banner-compact mb-3">
                   {resetError}
                 </div>
               )}
@@ -633,7 +593,7 @@ async function handleDeactivateStudent() {
                 <button
                   type="button"
                   onClick={() => setResettingStudent(null)}
-                  className={btnGhost}
+                  className="btn-ghost"
                 >
                   Fermer
                 </button>
@@ -642,7 +602,7 @@ async function handleDeactivateStudent() {
                   <button
                     onClick={handleResetPassword}
                     disabled={resetting}
-                    className={btnAmber}
+                    className="btn-amber"
                   >
                     {resetting ? "..." : "Générer"}
                   </button>
@@ -655,18 +615,18 @@ async function handleDeactivateStudent() {
 
       {confirmStudent && (
         <div
-          className="es-overlay"
+          className="modal-overlay"
           onClick={() => setConfirmStudent(null)}
         >
           <div
-            className="es-modal"
+            className="modal"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="es-modal-header">
+            <div className="modal-header">
               Confirmer · désactivation
             </div>
 
-            <div className="p-[18px]">
+            <div className="modal-body">
               <div className="text-[16px] font-medium">
                 Désactiver {confirmStudent.name} ?
               </div>
@@ -677,7 +637,7 @@ async function handleDeactivateStudent() {
               <div className="mt-4 flex gap-2">
                 <button
                   onClick={() => setConfirmStudent(null)}
-                  className={btnGhost}
+                  className="btn-ghost"
                 >
                   Annuler
                 </button>
@@ -686,7 +646,7 @@ async function handleDeactivateStudent() {
                   disabled={
                     deactivatingId === confirmStudent.id
                   }
-                  className={btnAmber}
+                  className="btn-amber"
                 >
                   {deactivatingId === confirmStudent.id
                     ? "..."
@@ -699,9 +659,9 @@ async function handleDeactivateStudent() {
       )}
 
       {toast && (
-        <div className="es-toast-wrap">
+        <div className="toast-wrap">
           <div
-            className="es-toast"
+            className="toast"
             style={{
               background:
                 toast.type === "ok"
@@ -710,7 +670,7 @@ async function handleDeactivateStudent() {
             }}
           >
             <span
-              className="es-toast-icon"
+              className="toast-icon"
               style={{
                 background:
                   toast.type === "ok"

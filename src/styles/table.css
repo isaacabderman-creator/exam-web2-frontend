@@ -1,0 +1,21 @@
+@layer components {
+  .table-wrap {
+    @apply overflow-hidden rounded-[24px] border border-ink bg-white;
+  }
+
+  .table-head-cell {
+    @apply border-b border-ink bg-[#FEF8F1] px-[14px] py-[12px] text-[11px] font-bold uppercase tracking-[0.08em] text-[#A7A4A4] text-left;
+  }
+
+  .table-head-cell-end {
+    @apply text-right;
+  }
+
+  .table-cell {
+    @apply px-[14px] py-[11px];
+  }
+
+  .table-state {
+    @apply p-10 text-center text-[14px] text-[#6C6C6C];
+  }
+}

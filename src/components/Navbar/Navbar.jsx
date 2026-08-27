@@ -57,7 +57,7 @@ export default function Navbar() {
           <span className="avatar" />
           <button
             onClick={handleLogout}
-            className="btn quiet sm"
+            className="btn-quiet"
             aria-label="Déconnexion"
             title="Déconnexion"
           >

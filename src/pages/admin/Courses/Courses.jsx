@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Courses.css";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/api";
-
-const btnPrimary = "inline-flex items-center justify-center gap-2 rounded-full border border-ink bg-peach px-[22px] py-[9px] text-[13px] font-medium text-ink hover:bg-[#FAECD1] disabled:cursor-not-allowed disabled:opacity-50 transition-colors";
-const btnGhost = "inline-flex items-center justify-center gap-2 rounded-full border border-ink bg-white px-[18px] py-[9px] text-[13px] font-medium text-ink hover:bg-cream transition-colors";
-const badgeBase = "inline-flex items-center gap-1.5 rounded-full border border-ink px-3 py-[3px] text-[12px] font-medium transition-colors disabled:opacity-50";
-const inputBase = "w-full rounded-[24px] border border-ink bg-white px-[18px] py-[13px] text-[15px] text-ink placeholder:text-[#A7A4A4] outline-none transition-colors focus:border-2 focus:border-[#396EE9] focus:px-[17px] focus:py-[12px]";
 
 function authFetch(path, options = {}) {
     const token = localStorage.getItem("token");
@@ -136,26 +130,26 @@ export default function Courses() {
     }
 
      return (
-    <div className="min-h-screen px-6 pb-6 pt-12 bg-cream text-ink">
-      <div className="mx-auto max-w-5xl">
+    <div className="page">
+      <div className="page-inner">
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <h1 className="text-[32px] font-bold leading-[38px] tracking-[-0.02em]">
+            <h1 className="page-title">
               Cours
             </h1>
-            <p className="mt-1 text-[14px] text-[#6C6C6C]">
+            <p className="page-subtitle">
               Gérer les cours proposés sur{" "}
               <span className="font-semibold">examhub</span>
             </p>
           </div>
-          <button onClick={openCreateModal} className={btnPrimary}>
+          <button onClick={openCreateModal} className="btn-primary">
             + Nouveau cours
           </button>
         </div>
 
         {error && (
-          <div className="mb-4 rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-3 text-[14px]">
-            <b className="font-medium text-[#9B3B3B]">Erreur ·</b> {error}
+          <div className="error-banner mb-4">
+            <b className="error-banner-label">Erreur ·</b> {error}
           </div>
         )}
 
@@ -215,19 +209,13 @@ export default function Courses() {
                         <div className="inline-flex items-center gap-2">
                           <button
                             onClick={() => openEditModal(course)}
-                            className={badgeBase}
-                            style={{ background: "transparent" }}
+                            className="badge badge-outline"
                           >
                             Modifier
                           </button>
                           <button
                             onClick={() => handleDelete(course)}
-                            className={badgeBase}
-                            style={{
-                              background: "#FDF8DB",
-                              color: "#995900",
-                              borderColor: "#995900",
-                            }}
+                            className="badge badge-amber"
                           >
                             Supprimer
                           </button>
@@ -243,14 +231,14 @@ export default function Courses() {
       </div>
 
       {showModal && (
-        <div className="co-overlay" onClick={() => setShowModal(false)}>
-          <div className="co-modal" onClick={(e) => e.stopPropagation()}>
-            <div className="co-modal-header">
+        <div className="modal-overlay" onClick={() => setShowModal(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
               {editingId ? "Modifier · cours" : "Nouveau · cours"}
             </div>
-            <div className="p-[18px]">
+            <div className="modal-body">
               {formError && (
-                <div className="mb-3 rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-2 text-[13px] text-[#9B3B3B]">
+                <div className="error-banner-compact mb-3">
                   {formError}
                 </div>
               )}
@@ -264,7 +252,7 @@ export default function Courses() {
                   onChange={(e) =>
                     setForm({ ...form, code: e.target.value.toUpperCase() })
                   }
-                  className={inputBase}
+                  className="input"
                 />
                 <input
                   type="text"
@@ -272,7 +260,7 @@ export default function Courses() {
                   placeholder="Nom"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className={inputBase}
+                  className="input"
                 />
                 <textarea
                   rows={3}
@@ -281,20 +269,20 @@ export default function Courses() {
                   onChange={(e) =>
                     setForm({ ...form, description: e.target.value })
                   }
-                  className={`${inputBase} resize-none`}
+                  className="input resize-none"
                 />
                 <div className="mt-2 flex gap-2">
                   <button
                     type="button"
                     onClick={() => setShowModal(false)}
-                    className={btnGhost}
+                    className="btn-ghost"
                   >
                     Annuler
                   </button>
                   <button
                     type="submit"
                     disabled={saving}
-                    className={btnPrimary}
+                    className="btn-primary"
                   >
                     {saving ? "Enregistrement..." : "Enregistrer"}
                   </button>

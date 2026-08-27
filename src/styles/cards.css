@@ -1,0 +1,17 @@
+@layer components {
+  .card {
+    @apply bg-white rounded-[24px] border border-ink p-5;
+  }
+
+  .card-lg {
+    @apply bg-white rounded-[24px] border border-ink p-6;
+  }
+
+  .card-link {
+    @apply block no-underline transition-colors hover:bg-cream;
+  }
+
+  .empty-card {
+    @apply text-center;
+  }
+}

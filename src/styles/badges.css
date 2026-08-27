@@ -1,0 +1,43 @@
+@layer components {
+  /* shapes */
+  .badge {
+    @apply inline-flex items-center gap-1.5 rounded-full border px-3 py-[3px] text-[12px] font-medium transition-colors disabled:opacity-50;
+  }
+
+  .badge-compact {
+    @apply inline-flex items-center rounded-full border px-2 py-1 text-xs font-semibold;
+  }
+
+  /* colors — compose with either shape above */
+  .badge-outline {
+    @apply border-ink bg-transparent text-ink;
+  }
+
+  .badge-amber {
+    @apply border-amber bg-butter text-amber;
+  }
+
+  .badge-success {
+    @apply border-green bg-mint text-green;
+  }
+
+  .badge-success-soft {
+    @apply border-[#2C6B45] bg-mint text-[#2C6B45];
+  }
+
+  .badge-neutral {
+    @apply border-[#A7A4A4] bg-[#F2F2F2] text-[#A7A4A4];
+  }
+
+  .badge-course {
+    @apply border-sky-700 bg-sky-100 text-sky-700;
+  }
+
+  .badge-orange {
+    @apply border-orange bg-white text-orange;
+  }
+
+  .badge-disabled {
+    @apply border-[#A7A4A4] text-[#A7A4A4] opacity-50 cursor-not-allowed;
+  }
+}
