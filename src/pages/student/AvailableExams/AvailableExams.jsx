@@ -52,36 +52,36 @@ export default function AvailableExams() {
     }, []);
 
     return (
-        <div className="exams-page">
-            <div className="exams-inner">
-                <h1 className="exams-title">Available exams</h1>
-                <p className="exams-subtitle">
+        <div className="page">
+            <div className="page-inner">
+                <h1 className="page-title">Available exams</h1>
+                <p className="page-subtitle mb-6">
                     View and take your exams on{" "}
-                    <span className="exams-brand">examhub</span>
+                    <span className="page-brand">examhub</span>
                 </p>
 
                 {error && (
-                    <div className="exams-error">
-                        <span className="exams-error-label">Error.</span> {error}
+                    <div className="error-banner mb-4">
+                        <span className="error-banner-label">Error.</span> {error}
                     </div>
                 )}
                 {loading ? (
-                    <p className="exams-empty">Loading...</p>
+                    <p className="empty-text">Loading...</p>
                 ) : exams.length === 0 ? (
-                    <div className="exams-empty-card">
-                        <p className="exams-empty">No exams available right now.</p>
+                    <div className="card empty-card">
+                        <p className="empty-text">No exams available right now.</p>
                     </div>
                 ) : (
                     <div className="exams-grid">
                         {exams.map((exam) => {
                             const isOpen = new Date(exam.ends_at) > new Date();
                             return (
-                            <div key={exam.id} className="exam-card">
+                            <div key={exam.id} className="card-lg">
                                 <div className="exam-card-top">
-                                    <span className="exam-badge-course">
+                                    <span className="badge-compact badge-course">
                                         {exam.courseCode || exam.course?.code}
                                     </span>
-                                <span className={isOpen ? "exam-badge-open" : "exam-badge-closed"}>
+                                <span className={`badge-compact ${isOpen ? "badge-success-soft" : "badge-neutral"}`}>
                                     {isOpen ? "Open" : "Closed"}
                                 </span>
                             </div>

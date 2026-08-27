@@ -1,13 +1,5 @@
 @reference "../../../index.css";
 
-.exam-breadcrumb {
-  @apply text-[13px] text-[#6C6C6C];
-}
-
-.exam-breadcrumb a {
-  @apply text-ink font-medium no-underline hover:underline;
-}
-
 .exam-chart {
   @apply flex items-end gap-4 overflow-x-auto pb-2;
   min-height: 220px;

@@ -43,10 +43,3 @@
 .topbar .avatar {
   @apply size-8 rounded-full bg-[#E5F0FF] border border-ink;
 }
-
-.btn.quiet {
-  @apply bg-transparent border-none text-[#6C6C6C] text-sm font-medium cursor-pointer inline-flex items-center justify-center size-9;
-}
-.btn.quiet:hover {
-  @apply text-ink;
-}

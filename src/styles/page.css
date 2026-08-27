@@ -1,0 +1,49 @@
+@layer components {
+  .page {
+    @apply min-h-screen px-6 pb-6 pt-12 bg-cream text-ink;
+  }
+
+  .page-inner {
+    @apply mx-auto max-w-5xl;
+  }
+
+  .page-inner-narrow {
+    @apply mx-auto max-w-3xl;
+  }
+
+  .page-title {
+    @apply text-[32px] font-bold leading-[38px] tracking-[-0.02em];
+  }
+
+  .page-subtitle {
+    @apply mt-1 text-[14px] text-[#6C6C6C];
+  }
+
+  .page-brand {
+    @apply font-semibold text-[#E25A00];
+  }
+
+  .empty-text {
+    @apply text-sm text-[#A7A4A4];
+  }
+
+  .breadcrumb {
+    @apply text-[13px] text-[#6C6C6C];
+  }
+
+  .breadcrumb a {
+    @apply text-ink font-medium no-underline hover:underline;
+  }
+
+  .error-banner {
+    @apply rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-3 text-[14px];
+  }
+
+  .error-banner-label {
+    @apply font-medium text-[#9B3B3B];
+  }
+
+  .error-banner-compact {
+    @apply rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-2 text-[13px] text-[#9B3B3B];
+  }
+}

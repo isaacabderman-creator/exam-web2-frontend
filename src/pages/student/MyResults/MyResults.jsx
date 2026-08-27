@@ -67,25 +67,25 @@ export default function MyResults() {
     }, []);
 
     return (
-        <div className="results-page">
-            <div className="results-page-inner">
-                <h1 className="results-title">My results</h1>
-                <p className="results-subtitle">
+        <div className="page">
+            <div className="page-inner">
+                <h1 className="page-title">My results</h1>
+                <p className="page-subtitle mb-6">
                     History of exams you have taken on{" "}
-                    <span className="results-brand">examhub</span>
+                    <span className="page-brand">examhub</span>
                 </p>
 
                 {error && (
-                    <div className="results-error">
-                        <span className="results-error-label">Error.</span> {error}
+                    <div className="error-banner mb-4">
+                        <span className="error-banner-label">Error.</span> {error}
                     </div>
                 )}
 
                 {loading ? (
-                    <p className="results-empty">Loading...</p>
+                    <p className="empty-text">Loading...</p>
                 ) : results.length === 0 ? (
-                    <div className="results-empty-card">
-                        <p className="results-empty">You haven't taken any exam yet.</p>
+                    <div className="card empty-card">
+                        <p className="empty-text">You haven't taken any exam yet.</p>
                     </div>
                 ) : (
                     <div className="results-list">
@@ -97,7 +97,7 @@ export default function MyResults() {
                             return (
                                 <div key={result.exam_id} className="result-row">
                                     <div className="result-row-info">
-                                        <span className="result-badge-course">
+                                        <span className="badge-compact badge-course">
                                             {result.course_code}
                                         </span>
                                         <div>

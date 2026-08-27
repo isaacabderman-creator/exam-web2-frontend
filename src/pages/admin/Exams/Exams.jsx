@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./Exams.css";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/api";
-
-const btnPrimary = "inline-flex items-center justify-center gap-2 rounded-full border border-ink bg-peach px-[22px] py-[9px] text-[13px] font-medium text-ink hover:bg-[#FAECD1] disabled:cursor-not-allowed disabled:opacity-50 transition-colors";
 
 function authFetch(path, options = {}) {
     const token = localStorage.getItem("token");
@@ -31,12 +28,12 @@ function formatDate(dateString) {
 function getStatus(exam) {
     const now = new Date();
     if (now < new Date(exam.starts_at)) {
-        return { label: "Programmé", className: "exam-badge-scheduled" };
+        return { label: "Programmé", className: "badge-amber" };
     }
     if (now > new Date(exam.ends_at)) {
-        return { label: "Fermé", className: "exam-badge-closed" };
+        return { label: "Fermé", className: "badge-neutral" };
     }
-    return { label: "Ouvert", className: "exam-badge-open" };
+    return { label: "Ouvert", className: "badge-success" };
 }
 
 export default function Exams() {
@@ -98,36 +95,36 @@ export default function Exams() {
     }
 
     return (
-        <div className="min-h-screen px-6 pb-6 pt-12 bg-cream text-ink">
-            <div className="mx-auto max-w-5xl">
+        <div className="page">
+            <div className="page-inner">
                 <div className="mb-6 flex items-center justify-between">
                     <div>
-                        <h1 className="text-[32px] font-bold leading-[38px] tracking-[-0.02em]">
+                        <h1 className="page-title">
                             Examens
                         </h1>
-                        <p className="mt-1 text-[14px] text-[#6C6C6C]">
+                        <p className="page-subtitle">
                             Gérer les examens proposés sur{" "}
                             <span className="font-semibold">examhub</span>
                         </p>
                     </div>
-                    <Link to="/admin/exams/new" className={btnPrimary}>
+                    <Link to="/admin/exams/new" className="btn-primary">
                         + Nouvel examen
                     </Link>
                 </div>
 
                 {error && (
-                    <div className="mb-4 rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-3 text-[14px]">
-                        <b className="font-medium text-[#9B3B3B]">Erreur ·</b> {error}
+                    <div className="error-banner mb-4">
+                        <b className="error-banner-label">Erreur ·</b> {error}
                     </div>
                 )}
 
-                <div className="overflow-hidden rounded-[24px] border border-ink bg-white">
+                <div className="table-wrap">
                     {loading ? (
-                        <p className="p-10 text-center text-[14px] text-[#6C6C6C]">
+                        <p className="table-state">
                             Chargement...
                         </p>
                     ) : exams.length === 0 ? (
-                        <p className="p-10 text-center text-[14px] text-[#6C6C6C]">
+                        <p className="table-state">
                             Aucun examen pour l'instant.
                         </p>
                     ) : (
@@ -137,9 +134,7 @@ export default function Exams() {
                                     {["Titre", "Cours", "Fenêtre", "Statut", ""].map((header, index) => (
                                         <th
                                             key={header + index}
-                                            className={`border-b border-ink bg-[#FEF8F1] px-[14px] py-[12px] text-[11px] font-bold uppercase tracking-[0.08em] text-[#A7A4A4] ${
-                                                index === 4 ? "text-right" : "text-left"
-                                            }`}
+                                            className={`table-head-cell ${index === 4 ? "table-head-cell-end" : ""}`}
                                         >
                                             {header}
                                         </th>
@@ -177,11 +172,11 @@ export default function Exams() {
                                                 style={{ borderBottom: rowBorder }}
                                             >
                                                 <div className="flex flex-wrap items-center gap-1.5">
-                                                    <span className={`exam-badge ${status.className}`}>
+                                                    <span className={`badge ${status.className}`}>
                                                         {status.label}
                                                     </span>
                                                     {locked && (
-                                                        <span className="exam-badge exam-badge-locked">
+                                                        <span className="badge badge-orange">
                                                             Verrouillé
                                                         </span>
                                                     )}
@@ -194,19 +189,19 @@ export default function Exams() {
                                                 <div className="inline-flex items-center gap-2">
                                                     <Link
                                                         to={`/admin/exams/${exam.id}/questions`}
-                                                        className="exam-badge exam-action-link"
+                                                        className="badge badge-outline"
                                                     >
                                                         Questions
                                                     </Link>
                                                     <Link
                                                         to={`/admin/exams/${exam.id}/results`}
-                                                        className="exam-badge exam-action-link"
+                                                        className="badge badge-outline"
                                                     >
                                                         Résultats
                                                     </Link>
                                                     {locked ? (
                                                         <span
-                                                            className="exam-badge exam-action-disabled"
+                                                            className="badge badge-disabled"
                                                             title="Verrouillé : cet examen a des tentatives"
                                                         >
                                                             Modifier
@@ -214,7 +209,7 @@ export default function Exams() {
                                                     ) : (
                                                         <Link
                                                             to={`/admin/exams/${exam.id}/edit`}
-                                                            className="exam-badge exam-action-link"
+                                                            className="badge badge-outline"
                                                         >
                                                             Modifier
                                                         </Link>
@@ -223,7 +218,7 @@ export default function Exams() {
                                                         onClick={() => handleDelete(exam)}
                                                         disabled={locked || deletingId === exam.id}
                                                         title={locked ? "Verrouillé : cet examen a des tentatives" : undefined}
-                                                        className="exam-badge exam-action-delete"
+                                                        className="badge badge-amber"
                                                     >
                                                         {deletingId === exam.id ? "..." : "Supprimer"}
                                                     </button>

@@ -1,21 +1,5 @@
 @reference "../../../index.css";
 
-.exam-breadcrumb {
-  @apply text-[13px] text-[#6C6C6C];
-}
-
-.exam-breadcrumb a {
-  @apply text-ink font-medium no-underline hover:underline;
-}
-
-.exam-field-label {
-  @apply text-[13px] font-medium text-[#504949];
-}
-
-.exam-question-card {
-  @apply rounded-[24px] border border-ink bg-white p-5;
-}
-
 .exam-choice {
   @apply text-[13px] text-[#6C6C6C];
 }
@@ -26,16 +10,4 @@
 
 .exam-choice-remove {
   @apply text-[#9B3B3B] text-sm px-2;
-}
-
-.exam-overlay {
-  @apply fixed inset-0 bg-ink/45 flex items-center justify-center z-50 p-4;
-}
-
-.exam-modal {
-  @apply bg-white border border-ink rounded-[40px] w-full max-w-lg overflow-hidden shadow-[0_8px_24px_rgba(20,27,52,0.06)] max-h-[90vh] overflow-y-auto;
-}
-
-.exam-modal-header {
-  @apply bg-cream border-b border-ink py-3.5 px-[22px] text-[11px] font-bold tracking-[0.08em] uppercase text-[#A7A4A4];
 }

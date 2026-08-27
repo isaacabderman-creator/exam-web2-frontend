@@ -1,0 +1,9 @@
+@layer components {
+  .field-label {
+    @apply flex flex-col gap-1 text-[13px] font-medium text-[#504949];
+  }
+
+  .input {
+    @apply w-full rounded-[24px] border border-ink bg-white px-[18px] py-[13px] text-[15px] text-ink placeholder:text-[#A7A4A4] outline-none transition-colors focus:border-2 focus:border-[#396EE9] focus:px-[17px] focus:py-[12px];
+  }
+}

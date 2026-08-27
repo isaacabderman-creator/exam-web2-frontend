@@ -1,29 +1,5 @@
 @reference "../../../index.css";
 
-.dashboard-page {
-  @apply min-h-screen px-6 pb-6 pt-12 bg-cream text-ink;
-}
-
-.dashboard-inner {
-  @apply mx-auto max-w-5xl;
-}
-
-.dashboard-title {
-  @apply text-[32px] font-bold leading-[38px] tracking-[-0.02em];
-}
-
-.dashboard-subtitle {
-  @apply mt-1 mb-6 text-[14px] text-[#6C6C6C];
-}
-
-.dashboard-error {
-  @apply mb-4 rounded-[24px] border border-ink bg-[#FBEDED] px-4 py-3 text-[14px];
-}
-
-.dashboard-error-label {
-  @apply font-medium text-[#9B3B3B];
-}
-
 .dashboard-section-title {
   @apply text-[20px] font-bold tracking-[-0.02em] mb-3;
 }
@@ -36,20 +12,12 @@
   @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4;
 }
 
-.dashboard-card {
-  @apply block no-underline bg-white rounded-[24px] border border-ink p-5 transition-colors hover:bg-cream;
-}
-
 .dashboard-quick-link:hover {
   @apply -translate-y-px;
 }
 
 .dashboard-stat-label {
   @apply text-sm font-medium text-[#6C6C6C];
-}
-
-.dashboard-stat-badge {
-  @apply text-xs font-semibold px-2 py-1 rounded-full;
 }
 
 .dashboard-stat-value {

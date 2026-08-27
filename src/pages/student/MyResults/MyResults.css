@@ -1,41 +1,5 @@
 @reference "../../../index.css";
 
-.results-page {
-    @apply min-h-screen px-6 pb-6 pt-12 bg-cream text-ink;
-}
-
-.results-page-inner {
-    @apply mx-auto max-w-5xl;
-}
-
-.results-title {
-    @apply text-[32px] font-bold leading-[38px] tracking-[-0.02em];
-}
-
-.results-subtitle {
-  @apply mt-1 mb-6 text-[14px] text-[#6C6C6C];
-}
-
-.results-brand {
-  @apply font-semibold text-[#E25A00];
-}
-
-.results-error {
-  @apply mb-4 rounded-[24px] border border-ink bg-[#FBEDED] px-4 py-3 text-[14px];
-}
-
-.results-error-label {
-  @apply font-medium text-[#9B3B3B];
-}
-
-.results-empty {
-  @apply text-sm text-[#A7A4A4];
-}
-
-.results-empty-card {
-  @apply bg-white rounded-[24px] border border-ink p-5 text-center;
-}
-
 .results-list {
   @apply flex flex-col gap-3;
 }
@@ -46,10 +10,6 @@
 
 .result-row-info {
   @apply flex items-center gap-4;
-}
-
-.result-badge-course {
-  @apply text-xs font-semibold px-2 py-1 rounded-full bg-sky-100 text-sky-700;
 }
 
 .result-exam-title {

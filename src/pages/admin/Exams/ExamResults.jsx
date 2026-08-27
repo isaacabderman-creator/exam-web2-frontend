@@ -58,21 +58,21 @@ export default function ExamResults() {
     }, [id]);
 
     return (
-        <div className="min-h-screen px-6 pb-6 pt-12 bg-cream text-ink">
-            <div className="mx-auto max-w-5xl">
-                <nav className="exam-breadcrumb">
+        <div className="page">
+            <div className="page-inner">
+                <nav className="breadcrumb">
                     <Link to="/admin/exams">Examens</Link>
                     <span> › </span>
                     <span>{loading ? "..." : data?.exam?.title || "Examen"} › Résultats</span>
                 </nav>
 
-                <h1 className="mt-3 text-[32px] font-bold leading-[38px] tracking-[-0.02em]">
+                <h1 className="mt-3 page-title">
                     Résultats
                 </h1>
 
                 {error && (
-                    <div className="mt-4 rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-3 text-[14px]">
-                        <b className="font-medium text-[#9B3B3B]">Erreur ·</b> {error}
+                    <div className="error-banner mt-4">
+                        <b className="error-banner-label">Erreur ·</b> {error}
                     </div>
                 )}
 

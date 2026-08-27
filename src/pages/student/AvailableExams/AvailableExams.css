@@ -1,63 +1,11 @@
 @reference "../../../index.css";
 
-.exams-page {
-  @apply min-h-screen px-6 pb-6 pt-12 bg-cream text-ink;
-}
-
-.exams-inner {
-  @apply mx-auto max-w-5xl;
-}
-
-.exams-title {
-  @apply text-[32px] font-bold leading-[38px] tracking-[-0.02em];
-}
-
-.exams-subtitle {
-  @apply mt-1 mb-6 text-[14px] text-[#6C6C6C];
-}
-
-.exams-brand {
-  @apply font-semibold text-[#E25A00];
-}
-
-.exams-error {
-  @apply mb-4 rounded-[24px] border border-ink bg-[#FBEDED] px-4 py-3 text-[14px];
-}
-
-.exams-error-label {
-  @apply font-medium text-[#9B3B3B];
-}
-
-.exams-empty {
-  @apply text-sm text-[#A7A4A4];
-}
-
-.exams-empty-card {
-  @apply bg-white rounded-[24px] border border-ink p-5 text-center;
-}
-
 .exams-grid {
   @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
 }
 
-.exam-card {
-  @apply bg-white rounded-[24px] border border-ink p-6;
-}
-
 .exam-card-top {
   @apply flex items-center justify-between mb-4;
-}
-
-.exam-badge-course {
-  @apply text-xs font-semibold px-2 py-1 rounded-full border border-sky-700 bg-sky-100 text-sky-700;
-}
-
-.exam-badge-open {
-  @apply text-xs font-semibold px-2 py-1 rounded-full border border-[#2C6B45] bg-mint text-[#2C6B45];
-}
-
-.exam-badge-closed {
-  @apply text-xs font-semibold px-2 py-1 rounded-full border border-[#A7A4A4] bg-[#F2F2F2] text-[#A7A4A4];
 }
 
 .exam-card-title {

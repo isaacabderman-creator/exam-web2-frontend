@@ -114,18 +114,18 @@ export default function Dashboard() {
 ];
 
 return (
-    <div className="dashboard-page">
-      <div className="dashboard-inner">
-        <h1 className="dashboard-title">
+    <div className="page">
+      <div className="page-inner">
+        <h1 className="page-title">
           Tableau de bord
         </h1>
-        <p className="dashboard-subtitle">
+        <p className="page-subtitle mb-6">
           Vue d'ensemble d'<span className="font-semibold">examhub</span>
         </p>
 
         {error && (
-          <div className="dashboard-error">
-            <b className="dashboard-error-label">Erreur ·</b> {error}
+          <div className="error-banner mb-4">
+            <b className="error-banner-label">Erreur ·</b> {error}
           </div>
         )}
 
@@ -134,11 +134,11 @@ return (
             <Link
               key={card.label}
               to={card.to}
-              className="dashboard-card dashboard-stat-card"
+              className="card card-link"
             >
               <div className="flex items-center justify-between mb-3">
                 <p className="dashboard-stat-label">{card.label}</p>
-                <span className={`dashboard-stat-badge ${card.accent}`}>
+                <span className={`badge-compact ${card.accent}`}>
                     {loading ? "…" : card.value}
                 </span>
               </div>
@@ -157,7 +157,7 @@ return (
             <Link
               key={link.to}
               to={link.to}
-              className="dashboard-card dashboard-quick-link"
+              className="card card-link dashboard-quick-link"
             >
               <p className="dashboard-quick-link-title">{link.label}</p>
               <p className="dashboard-quick-link-desc">{link.description}</p>
