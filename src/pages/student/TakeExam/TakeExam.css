@@ -1,0 +1,105 @@
+@reference "../../../index.css";
+
+.take-exam-page {
+  @apply min-h-screen px-6 pb-6 pt-12 bg-cream text-ink;
+}
+
+.take-exam-inner {
+  @apply mx-auto max-w-3xl;
+}
+
+.take-exam-breadcrumb {
+  @apply mb-3 text-[13px] text-[#6C6C6C];
+}
+
+.take-exam-breadcrumb a {
+  @apply text-ink font-medium no-underline hover:underline;
+}
+
+.take-exam-title {
+  @apply text-[28px] font-bold leading-[34px] tracking-[-0.02em];
+}
+
+.take-exam-subtitle {
+  @apply mt-1 text-[14px] text-[#6C6C6C];
+}
+
+.take-exam-description {
+  @apply mt-2 text-sm text-[#6C6C6C];
+}
+
+.take-exam-loading {
+  @apply text-sm text-[#A7A4A4];
+}
+
+.take-exam-error {
+  @apply mb-4 rounded-[24px] border border-[#9B3B3B] bg-[#FBEDED] px-4 py-3 text-[14px];
+}
+
+.take-exam-error-label {
+  @apply font-medium text-[#9B3B3B];
+}
+
+.take-exam-form {
+  @apply mt-6 flex flex-col gap-4;
+}
+
+.take-exam-question-card {
+  @apply bg-white rounded-[24px] border border-ink p-5;
+}
+
+.take-exam-question-statement {
+  @apply font-medium text-[15px] mb-3;
+}
+
+.take-exam-question-points {
+  @apply font-normal text-[#A7A4A4];
+}
+
+.take-exam-choices {
+  @apply flex flex-col gap-2;
+}
+
+.take-exam-choice {
+  @apply flex items-center gap-2 text-sm cursor-pointer;
+}
+
+.take-exam-btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-ink bg-peach px-6 py-2.5 text-sm font-medium text-ink no-underline transition-colors hover:bg-[#FAECD1] disabled:cursor-not-allowed disabled:opacity-50 self-start;
+}
+
+.take-exam-result {
+  @apply mt-6;
+}
+
+.take-exam-score {
+  @apply mt-2 mb-4 text-[15px];
+}
+
+.take-exam-correction-list {
+  @apply flex flex-col gap-3 mb-6;
+}
+
+.take-exam-correction-card {
+  @apply bg-white rounded-[24px] border p-5;
+}
+
+.take-exam-correction-correct {
+  @apply border-green;
+}
+
+.take-exam-correction-wrong {
+  @apply border-[#9B3B3B];
+}
+
+.take-exam-correction-status {
+  @apply text-sm font-medium;
+}
+
+.take-exam-correction-correct .take-exam-correction-status {
+  @apply text-green;
+}
+
+.take-exam-correction-wrong .take-exam-correction-status {
+  @apply text-[#9B3B3B];
+}
