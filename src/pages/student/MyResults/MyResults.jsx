@@ -47,5 +47,15 @@ export default function MyResults() {
             setLoading(false);
         }
     }
-    
+    return (
+        <div className="results-pages">
+            <div className="results-inner">
+                <h1 className="results-title">My results</h1>
+                <p className="results-subtitle">
+                    History of exams you have taken on{" "}
+                    <span className="results-brand">examhub</span>
+                </p>
+            </div>
+        </div>
+    )
 }
