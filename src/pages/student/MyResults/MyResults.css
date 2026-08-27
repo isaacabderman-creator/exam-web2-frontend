@@ -1,11 +1,11 @@
 @reference "../../../index.css";
 
 .results-page {
-    @apply min-h-screen- px-6 pb-6 pt-12 bg-cream text-ink;
+    @apply min-h-screen px-6 pb-6 pt-12 bg-cream text-ink;
 }
 
 .results-page-inner {
-    @apply text-[32px] font-bold leading-[38px] tracking-[-0.02em];
+    @apply mx-auto max-w-5xl;
 }
 
 .results-title {
@@ -49,7 +49,7 @@
 }
 
 .result-badge-course {
-  @apply text-xs font-semibold px-2 py-1 rounded-full bg-sky text-blue;
+  @apply text-xs font-semibold px-2 py-1 rounded-full bg-sky-100 text-sky-700;
 }
 
 .result-exam-title {
