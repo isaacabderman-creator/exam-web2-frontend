@@ -12,7 +12,7 @@ export default function useLogin() {
     setError(null);
     try {
       const user = await login(email, password);
-      navigate(user.role === "admin" ? "/admin" : "/student");
+      navigate(user.role === "admin" ? "/admin" : "/student/exams");
     } catch (err) {
       setError(err.message || "Login failed");
     }

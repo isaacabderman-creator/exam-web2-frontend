@@ -60,7 +60,7 @@ export default function Dashboard() {
         );
         if (authFailure) {
           localStorage.removeItem("token");
-          navigate(authFailure.status === 401 ? "/login" : "/student");
+          navigate(authFailure.status === 401 ? "/login" : "/student/exams");
           return;
         }
 
