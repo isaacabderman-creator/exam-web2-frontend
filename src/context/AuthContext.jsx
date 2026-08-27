@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useCallback } from "react";
+import { login as apiLogin } from "../api/auth.js";
 
 const AuthContext = createContext();
 
@@ -11,22 +12,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(readStoredUser);
 
   const login = useCallback(async (email, password) => {
-    const res = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL || "/api"}/auth/login`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      }
-    );
-
-    let data = null;
-    try { data = await res.json(); } catch {/**/}
-
-    if (!res.ok) {
-      throw new Error(data?.message || `Erreur ${res.status}`);
-    }
-
+    const data = await apiLogin(email, password);
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", JSON.stringify(data.user));
     setUser(data.user);

@@ -1,19 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/api";
-
-function authFetch(path, options = {}) {
-    const token = localStorage.getItem("token");
-    return fetch(`${API_URL}${path}`, {
-        ...options,
-        headers: {
-            "Content-Type": "application/json",
-            ...(token ? { Authorization: `Bearer ${token}`} : {}),
-            ...(options.headers || {}),
-        },
-    });
-}
+import { getCourses, createCourse, updateCourse, deleteCourse } from "../../../api/courses.js";
 
 const emptyForm = { code: "", name: "", description: "" };
 
@@ -33,13 +20,12 @@ export default function Courses() {
         loadCourses();
     }, []);
 
-    function handleAuthError(status) {
-        if (status === 401) {
-            localStorage.removeItem("token");
+    function handleAuthError(err) {
+        if (err.status === 401) {
             navigate("/login");
             return true;
         }
-        if (status === 403) {
+        if (err.status === 403) {
             navigate("/student/exams");
             return true;
         }
@@ -50,13 +36,12 @@ export default function Courses() {
         setLoading(true);
         setError("");
         try {
-            const res = await authFetch("/courses");
-            if (handleAuthError(res.status)) return;
-            const data = await res.json().catch(() => null);
-            if (!res.ok) throw new Error(data?.message || "Échec du chargement des cours");
+            const data = await getCourses();
             setCourses(data);
-        } catch (error) {
-            setError(error.message);
+        } catch (err) {
+            if (!handleAuthError(err)) {
+                setError(err.message);
+            }
         } finally {
             setLoading(false);
         }
@@ -86,20 +71,17 @@ export default function Courses() {
         setFormError("");
         try {
             const isEdit = editingId !== null;
-            const res = await authFetch(
-                isEdit ? `/courses/${editingId}` : "/courses",
-                {
-                    method: isEdit ? "PUT" : "POST",
-                    body: JSON.stringify(form),
-                }
-            );
-            if (handleAuthError(res.status)) return;
-            const data = await res.json().catch(() => null);
-            if (!res.ok) throw new Error(data?.message || "Échec de l'enregistrement du cours");
+            if (isEdit) {
+                await updateCourse(editingId, form);
+            } else {
+                await createCourse(form);
+            }
             setShowModal(false);
             await loadCourses();
         } catch (err) {
-            setFormError(err.message);
+            if (!handleAuthError(err)) {
+                setFormError(err.message);
+            }
         } finally {
             setSaving(false);
         }
@@ -109,22 +91,14 @@ export default function Courses() {
         if (!window.confirm(`Supprimer le cours "${course.name}" ?`)) return;
 
         try {
-            const res = await authFetch(`/courses/${course.id}`, {
-                method: "DELETE",
-            });
-            if (handleAuthError(res.status)) return;
-            if (!res.ok) {
-                const data = await res.json().catch(() => null);
-                if (res.status === 409) {
-                    throw new Error(
-                        data?.message ||
-                        "Ce cours a des examens et ne peut pas être supprimé."
-                    );
-                }
-                throw new Error(data?.message || "Échec de la suppression du cours");
-            }
+            await deleteCourse(course.id);
             await loadCourses();
         } catch (err) {
+            if (handleAuthError(err)) return;
+            if (err.status === 409) {
+                setError(err.message || "Ce cours a des examens et ne peut pas être supprimé.");
+                return;
+            }
             setError(err.message);
         }
     }
