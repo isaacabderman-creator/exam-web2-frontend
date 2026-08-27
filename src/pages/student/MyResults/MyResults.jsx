@@ -62,7 +62,34 @@ export default function MyResults() {
                     </div>
                 )}
 
-                
+                {loading ? (
+                    <p className="results-empty">Loading...</p>
+                ) : results.length === 0 ? (
+                    <div className="result-empty-card">
+                        <p className="results-empty">You haven't taken any exam yet.</p>
+                    </div>
+                ) : (
+                    <div className="results-list">
+                        {results.map((result) => {
+                            const percentage = Math.round(
+                                (result.score/ result.maxScore) * 100
+                            );
+                            return (
+                                <div key={result.id} className="result-row">
+                                    <div className="result-row-info">
+                                        <span className="result-badge-course">
+                                            {result.courseCode || result.course?.code}
+                                        </span>
+                                        <div>
+                                            <p className="result-exam-title">{result.examTitle}</p>
+                                            <p className="result-exam-date">
+                                                Taken on {formatDate(result.submittedAt)}
+                                            </p>
+                                        </div>
+                                    </div>  
+                            )
+                        })}
+                )}
             </div>
         </div>
     )
