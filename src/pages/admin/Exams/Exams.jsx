@@ -1,29 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
-const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/api";
-
-function authFetch(path, options = {}) {
-    const token = localStorage.getItem("token");
-    return fetch(`${API_URL}${path}`, {
-        ...options,
-        headers: {
-            "Content-Type": "application/json",
-            ...(token ? { Authorization: `Bearer ${token}` } : {}),
-            ...(options.headers || {}),
-        },
-    });
-}
-
-function formatDate(dateString) {
-    return new Date(dateString).toLocaleString("fr-FR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-    });
-}
+import { getExams, deleteExam } from "../../../api/exams.js";
+import { formatDate } from "../../../utils/formatDate.js";
 
 function getStatus(exam) {
     const now = new Date();
@@ -47,13 +25,12 @@ export default function Exams() {
         loadExams();
     }, []);
 
-    function handleAuthError(status) {
-        if (status === 401) {
-            localStorage.removeItem("token");
+    function handleAuthError(err) {
+        if (err.status === 401) {
             navigate("/login");
             return true;
         }
-        if (status === 403) {
+        if (err.status === 403) {
             navigate("/student/exams");
             return true;
         }
@@ -64,13 +41,12 @@ export default function Exams() {
         setLoading(true);
         setError("");
         try {
-            const res = await authFetch("/exams");
-            if (handleAuthError(res.status)) return;
-            const data = await res.json().catch(() => null);
-            if (!res.ok) throw new Error(data?.message || "Échec du chargement des examens");
+            const data = await getExams();
             setExams(data);
         } catch (err) {
-            setError(err.message);
+            if (!handleAuthError(err)) {
+                setError(err.message);
+            }
         } finally {
             setLoading(false);
         }
@@ -80,15 +56,12 @@ export default function Exams() {
         if (!window.confirm(`Supprimer l'examen "${exam.title}" ?`)) return;
         setDeletingId(exam.id);
         try {
-            const res = await authFetch(`/exams/${exam.id}`, { method: "DELETE" });
-            if (handleAuthError(res.status)) return;
-            if (!res.ok) {
-                const data = await res.json().catch(() => null);
-                throw new Error(data?.message || "Échec de la suppression de l'examen");
-            }
+            await deleteExam(exam.id);
             await loadExams();
         } catch (err) {
-            setError(err.message);
+            if (!handleAuthError(err)) {
+                setError(err.message);
+            }
         } finally {
             setDeletingId(null);
         }

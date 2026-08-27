@@ -1,30 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./MyResults.css";
-
-const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/api";
-
-function authFetch(path, options = {}) {
-    const token = localStorage.getItem("token");
-    return fetch(`${API_URL}${path}`, {
-        ...options,
-        headers: {
-            "Content-Type": "application/json",
-            ...(token ? { Authorization: `Bearer ${token}` } : {}),
-            ...(options.headers || {}),
-        },
-    });
-}
-
-function formatDate(dateString) {
-    return new Date(dateString).toLocaleString("fr-FR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-    });
-}
+import { getMyResults } from "../../../api/myExams.js";
+import { formatDate } from "../../../utils/formatDate.js";
 
 export default function MyResults() {
     const navigate = useNavigate();
@@ -32,13 +10,12 @@ export default function MyResults() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    function handleAuthError(status) {
-        if (status === 401) {
-            localStorage.removeItem("token");
+    function handleAuthError(err) {
+        if (err.status === 401) {
             navigate("/login");
             return true;
         }
-        if (status === 403) {
+        if (err.status === 403) {
             navigate("/admin");
             return true;
         }
@@ -50,14 +27,12 @@ export default function MyResults() {
             setLoading(true);
             setError("");
             try {
-                const res = await authFetch("/my/results");
-                if (handleAuthError(res.status)) return;
-                const data = await res.json().catch(() => null);
-                if (!res.ok)
-                    throw new Error(data?.message || "Failed to load results");
+                const data = await getMyResults();
                 setResults(data);
             } catch (err) {
-                setError(err.message);
+                if (!handleAuthError(err)) {
+                    setError(err.message);
+                }
             } finally {
                 setLoading(false);
             }

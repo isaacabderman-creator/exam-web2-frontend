@@ -1,20 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./ExamForm.css";
-
-const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/api";
-
-function authFetch(path, options = {}) {
-    const token = localStorage.getItem("token");
-    return fetch(`${API_URL}${path}`, {
-        ...options,
-        headers: {
-            "Content-Type": "application/json",
-            ...(token ? { Authorization: `Bearer ${token}` } : {}),
-            ...(options.headers || {}),
-        },
-    });
-}
+import { getExam, createExam, updateExam } from "../../../api/exams.js";
+import { getCourses } from "../../../api/courses.js";
 
 const emptyForm = { course_id: "", title: "", description: "", starts_at: "", ends_at: "" };
 
@@ -37,13 +25,12 @@ export default function ExamForm() {
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState("");
 
-    function handleAuthError(status) {
-        if (status === 401) {
-            localStorage.removeItem("token");
+    function handleAuthError(err) {
+        if (err.status === 401) {
             navigate("/login");
             return true;
         }
-        if (status === 403) {
+        if (err.status === 403) {
             navigate("/student/exams");
             return true;
         }
@@ -52,10 +39,12 @@ export default function ExamForm() {
 
     useEffect(() => {
         async function loadCourses() {
-            const res = await authFetch("/courses");
-            if (handleAuthError(res.status)) return;
-            const data = await res.json().catch(() => null);
-            if (res.ok) setCourses(data || []);
+            try {
+                const data = await getCourses();
+                setCourses(data || []);
+            } catch (err) {
+                handleAuthError(err);
+            }
         }
         loadCourses();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,10 +56,7 @@ export default function ExamForm() {
             setLoading(true);
             setError("");
             try {
-                const res = await authFetch(`/exams/${id}`);
-                if (handleAuthError(res.status)) return;
-                const data = await res.json().catch(() => null);
-                if (!res.ok) throw new Error(data?.message || "Échec du chargement de l'examen");
+                const data = await getExam(id);
                 setExam(data);
                 setForm({
                     course_id: data.course?.id ?? "",
@@ -80,7 +66,9 @@ export default function ExamForm() {
                     ends_at: toLocalInput(data.ends_at),
                 });
             } catch (err) {
-                setError(err.message);
+                if (!handleAuthError(err)) {
+                    setError(err.message);
+                }
             } finally {
                 setLoading(false);
             }
@@ -109,16 +97,16 @@ export default function ExamForm() {
                 starts_at: new Date(form.starts_at).toISOString(),
                 ends_at: new Date(form.ends_at).toISOString(),
             };
-            const res = await authFetch(isEdit ? `/exams/${id}` : "/exams", {
-                method: isEdit ? "PUT" : "POST",
-                body: JSON.stringify(body),
-            });
-            if (handleAuthError(res.status)) return;
-            const data = await res.json().catch(() => null);
-            if (!res.ok) throw new Error(data?.message || "Échec de l'enregistrement de l'examen");
+            if (isEdit) {
+                await updateExam(id, body);
+            } else {
+                await createExam(body);
+            }
             navigate("/admin/exams");
         } catch (err) {
-            setError(err.message);
+            if (!handleAuthError(err)) {
+                setError(err.message);
+            }
         } finally {
             setSaving(false);
         }
