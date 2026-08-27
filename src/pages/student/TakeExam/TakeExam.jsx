@@ -1,20 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./TakeExam.css";
-
-const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/api";
-
-function authFetch(path, options = {}) {
-    const token = localStorage.getItem("token");
-    return fetch(`${API_URL}${path}`, {
-        ...options,
-        headers: {
-            "Content-Type": "application/json",
-            ...(token ? { Authorization: `Bearer ${token}` } : {}),
-            ...(options.headers || {}),
-        },
-    });
-}
+import { getMyExam, submitMyExam } from "../../../api/myExams.js";
 
 export default function TakeExam() {
     const navigate = useNavigate();
@@ -29,13 +16,12 @@ export default function TakeExam() {
     const [submitError, setSubmitError] = useState("");
     const [result, setResult] = useState(null);
 
-    function handleAuthError(status) {
-        if (status === 401) {
-            localStorage.removeItem("token");
+    function handleAuthError(err) {
+        if (err.status === 401) {
             navigate("/login");
             return true;
         }
-        if (status === 403) {
+        if (err.status === 403) {
             navigate("/admin");
             return true;
         }
@@ -47,13 +33,12 @@ export default function TakeExam() {
             setLoading(true);
             setError("");
             try {
-                const res = await authFetch(`/my/exams/${id}`);
-                if (handleAuthError(res.status)) return;
-                const data = await res.json().catch(() => null);
-                if (!res.ok) throw new Error(data?.message || "Failed to load exam");
+                const data = await getMyExam(id);
                 setExam(data);
             } catch (err) {
-                setError(err.message);
+                if (!handleAuthError(err)) {
+                    setError(err.message);
+                }
             } finally {
                 setLoading(false);
             }
@@ -71,22 +56,16 @@ export default function TakeExam() {
         setSubmitError("");
         setSubmitting(true);
         try {
-            const body = {
-                answers: Object.entries(answers).map(([questionId, choiceId]) => ({
-                    question_id: Number(questionId),
-                    choice_id: choiceId,
-                })),
-            };
-            const res = await authFetch(`/my/exams/${id}/submit`, {
-                method: "POST",
-                body: JSON.stringify(body),
-            });
-            if (handleAuthError(res.status)) return;
-            const data = await res.json().catch(() => null);
-            if (!res.ok) throw new Error(data?.message || "Failed to submit exam");
+            const answersPayload = Object.entries(answers).map(([questionId, choiceId]) => ({
+                question_id: Number(questionId),
+                choice_id: choiceId,
+            }));
+            const data = await submitMyExam(id, answersPayload);
             setResult(data);
         } catch (err) {
-            setSubmitError(err.message);
+            if (!handleAuthError(err)) {
+                setSubmitError(err.message);
+            }
         } finally {
             setSubmitting(false);
         }

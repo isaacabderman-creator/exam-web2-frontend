@@ -1,20 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./ExamResults.css";
-
-const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/api";
-
-function authFetch(path, options = {}) {
-    const token = localStorage.getItem("token");
-    return fetch(`${API_URL}${path}`, {
-        ...options,
-        headers: {
-            "Content-Type": "application/json",
-            ...(token ? { Authorization: `Bearer ${token}` } : {}),
-            ...(options.headers || {}),
-        },
-    });
-}
+import { getExamResults } from "../../../api/exams.js";
 
 export default function ExamResults() {
     const navigate = useNavigate();
@@ -24,13 +11,12 @@ export default function ExamResults() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    function handleAuthError(status) {
-        if (status === 401) {
-            localStorage.removeItem("token");
+    function handleAuthError(err) {
+        if (err.status === 401) {
             navigate("/login");
             return true;
         }
-        if (status === 403) {
+        if (err.status === 403) {
             navigate("/student/exams");
             return true;
         }
@@ -42,13 +28,12 @@ export default function ExamResults() {
             setLoading(true);
             setError("");
             try {
-                const res = await authFetch(`/exams/${id}/results`);
-                if (handleAuthError(res.status)) return;
-                const body = await res.json().catch(() => null);
-                if (!res.ok) throw new Error(body?.message || "Échec du chargement des résultats");
+                const body = await getExamResults(id);
                 setData(body);
             } catch (err) {
-                setError(err.message);
+                if (!handleAuthError(err)) {
+                    setError(err.message);
+                }
             } finally {
                 setLoading(false);
             }
