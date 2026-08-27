@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getExams, deleteExam } from "../../../api/exams.js";
 import { formatDate } from "../../../utils/formatDate.js";
+import TableSkeleton from "../../../components/TableSkeleton.jsx";
 
 function getStatus(exam) {
     const now = new Date();
@@ -93,9 +94,7 @@ export default function Exams() {
 
                 <div className="table-wrap">
                     {loading ? (
-                        <p className="table-state">
-                            Chargement...
-                        </p>
+                        <TableSkeleton />
                     ) : exams.length === 0 ? (
                         <p className="table-state">
                             Aucun examen pour l'instant.
@@ -123,25 +122,25 @@ export default function Exams() {
                                     return (
                                         <tr key={exam.id}>
                                             <td
-                                                className="px-[14px] py-[11px] font-medium"
+                                                className="table-cell font-medium"
                                                 style={{ borderBottom: rowBorder }}
                                             >
                                                 {exam.title}
                                             </td>
                                             <td
-                                                className="px-[14px] py-[11px] text-[#6C6C6C]"
+                                                className="table-cell text-[#6C6C6C]"
                                                 style={{ borderBottom: rowBorder }}
                                             >
                                                 {exam.course?.name}
                                             </td>
                                             <td
-                                                className="px-[14px] py-[11px] text-[#6C6C6C]"
+                                                className="table-cell text-[#6C6C6C]"
                                                 style={{ borderBottom: rowBorder }}
                                             >
                                                 {formatDate(exam.starts_at)} → {formatDate(exam.ends_at)}
                                             </td>
                                             <td
-                                                className="px-[14px] py-[11px]"
+                                                className="table-cell"
                                                 style={{ borderBottom: rowBorder }}
                                             >
                                                 <div className="flex flex-wrap items-center gap-1.5">
@@ -156,7 +155,7 @@ export default function Exams() {
                                                 </div>
                                             </td>
                                             <td
-                                                className="px-[14px] py-[11px] text-right"
+                                                className="table-cell text-right"
                                                 style={{ borderBottom: rowBorder }}
                                             >
                                                 <div className="inline-flex items-center gap-2">

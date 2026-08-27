@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getStudents, createStudent, updateStudent, deactivateStudent } from "../../api/students.js";
 import { generateTempPassword } from "../../utils/generateTempPassword.js";
+import TableSkeleton from "../../components/TableSkeleton.jsx";
 
 export default function Students() {
   const navigate = useNavigate();
@@ -221,11 +222,7 @@ async function handleDeactivateStudent() {
         </div>
         <div className="table-wrap">
           {loading ? (
-            <div className="space-y-3 p-6">
-              <div className="h-[14px] w-[60%] rounded-full border border-ink bg-cream" />
-              <div className="h-[14px] w-[85%] rounded-full border border-ink bg-cream" />
-              <div className="h-[14px] w-[40%] rounded-full border border-ink bg-cream" />
-            </div>
+            <TableSkeleton />
           ) : filteredStudents.length === 0 ? (
             <div className="p-10 text-center">
               <div className="mx-auto mb-3 h-[44px] w-[44px] rounded-[24px] border border-ink bg-cream" />
