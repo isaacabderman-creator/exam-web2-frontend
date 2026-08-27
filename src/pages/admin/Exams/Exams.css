@@ -1,0 +1,33 @@
+@reference "../../../index.css";
+
+.exam-badge {
+  @apply inline-flex items-center gap-1.5 rounded-full border px-3 py-[3px] text-[12px] font-medium transition-colors disabled:opacity-50;
+}
+
+.exam-badge-scheduled {
+  @apply bg-butter text-amber border-amber;
+}
+
+.exam-badge-open {
+  @apply bg-mint text-green border-green;
+}
+
+.exam-badge-closed {
+  @apply bg-[#F2F2F2] text-[#A7A4A4] border-[#A7A4A4];
+}
+
+.exam-badge-locked {
+  @apply bg-white text-orange border-orange;
+}
+
+.exam-action-link {
+  @apply border-ink bg-transparent;
+}
+
+.exam-action-disabled {
+  @apply border-[#A7A4A4] text-[#A7A4A4] opacity-50 cursor-not-allowed;
+}
+
+.exam-action-delete {
+  @apply border-amber bg-butter text-amber;
+}
