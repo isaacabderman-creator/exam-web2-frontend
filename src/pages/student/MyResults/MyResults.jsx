@@ -23,3 +23,29 @@ function formatDate(dateString) {
         minute:"2-digit",
     });
 }
+export default function MyResults() {
+    const [results, setResults] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        loadResults();
+    }, []);
+
+    async function loadResults() {
+        setlLoading(true);
+        setError("");
+        try {
+            const re = await authFetch("/my/results");
+            const data = await results.json();
+            if (!results.ok)
+                throw new Error(data.message || "Failed to load results");
+            setResults(data);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+    
+}
