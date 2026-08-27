@@ -9,6 +9,15 @@
 @import "./styles/cards.css";
 @import "./styles/toast.css";
 @import "./styles/table.css";
+@import "./styles/navbar.css";
+@import "./styles/login-form.css";
+@import "./styles/pages/dashboard.css";
+@import "./styles/pages/exam-form.css";
+@import "./styles/pages/exam-questions.css";
+@import "./styles/pages/exam-results.css";
+@import "./styles/pages/available-exams.css";
+@import "./styles/pages/my-results.css";
+@import "./styles/pages/take-exam.css";
 
 @theme {
   --color-ink: #141b34;

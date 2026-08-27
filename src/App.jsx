@@ -1,26 +1,19 @@
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar.jsx";
-import Login from "./pages/Login/Login.jsx";
-import Students from "./pages/admin/Students/Students.jsx";
-import Dashboard from "./pages/admin/Dashboard/Dashboard.jsx";
-import Courses from "./pages/admin/Courses/Courses.jsx";
+import Login from "./pages/Login.jsx";
+import Students from "./pages/admin/Students.jsx";
+import Dashboard from "./pages/admin/Dashboard.jsx";
+import Courses from "./pages/admin/Courses.jsx";
 import Exams from "./pages/admin/Exams/Exams.jsx";
 import ExamForm from "./pages/admin/Exams/ExamForm.jsx";
 import ExamQuestions from "./pages/admin/Exams/ExamQuestions.jsx";
 import ExamResults from "./pages/admin/Exams/ExamResults.jsx";
-import AvailableExams from "./pages/student/AvailableExams/AvailableExams.jsx";
-import MyResults from "./pages/student/MyResults/MyResults.jsx";
-import TakeExam from "./pages/student/TakeExam/TakeExam.jsx";
-import { AuthProvider, useAuth } from "./context/AuthContext.jsx";
-
-function ProtectedRoute({ role, children }) {
-  const { user } = useAuth();
-  if (!user) return <Navigate to="/login" replace />;
-  if (user.role !== role) {
-    return <Navigate to={user.role === "admin" ? "/admin" : "/student/exams"} replace />;
-  }
-  return children;
-}
+import AvailableExams from "./pages/student/AvailableExams.jsx";
+import MyResults from "./pages/student/MyResults.jsx";
+import TakeExam from "./pages/student/TakeExam.jsx";
+import NotFound from "./pages/NotFound.jsx";
+import { AuthProvider } from "./routes/AuthProvider.jsx";
+import RoleRoute from "./routes/RoleRoute.jsx";
 
 function Layout() {
   const location = useLocation();
@@ -29,17 +22,18 @@ function Layout() {
       {location.pathname !== "/login" && <Navbar />}
       <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/admin" element={<ProtectedRoute role="admin"><Dashboard /></ProtectedRoute>} />
-          <Route path="/admin/students" element={<ProtectedRoute role="admin"><Students /></ProtectedRoute>} />
-          <Route path="/admin/courses" element={<ProtectedRoute role="admin"><Courses /></ProtectedRoute>} />
-          <Route path="/admin/exams" element={<ProtectedRoute role="admin"><Exams /></ProtectedRoute>} />
-          <Route path="/admin/exams/new" element={<ProtectedRoute role="admin"><ExamForm /></ProtectedRoute>} />
-          <Route path="/admin/exams/:id/edit" element={<ProtectedRoute role="admin"><ExamForm /></ProtectedRoute>} />
-          <Route path="/admin/exams/:id/questions" element={<ProtectedRoute role="admin"><ExamQuestions /></ProtectedRoute>} />
-          <Route path="/admin/exams/:id/results" element={<ProtectedRoute role="admin"><ExamResults /></ProtectedRoute>} />
-          <Route path="/student/exams" element={<ProtectedRoute role="student"><AvailableExams /></ProtectedRoute>} />
-          <Route path="/student/exams/:id" element={<ProtectedRoute role="student"><TakeExam /></ProtectedRoute>} />
-          <Route path="/student/results" element={<ProtectedRoute role="student"><MyResults /></ProtectedRoute>} />
+          <Route path="/admin" element={<RoleRoute role="admin"><Dashboard /></RoleRoute>} />
+          <Route path="/admin/students" element={<RoleRoute role="admin"><Students /></RoleRoute>} />
+          <Route path="/admin/courses" element={<RoleRoute role="admin"><Courses /></RoleRoute>} />
+          <Route path="/admin/exams" element={<RoleRoute role="admin"><Exams /></RoleRoute>} />
+          <Route path="/admin/exams/new" element={<RoleRoute role="admin"><ExamForm /></RoleRoute>} />
+          <Route path="/admin/exams/:id/edit" element={<RoleRoute role="admin"><ExamForm /></RoleRoute>} />
+          <Route path="/admin/exams/:id/questions" element={<RoleRoute role="admin"><ExamQuestions /></RoleRoute>} />
+          <Route path="/admin/exams/:id/results" element={<RoleRoute role="admin"><ExamResults /></RoleRoute>} />
+          <Route path="/student/exams" element={<RoleRoute role="student"><AvailableExams /></RoleRoute>} />
+          <Route path="/student/exams/:id" element={<RoleRoute role="student"><TakeExam /></RoleRoute>} />
+          <Route path="/student/results" element={<RoleRoute role="student"><MyResults /></RoleRoute>} />
+          <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
