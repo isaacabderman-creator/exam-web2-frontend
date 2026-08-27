@@ -162,22 +162,27 @@ export default function ExamForm() {
                 ) : (
                     <div className="mt-6 max-w-xl rounded-[24px] border border-ink bg-white p-[18px]">
                         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-                            <select
-                                required
-                                disabled={locked}
-                                value={form.course_id}
-                                onChange={(e) => setForm({ ...form, course_id: e.target.value })}
-                                className={inputBase}
-                            >
-                                <option value="" disabled>
-                                    Sélectionner un cours
-                                </option>
-                                {courses.map((course) => (
-                                    <option key={course.id} value={course.id}>
-                                        {course.code} — {course.name}
+                            <div className="exam-select-wrap">
+                                <select
+                                    required
+                                    disabled={locked}
+                                    value={form.course_id}
+                                    onChange={(e) => setForm({ ...form, course_id: e.target.value })}
+                                    className={`${inputBase} exam-select`}
+                                >
+                                    <option value="" disabled>
+                                        Sélectionner un cours
                                     </option>
-                                ))}
-                            </select>
+                                    {courses.map((course) => (
+                                        <option key={course.id} value={course.id}>
+                                            {course.code} — {course.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                <span className="material-symbols-outlined exam-select-icon">
+                                    expand_more
+                                </span>
+                            </div>
                             <input
                                 type="text"
                                 required
