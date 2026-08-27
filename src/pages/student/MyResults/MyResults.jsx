@@ -87,10 +87,19 @@ export default function MyResults() {
                                             </p>
                                         </div>
                                     </div>  
-                            )
+
+                                    <div className="result-row-score">
+                                        <p className="result-score-value">
+                                            {result.score} / {result.maxScore}
+                                        </p>
+                                        <p className="result-score-percentage">{percentage}%</p>
+                                    </div>
+                                </div>
+                            );
                         })}
+                    </div>
                 )}
             </div>
         </div>
-    )
+    );
 }
