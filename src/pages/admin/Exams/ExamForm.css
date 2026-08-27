@@ -1,0 +1,13 @@
+@reference "../../../index.css";
+
+.exam-breadcrumb {
+  @apply text-[13px] text-[#6C6C6C];
+}
+
+.exam-breadcrumb a {
+  @apply text-ink font-medium no-underline hover:underline;
+}
+
+.exam-field-label {
+  @apply flex flex-col gap-1 text-[13px] font-medium text-[#504949];
+}
