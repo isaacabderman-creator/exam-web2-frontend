@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "./AuthContext.jsx";
+import { useAuth } from "./AuthProvider.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 
 export default function RoleRoute({ role, children }) {
