@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import "./ExamForm.css";
 import { getExam, createExam, updateExam } from "../../../api/exams.js";
 import { getCourses } from "../../../api/courses.js";
 

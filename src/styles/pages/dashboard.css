@@ -1,0 +1,33 @@
+@layer components {
+  .dashboard-section-title {
+    @apply text-[20px] font-bold tracking-[-0.02em] mb-3;
+  }
+
+  .dashboard-stats-grid {
+    @apply grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8;
+  }
+
+  .dashboard-links-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4;
+  }
+
+  .dashboard-quick-link:hover {
+    @apply -translate-y-px;
+  }
+
+  .dashboard-stat-label {
+    @apply text-sm font-medium text-[#6C6C6C];
+  }
+
+  .dashboard-stat-value {
+    @apply text-3xl font-bold;
+  }
+
+  .dashboard-quick-link-title {
+    @apply font-medium;
+  }
+
+  .dashboard-quick-link-desc {
+    @apply text-sm text-[#6C6C6C] mt-1;
+  }
+}
