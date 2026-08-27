@@ -117,21 +117,35 @@ export default function TakeExam() {
                         </p>
 
                         <div className="take-exam-correction-list">
-                            {result.correction.map((line) => (
-                                <div
-                                    key={line.question_id}
-                                    className={
-                                        line.is_correct
-                                            ? "take-exam-correction-card take-exam-correction-correct"
-                                            : "take-exam-correction-card take-exam-correction-wrong"
-                                    }
-                                >
-                                    <p className="take-exam-question-statement">{line.statement}</p>
-                                    <p className="take-exam-correction-status">
-                                        {line.is_correct ? "✓ Correct" : "✕ Incorrect"} · {line.points} point{line.points > 1 ? "s" : ""}
-                                    </p>
-                                </div>
-                            ))}
+                            {result.correction.map((line) => {
+                                const choices =
+                                    exam.questions.find((q) => q.id === line.question_id)?.choices || [];
+                                const studentChoice = choices.find((c) => c.id === line.student_choice_id);
+                                const correctChoice = choices.find((c) => c.id === line.correct_choice_id);
+                                return (
+                                    <div
+                                        key={line.question_id}
+                                        className={
+                                            line.is_correct
+                                                ? "take-exam-correction-card take-exam-correction-correct"
+                                                : "take-exam-correction-card take-exam-correction-wrong"
+                                        }
+                                    >
+                                        <p className="take-exam-question-statement">{line.statement}</p>
+                                        <p className="take-exam-correction-status">
+                                            {line.is_correct ? "✓ Correct" : "✕ Incorrect"} · {line.points} point{line.points > 1 ? "s" : ""}
+                                        </p>
+                                        <p className="take-exam-answer-line">
+                                            Your answer: {studentChoice ? studentChoice.text : "No answer"}
+                                        </p>
+                                        {!line.is_correct && (
+                                            <p className="take-exam-answer-line take-exam-answer-correct">
+                                                Correct answer: {correctChoice?.text}
+                                            </p>
+                                        )}
+                                    </div>
+                                );
+                            })}
                         </div>
 
                         <Link to="/student/results" className="take-exam-btn">

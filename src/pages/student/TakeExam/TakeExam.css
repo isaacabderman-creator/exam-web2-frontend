@@ -103,3 +103,11 @@
 .take-exam-correction-wrong .take-exam-correction-status {
   @apply text-[#9B3B3B];
 }
+
+.take-exam-answer-line {
+  @apply mt-2 text-sm text-[#6C6C6C];
+}
+
+.take-exam-answer-correct {
+  @apply text-green font-medium;
+}
