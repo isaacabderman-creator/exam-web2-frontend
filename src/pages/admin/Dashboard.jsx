@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./Dashboard.css";
-import { getStudents } from "../../../api/students.js";
-import { getCourses } from "../../../api/courses.js";
-import { getExams } from "../../../api/exams.js";
+import { getStudents } from "../../api/students.js";
+import { getCourses } from "../../api/courses.js";
+import { getExams } from "../../api/exams.js";
 
 const quickLinks = [
   {
