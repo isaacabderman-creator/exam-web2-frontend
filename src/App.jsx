@@ -11,6 +11,7 @@ import ExamResults from "./pages/admin/Exams/ExamResults.jsx";
 import AvailableExams from "./pages/student/AvailableExams.jsx";
 import MyResults from "./pages/student/MyResults.jsx";
 import TakeExam from "./pages/student/TakeExam.jsx";
+import NotFound from "./pages/NotFound.jsx";
 import { AuthProvider } from "./routes/AuthProvider.jsx";
 import RoleRoute from "./routes/RoleRoute.jsx";
 
@@ -32,6 +33,7 @@ function Layout() {
           <Route path="/student/exams" element={<RoleRoute role="student"><AvailableExams /></RoleRoute>} />
           <Route path="/student/exams/:id" element={<RoleRoute role="student"><TakeExam /></RoleRoute>} />
           <Route path="/student/results" element={<RoleRoute role="student"><MyResults /></RoleRoute>} />
+          <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
