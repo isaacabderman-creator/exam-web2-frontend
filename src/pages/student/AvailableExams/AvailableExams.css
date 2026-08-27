@@ -49,11 +49,15 @@
 }
 
 .exam-badge-course {
-  @apply text-xs font-semibold px-2 py-1 rounded-full bg-sky text-blue;
+  @apply text-xs font-semibold px-2 py-1 rounded-full bg-sky-100 text-sky-700;
 }
 
 .exam-badge-open {
   @apply text-xs font-semibold px-2 py-1 rounded-full bg-mint text-[#2C6B45];
+}
+
+.exam-badge-closed {
+  @apply text-xs font-semibold px-2 py-1 rounded-full bg-[#F2F2F2] text-[#A7A4A4];
 }
 
 .exam-card-title {
@@ -70,4 +74,8 @@
 
 .exam-card-btn {
   @apply block text-center no-underline text-white text-sm font-medium px-4 py-2 rounded-[24px] bg-ink transition-colors hover:bg-[#2A3350];
+}
+
+.exam-card-btn-disabled {
+  @apply bg-[#A7A4A4] cursor-not-allowed hover:bg-[#A7A4A4];
 }
