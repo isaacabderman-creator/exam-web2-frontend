@@ -11,7 +11,7 @@ import ExamResults from "./pages/admin/Exams/ExamResults.jsx";
 import AvailableExams from "./pages/student/AvailableExams.jsx";
 import MyResults from "./pages/student/MyResults.jsx";
 import TakeExam from "./pages/student/TakeExam.jsx";
-import { AuthProvider } from "./routes/AuthContext.jsx";
+import { AuthProvider } from "./routes/AuthProvider.jsx";
 import RoleRoute from "./routes/RoleRoute.jsx";
 
 function Layout() {
