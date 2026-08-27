@@ -1,0 +1,77 @@
+@layer components {
+  .take-exam-title {
+    @apply text-[28px] font-bold leading-[34px] tracking-[-0.02em];
+  }
+
+  .take-exam-subtitle {
+    @apply mt-1 text-[14px] text-[#6C6C6C];
+  }
+
+  .take-exam-description {
+    @apply mt-2 text-sm text-[#6C6C6C];
+  }
+
+  .take-exam-form {
+    @apply mt-6 flex flex-col gap-4;
+  }
+
+  .take-exam-question-statement {
+    @apply font-medium text-[15px] mb-3;
+  }
+
+  .take-exam-question-points {
+    @apply font-normal text-[#A7A4A4];
+  }
+
+  .take-exam-choices {
+    @apply flex flex-col gap-2;
+  }
+
+  .take-exam-choice {
+    @apply flex items-center gap-2 text-sm cursor-pointer;
+  }
+
+  .take-exam-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-ink bg-peach px-6 py-2.5 text-sm font-medium text-ink no-underline transition-colors hover:bg-[#FAECD1] disabled:cursor-not-allowed disabled:opacity-50 self-start;
+  }
+
+  .take-exam-result {
+    @apply mt-6;
+  }
+
+  .take-exam-score {
+    @apply mt-2 mb-4 text-[15px];
+  }
+
+  .take-exam-correction-list {
+    @apply flex flex-col gap-3 mb-6;
+  }
+
+  .take-exam-correction-correct {
+    @apply border-green;
+  }
+
+  .take-exam-correction-wrong {
+    @apply border-[#9B3B3B];
+  }
+
+  .take-exam-correction-status {
+    @apply text-sm font-medium;
+  }
+
+  .take-exam-correction-correct .take-exam-correction-status {
+    @apply text-green;
+  }
+
+  .take-exam-correction-wrong .take-exam-correction-status {
+    @apply text-[#9B3B3B];
+  }
+
+  .take-exam-answer-line {
+    @apply mt-2 text-sm text-[#6C6C6C];
+  }
+
+  .take-exam-answer-correct {
+    @apply text-green font-medium;
+  }
+}

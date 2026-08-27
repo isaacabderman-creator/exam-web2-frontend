@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./MyResults.css";
-import { getMyResults } from "../../../api/myExams.js";
-import { formatDate } from "../../../utils/formatDate.js";
+import { getMyResults } from "../../api/myExams.js";
+import { formatDate } from "../../utils/formatDate.js";
 
 export default function MyResults() {
     const navigate = useNavigate();

@@ -1,0 +1,49 @@
+@layer components {
+  .topbar-wrap {
+    @apply py-3;
+  }
+
+  .topbar {
+    @apply h-16 max-w-6xl mx-auto border border-ink rounded-full bg-white flex items-center gap-3 px-6;
+  }
+
+  .topbar .brand {
+    @apply text-[15px] font-semibold text-ink;
+  }
+
+  .badge.admin {
+    @apply text-xs font-medium py-1 px-3 rounded-full border border-orange text-orange;
+  }
+
+  .badge.student {
+    @apply text-xs font-medium py-1 px-3 rounded-full border border-blue-600 text-blue-600;
+  }
+
+  .pill-nav {
+    @apply flex items-center gap-1 ml-4;
+  }
+
+  .pill-nav a {
+    @apply py-2 px-4 rounded-full text-sm font-medium text-[#6C6C6C] no-underline whitespace-nowrap transition-colors duration-150 ease-in-out;
+  }
+
+  .pill-nav a:hover {
+    @apply text-ink;
+  }
+
+  .pill-nav a.active {
+    @apply bg-peach text-ink border border-ink;
+  }
+
+  .topbar .spacer {
+    @apply ml-auto flex items-center gap-2.5;
+  }
+
+  .topbar .user {
+    @apply text-[13px] text-ink;
+  }
+
+  .topbar .avatar {
+    @apply size-8 rounded-full bg-[#E5F0FF] border border-ink;
+  }
+}

@@ -1,8 +1,7 @@
 import { useEffect, useState }from "react";
 import { Link } from "react-router-dom";
-import "./AvailableExams.css";
-import { getMyExams } from "../../../api/myExams.js";
-import { formatDate } from "../../../utils/formatDate.js";
+import { getMyExams } from "../../api/myExams.js";
+import { formatDate } from "../../utils/formatDate.js";
 
 export default function AvailableExams() {
     const [exams, setExams] = useState([]);

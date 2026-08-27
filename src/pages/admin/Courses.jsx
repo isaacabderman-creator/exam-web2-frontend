@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCourses, createCourse, updateCourse, deleteCourse } from "../../../api/courses.js";
+import { getCourses, createCourse, updateCourse, deleteCourse } from "../../api/courses.js";
 
 const emptyForm = { code: "", name: "", description: "" };
 

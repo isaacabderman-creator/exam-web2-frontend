@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getStudents, createStudent, updateStudent, deactivateStudent } from "../../../api/students.js";
-import { generateTempPassword } from "../../../utils/generateTempPassword.js";
+import { getStudents, createStudent, updateStudent, deactivateStudent } from "../../api/students.js";
+import { generateTempPassword } from "../../utils/generateTempPassword.js";
 
 export default function Students() {
   const navigate = useNavigate();

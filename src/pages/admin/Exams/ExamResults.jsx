@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import "./ExamResults.css";
 import { getExamResults } from "../../../api/exams.js";
 
 export default function ExamResults() {
