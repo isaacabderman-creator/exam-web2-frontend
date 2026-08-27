@@ -148,8 +148,8 @@ export default function TakeExam() {
                             })}
                         </div>
 
-                        <Link to="/student/results" className="take-exam-btn">
-                            View all results
+                        <Link to="/student/exams" className="take-exam-btn">
+                            Back to exams
                         </Link>
                     </div>
                 ) : (
