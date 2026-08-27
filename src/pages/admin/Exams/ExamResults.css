@@ -1,0 +1,38 @@
+@reference "../../../index.css";
+
+.exam-breadcrumb {
+  @apply text-[13px] text-[#6C6C6C];
+}
+
+.exam-breadcrumb a {
+  @apply text-ink font-medium no-underline hover:underline;
+}
+
+.exam-chart {
+  @apply flex items-end gap-4 overflow-x-auto pb-2;
+  min-height: 220px;
+}
+
+.exam-chart-bar-col {
+  @apply flex flex-col items-center gap-1.5 shrink-0;
+  width: 64px;
+}
+
+.exam-chart-score {
+  @apply text-[12px] font-semibold text-green;
+}
+
+.exam-chart-track {
+  @apply w-full bg-mint rounded-t-[12px] flex items-end;
+  height: 160px;
+}
+
+.exam-chart-bar {
+  @apply w-full bg-green rounded-t-[12px] transition-all;
+  min-height: 4px;
+}
+
+.exam-chart-name {
+  @apply text-[11px] text-[#6C6C6C] text-center;
+  word-break: break-word;
+}
