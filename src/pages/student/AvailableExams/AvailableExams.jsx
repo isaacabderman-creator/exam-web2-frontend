@@ -51,6 +51,10 @@ export default function AvailableExams() {
         }
     }
 
+    useEffect(() => {
+        loadExams();
+    }, []);
+
     return (
         <div className="exams-page">
             <div className="exams-inner">
@@ -73,27 +77,38 @@ export default function AvailableExams() {
                     </div>
                 ) : (
                     <div className="exams-grid">
-                        {exams.map((exam) => (
+                        {exams.map((exam) => {
+                            const isOpen = new Date(exam.ends_at) > new Date();
+                            return (
                             <div key={exam.id} className="exam-card">
                                 <div className="exam-card-top">
                                     <span className="exam-badge-course">
                                         {exam.courseCode || exam.course?.code}
                                     </span>
-                                <span className="exam-badge-open">Open</span>
+                                <span className={isOpen ? "exam-badge-open" : "exam-badge-closed"}>
+                                    {isOpen ? "Open" : "Closed"}
+                                </span>
                             </div>
                             <h2 className="exam-card-title">{exam.title}</h2>
                             {exam.description && (
                                 <p className="exam-card-desc">{exam.description}</p>
                             )}
                             <p className="exam-card-deadline">
-                                Available until {formatDate(exam.endsAt || exam.dateFin)}
+                                Available until {formatDate(exam.ends_at)}
                             </p>
-                            <Link to={`/student/exams/${exam.id}`} className="exam-card-btn">
-                                Take exam
-                            </Link>
+                            {isOpen ? (
+                                <Link to={`/student/exams/${exam.id}`} className="exam-card-btn">
+                                    Take exam
+                                </Link>
+                            ) : (
+                                <span className="exam-card-btn exam-card-btn-disabled">
+                                    Take exam
+                                </span>
+                            )}
                         </div>
-                    ))}
-                </div>
+                            );
+                        })}
+                    </div>
             )}
         </div>
         </div>
