@@ -9,6 +9,7 @@ import ExamForm from "./pages/admin/Exams/ExamForm.jsx";
 import ExamQuestions from "./pages/admin/Exams/ExamQuestions.jsx";
 import ExamResults from "./pages/admin/Exams/ExamResults.jsx";
 import AvailableExams from "./pages/student/AvailableExams/AvailableExams.jsx";
+import MyResults from "./pages/student/MyResults/MyResults.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 
 function Layout() {
@@ -27,6 +28,7 @@ function Layout() {
           <Route path="/admin/exams/:id/questions" element={<ExamQuestions />} />
           <Route path="/admin/exams/:id/results" element={<ExamResults />} />
           <Route path="/student/exams" element={<AvailableExams />} />
+          <Route path="/student/results" element={<MyResults />} />
       </Routes>
     </>
   );
