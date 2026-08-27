@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import "./TakeExam.css";
-import { getMyExam, submitMyExam } from "../../../api/myExams.js";
+import { getMyExam, submitMyExam } from "../../api/myExams.js";
 
 export default function TakeExam() {
     const navigate = useNavigate();

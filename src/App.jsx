@@ -1,16 +1,16 @@
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar.jsx";
-import Login from "./pages/Login/Login.jsx";
-import Students from "./pages/admin/Students/Students.jsx";
-import Dashboard from "./pages/admin/Dashboard/Dashboard.jsx";
-import Courses from "./pages/admin/Courses/Courses.jsx";
+import Login from "./pages/Login.jsx";
+import Students from "./pages/admin/Students.jsx";
+import Dashboard from "./pages/admin/Dashboard.jsx";
+import Courses from "./pages/admin/Courses.jsx";
 import Exams from "./pages/admin/Exams/Exams.jsx";
 import ExamForm from "./pages/admin/Exams/ExamForm.jsx";
 import ExamQuestions from "./pages/admin/Exams/ExamQuestions.jsx";
 import ExamResults from "./pages/admin/Exams/ExamResults.jsx";
-import AvailableExams from "./pages/student/AvailableExams/AvailableExams.jsx";
-import MyResults from "./pages/student/MyResults/MyResults.jsx";
-import TakeExam from "./pages/student/TakeExam/TakeExam.jsx";
+import AvailableExams from "./pages/student/AvailableExams.jsx";
+import MyResults from "./pages/student/MyResults.jsx";
+import TakeExam from "./pages/student/TakeExam.jsx";
 import { AuthProvider } from "./routes/AuthContext.jsx";
 import RoleRoute from "./routes/RoleRoute.jsx";
 
