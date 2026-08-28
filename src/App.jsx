@@ -14,6 +14,7 @@ import TakeExam from "./pages/student/TakeExam.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import { AuthProvider } from "./routes/AuthProvider.jsx";
 import RoleRoute from "./routes/RoleRoute.jsx";
+import RootRedirect from "./routes/RootRedirect.jsx";
 
 function Layout() {
   const location = useLocation();
@@ -21,6 +22,7 @@ function Layout() {
     <>
       {location.pathname !== "/login" && <Navbar />}
       <Routes>
+          <Route path="/" element={<RootRedirect />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<RoleRoute role="admin"><Dashboard /></RoleRoute>} />
           <Route path="/admin/students" element={<RoleRoute role="admin"><Students /></RoleRoute>} />

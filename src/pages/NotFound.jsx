@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../routes/AuthProvider.jsx";
+import { landingPath } from "../routes/landingPath.js";
 
 export default function NotFound() {
     const { user } = useAuth();
-    const homeLink = !user ? "/login" : user.role === "admin" ? "/admin" : "/student/exams";
+    const homeLink = landingPath(user);
 
     return (
         <div className="page">
