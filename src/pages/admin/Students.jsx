@@ -372,7 +372,7 @@ async function handleDeactivateStudent() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="modal-header">
-              Nouveau · étudiant
+              Nouvel · étudiant
             </div>
             <div className="modal-body">
               {createError && (
