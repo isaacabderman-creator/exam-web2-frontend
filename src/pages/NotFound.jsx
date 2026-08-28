@@ -9,9 +9,9 @@ export default function NotFound() {
         <div className="page">
             <div className="page-inner text-center">
                 <h1 className="page-title">404</h1>
-                <p className="page-subtitle mb-6">This page doesn't exist.</p>
+                <p className="page-subtitle mb-6">Cette page n'existe pas.</p>
                 <Link to={homeLink} className="btn-primary">
-                    Back to safety
+                    Retour en lieu sûr
                 </Link>
             </div>
         </div>

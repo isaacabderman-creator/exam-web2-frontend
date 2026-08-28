@@ -4,6 +4,18 @@ import { getStudents, createStudent, updateStudent, deactivateStudent } from "..
 import { generateTempPassword } from "../../utils/generateTempPassword.js";
 import TableSkeleton from "../../components/TableSkeleton.jsx";
 
+const NAME_PATTERN = /^[\p{L}\s'-]+$/u;
+
+function validateCreateForm(form) {
+  if (!NAME_PATTERN.test(form.name.trim())) {
+    return "Le nom ne doit contenir que des lettres, espaces, apostrophes ou tirets.";
+  }
+  if (form.password.length < 8) {
+    return "Le mot de passe doit contenir au moins 8 caractères.";
+  }
+  return null;
+}
+
 export default function Students() {
   const navigate = useNavigate();
   const [students, setStudents] = useState([]);
@@ -79,6 +91,11 @@ export default function Students() {
   async function handleCreate(e) {
     e.preventDefault();
     setCreateError("");
+    const validationError = validateCreateForm(createForm);
+    if (validationError) {
+      setCreateError(validationError);
+      return;
+    }
     setCreating(true);
     try {
       await createStudent(createForm);
@@ -355,7 +372,7 @@ async function handleDeactivateStudent() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="modal-header">
-              Nouveau · étudiant
+              Nouvel · étudiant
             </div>
             <div className="modal-body">
               {createError && (
@@ -396,7 +413,8 @@ async function handleDeactivateStudent() {
                 <input
                   type="password"
                   required
-                  placeholder="Mot de passe initial"
+                  minLength={8}
+                  placeholder="Mot de passe initial (8 caractères min.)"
                   value={createForm.password}
                   onChange={(e) =>
                     setCreateForm({
